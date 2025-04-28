@@ -39,17 +39,29 @@ function Start-ReplaceNamesAndContent {
     param (
         [Parameter(Position = 0, HelpMessage = "Enter the root path.`nExample: C:\tempRepo")]
         [string]$rootPath = $pwd,
-        [Parameter(Position = 1,HelpMessage = "Enter the value to replace.`nExample:'asldf23lkrewrlzx34530ae3'",Mandatory = $true)]
+        [Parameter(Position = 1,HelpMessage = "Enter the value to replace.`nExample:'asldf23lkrewrlzx34530ae3'",ParameterSetName = "Ad-Hoc",Mandatory = $true)]
         [string]$removalStringValue,
-        [Parameter(Position = 2,HelpMessage = "Enter the value to replace the previous value WITH`nExample:'`$apiKey'",Mandatory = $true)]
+        [Parameter(Position = 2,HelpMessage = "Enter the value to replace the previous value WITH`nExample:'`$apiKey'",ParameterSetName = "Ad-Hoc",Mandatory = $true)]
         [string]$replacementStringValue,
-        [Parameter(Position = 3, HelpMessage = "Enter the valueType that you are replacing.`nExample: 'API Keys'")]
-        [string]$valueType
+        [Parameter(Position = 3, HelpMessage = "Enter the valueType that you are replacing.`nExample: 'API Keys'",ParameterSetName = "Ad-Hoc", Mandatory = $true)]
+        [string]$valueType,
+        [Parameter(Position = 4, HelpMessage = "Use this switch to use a JSON file",ParameterSetName = "JSON", Mandatory = $true)]
+        [switch]$jsonFile,
+        [Parameter(position = 5, HelpMessage = "Enter the Path to the JSON File",ParameterSetName = "JSON",Mandatory = $true)]
+        [string]$jsonFilePath
     )
-    $replacements = [PSCustomObject]@{                                           
-        oldName = $removalStringValue
-        anonName = $replacementStringValue
+    switch ($jsonFile) {
+        $true { 
+            $replacements = Get-Content -Path $jsonFilePath | ConvertFrom-JSON 
         }
+        Default {  
+                $replacements = [PSCustomObject]@{                                           
+                Pattern = $removalStringValue
+                ReplacementValue = $ReplacementValue
+            }
+        }
+    }
+  
     # Gather all items recursively
     $files = Get-ChildItem -Path $rootPath -Recurse -Force
 
@@ -59,8 +71,8 @@ function Start-ReplaceNamesAndContent {
     $filesModified = @()
 
     foreach ($replacement in $replacements) {
-        $pattern = $replacement.oldName
-        $replacementValue = $replacement.anonName
+        $pattern = $replacement.Pattern
+        $replacementValue = $replacement.ReplacementValue
 
         foreach ($item in $files) {
             # Replace in file contents
