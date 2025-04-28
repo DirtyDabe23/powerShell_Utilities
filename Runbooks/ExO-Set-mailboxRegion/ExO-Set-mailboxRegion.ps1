@@ -1,3 +1,5 @@
+$PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::PlainText
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Connect-ExchangeOnline -ManagedIdentity -Organization $parentCompany.onmicrosoft.com
 $allMailboxesNoRegion = Get-Mailbox -ResultSize Unlimited | select-object -Property DisplayName, OFfice , PrimarySMTPAddress,  GUID , ID , UsageLocation , MailboxRegion | Where-Object {($_.Mailboxregion -eq '') -or ($_.MailboxRegion -eq $null)}
 
