@@ -1,7 +1,7 @@
-Connect-ExchangeOnline -ManagedIdentity -Organization uniqueParentCompanyinc.onmicrosoft.com
-$allMailboxesNoRegion = Get-Mailbox -ResultSize Unlimited | select DisplayName, OFfice , PrimarySMTPAddress,  GUID , ID , UsageLocation , MailboxRegion | where {($_.Mailboxregion -eq '') -or ($_.MailboxRegion -eq $null)}
+Connect-ExchangeOnline -ManagedIdentity -Organization $parentCompany.onmicrosoft.com
+$allMailboxesNoRegion = Get-Mailbox -ResultSize Unlimited | select-object -Property DisplayName, OFfice , PrimarySMTPAddress,  GUID , ID , UsageLocation , MailboxRegion | Where-Object {($_.Mailboxregion -eq '') -or ($_.MailboxRegion -eq $null)}
 
-if($allMailboxesNoRegion){ $usageLocations = $allMailboxesNoRegion.UsageLocation
+if($allMailboxesNoRegion){ $usageLocations = $allMailboxesNoRegion.UsageLocation | Where-Object {($_ -ne "") -and ($_ -ne $null)}
     ForEach ($usageLocation in $usageLocations){
      switch ($usageLocation) {
          'South Korea' {$mailboxRegion = "APC"}
@@ -42,16 +42,10 @@ if($allMailboxesNoRegion){ $usageLocations = $allMailboxesNoRegion.UsageLocation
          Default {$mailboxRegion = $null}
      }
     Write-Output "Addressing: $usageLocation"
-  $allLocationmailboxes = Get-Mailbox -Filter "usageLocation -eq '$usageLocation'" -resultSize Unlimited | select-object -Property usageLocation , MailboxRegion , GUID , DisplayName
- $mailboxes = $allLocationMailboxes | where {($_.MailboxRegion -eq '') -or ($_.MailboxRegion -eq $null)}
- ForEach ($mailbox in $mailboxes){
- Write-Output "$($mailbox.DisplayName) | Applying Region: $mailboxRegion"
- Set-Mailbox -identity $mailbox.GUID -mailboxRegion $mailboxRegion
- }
+    $usageLocationMailboxes     = $allMailboxesNoRegion | where-object {($_.UsageLocation -eq $usageLocation)} 
+    ForEach ($mailbox in $usageLocationMailboxes){
+        Write-Output "$($mailbox.DisplayName) | Applying Region: $mailboxRegion"
+        Set-Mailbox -identity $mailbox.GUID -mailboxRegion $mailboxRegion
+    }
  }
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
-
-
-
-
