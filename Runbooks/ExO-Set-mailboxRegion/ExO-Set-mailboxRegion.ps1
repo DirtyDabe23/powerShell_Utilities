@@ -51,3 +51,6 @@ if($allMailboxesNoRegion){ $usageLocations = $allMailboxesNoRegion.UsageLocation
     }
  }
 }
+Else{
+    Write-Output "All Mailboxes have regions!"
+}
