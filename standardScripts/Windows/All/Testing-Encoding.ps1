@@ -1,6 +1,6 @@
 $azConnection = Connect-AzAccount -Identity
 $azConnection | Out-Null
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "US-TT-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "$vaultName" -Name "$keyName" -AsPlainText
 #Jira via the API or by Read-Host 
 If ($null -eq $jiraRetrSecret)
 {
@@ -19,7 +19,7 @@ $jiraHeader = @{
     "Content-Type" = "application/json"
 }
 
-$jirAPIBaseURI = "https://evapco.atlassian.net/rest"
+$jirAPIBaseURI = "https://parentCompany.atlassian.net/rest"
 $jiraAPIEndpoint = "/api/2/search?jql="
 $jiraAPIEndpoint = "/api/2/filter/defaultShareScope"
 $jql = 'project = GHD AND summary ~ "Onboard Request" AND Status = "Needs Licenses Purchased"'
