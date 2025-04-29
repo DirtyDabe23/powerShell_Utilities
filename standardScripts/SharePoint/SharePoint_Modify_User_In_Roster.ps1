@@ -1,20 +1,20 @@
 
 	
-Connect-PNPOnline -url "https://uniqueParentCompanyinc.sharepoint.com/EmployeeRoster/Taneytown/" -Interactive
+Connect-PNPOnline -url "https://uniqueParentCompanyinc.sharepoint.com/EmployeeRoster/Location/" -Interactive
 Get-PNPList
 	
 #Get the ID of the user we are trying to edit here
-Get-PnPListItem -List "Taneytown Office Employee Roster" 
+Get-PnPListItem -List "Location Office Employee Roster" 
 	
 	
 #The following command is used to expose all of the values that are set for the user with the specified ID 
 	
-(Get-PnPListItem -List "Taneytown Office Employee Roster" -ID 455).fieldvalues
+(Get-PnPListItem -List "Location Office Employee Roster" -ID 455).fieldvalues
 	
 #FieldName / Key to Modify: JobTitle
 	
 #The following sets the values in SharePoint, the first entry is the key to modify, the second entry is the value to add/modify 
-Set-PnPListItem -List "Taneytown Office Employee Roster" -Identity 455 -Values @{"JobTitle"="GIT System Administrator"} -UpdateType UpdateOverwriteVersion
+Set-PnPListItem -List "Location Office Employee Roster" -Identity 455 -Values @{"JobTitle"="GIT System Administrator"} -UpdateType UpdateOverwriteVersion
 	
 #Modified by field adds my username, which is based off my -interactive login for Connect-PNPOnline 
 	
@@ -29,16 +29,17 @@ Set-PnPListItem -List "Taneytown Office Employee Roster" -Identity 455 -Values @
 		
 
 #search for the user and return all values stored in their entry.
-$user = (Get-PnPListItem -List "Taneytown Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq "$userName@uniqueParentCompany.com"}
+$user = (Get-PnPListItem -List "Location Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq "$userName@uniqueParentCompany.com"}
 	
 #Example of how the user modification would work programmatically	
 $toMod = "$userName@uniqueParentCompany.com"
-$user = (Get-PnPListItem -List "Taneytown Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq $toMod}
+$user = (Get-PnPListItem -List "Location Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq $toMod}
 	
 #Returned parameters are case sensitive.
 $user.id -eq $null
 $user.ID -neq $null 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

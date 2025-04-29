@@ -254,7 +254,7 @@ $now = Get-Date -Format "HH:mm"
 Write-Output "[$now] | Attempting to connect to Graph"
 Connect-MgGraph -NoWelcome -AccessToken $graphSecureToken -ErrorAction Stop
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 
 $hybridWorkerGroup      =   $null
 $hybridWorkerCred       =   $null
@@ -364,7 +364,7 @@ if ($shopOrOffice -eq "Shop"){
 switch ($locationHired) {
     "unique-Office-Location-0"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "+1 410 756 2600"
+        [string] $officePhone               =   "PhoneNumber24"
         $upnSuffix                          =   "uniqueParentCompany.com"
         switch ($shopOrOffice) {
             "Shop"{
@@ -372,28 +372,28 @@ switch ($locationHired) {
                 $hybridWorkerCred           =   $null
                 }
             Default{
-                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
-                $hybridWorkerCred           =   "Testing-TT-Credential"
+                $hybridWorkerGroup          =   "Azure-DC01"
+                $hybridWorkerCred           =   "Credential"
                 $defaultOU                  =   'OU=New User Default - Synching,DC=uniqueParentCompany,DC=COM'
                 $server                     =   "uniqueParentCompany.com"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     = "Antigena-Email-Include"
-                $group2                     = "Taneytown-Shop"
-                $group3                     = "Taneytown Shop Distro"
+                $group1                     = "Group1"
+                $group2                     = "Location-Shop"
+                $group3                     = "Location Shop Distro"
                 }
             "Office"{
-                $group1                     =   "Antigena-Email-Include"
-                $group2                     =   "Taneytown-Office"
-                $group3                     =   "Taneytown Office Distro"
+                $group1                     =   "Group1"
+                $group2                     =   "Location-Office"
+                $group3                     =   "Location Office Distro"
             }
         }
     }
     "unique-Office-Location-1"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "15596732207"
+        [string] $officePhone               =   "PhoneNumber2"
         $upnSuffix                          =   "uniqueParentCompanywest.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -401,8 +401,8 @@ switch ($locationHired) {
                 $hybridWorkerCred           =   $null
                 }
             Default {
-                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
-                $hybridWorkerCred           =   "Testing-TT-Credential"
+                $hybridWorkerGroup          =   "Azure-DC01"
+                $hybridWorkerCred           =   "Credential"
                 $defaultOU                  =   $null
                 $server                     =   "uniqueParentCompanyWest.com"
             }
@@ -422,7 +422,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-2"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "12179233431"
+        [string] $officePhone               =   "phoneNumber3"
         $upnSuffix                          =   "uniqueParentCompanymw.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -430,28 +430,28 @@ switch ($locationHired) {
                 $hybridWorkerCred           =   $null
                 }
             Default {
-                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
-                $hybridWorkerCred           =   "Testing-TT-Credential"
-                $defaultOU                  =   'OU=New Users,OU=End Users,OU=AD-Midwest,DC=greenup,DC=uniqueParentCompany,DC=com'
+                $hybridWorkerGroup          =   "Azure-DC01"
+                $hybridWorkerCred           =   "Credential"
+                $defaultOU                  =   'OU=New Users,OU=End Users,OU=AD-Midwest,DC=Location3,DC=uniqueParentCompany,DC=com'
                 $server                     =   "uniqueParentCompanyMW.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
                 $group1                     =   "Antigena-uniqueParentCompanyMW"
-                $group2                     =   "Greenup"
+                $group2                     =   "Location3"
                 $group3                     =   "unique-Office-Location-2 Distro"
             }
             "Office"{
                 $group1                     =   "Antigena-uniqueParentCompanyMW"
-                $group2                     =   "Greenup"
+                $group2                     =   "Location3"
                 $group3                     =   "unique-Office-Location-2 Distro"
             }
         }
     }
     "unique-Office-Location-3"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "17126573223"
+        [string] $officePhone               =   "PhoneNumber4"
         $upnSuffix                          =   "uniqueParentCompanyia.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -467,12 +467,12 @@ switch ($locationHired) {
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     =   "Antigena-IA"
+                $group1                     =   "Group4"
                 $group2                     =   "Iowa"
                 $group3                     =   "unique-Office-Location-3 Distro"
                 }
             "Office"{
-                $group1                     =   "Antigena-IA"
+                $group1                     =   "Group4"
                 $group2                     =   "Iowa"
                 $group3                     =   "unique-Office-Location-3 Distro"
             }
@@ -480,7 +480,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-20"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "19797780095"
+        [string] $officePhone               =   "PhoneNumber5"
         $upnSuffix                          =   "anonSubsidiary-1corp.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -488,8 +488,8 @@ switch ($locationHired) {
                 $hybridWorkerCred           =   $null
                 }
             Default {
-                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
-                $hybridWorkerCred           =   "Testing-TT-Credential"
+                $hybridWorkerGroup          =   "Azure-DC01"
+                $hybridWorkerCred           =   "Credential"
                 $defaultOU                  =   'OU=New User Default - Synching,OU=anonSubsidiary-1,DC=anonSubsidiary-1CORP,DC=LOCAL'
                 $server                     =   "anonSubsidiary-1Corp.com"
             }
@@ -509,7 +509,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-7"{
         $usageLoc                           =   "BE"
-        [string] $officePhone               =   "3212395029"
+        [string] $officePhone               =   "PhoneNumber6"
         $upnSuffix                          =   "uniqueParentCompany.be"
         switch ($shopOrOffice) {
             "Shop" {
@@ -538,7 +538,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-6"{
         $usageLoc                           =   "IT"
-        [string] $officePhone               =   "39029399041"
+        [string] $officePhone               =   "PhoneNumber7"
         $upnSuffix                          =   "uniqueParentCompany.it"
         switch ($shopOrOffice) {
             "Shop" {
@@ -567,7 +567,7 @@ switch ($locationHired) {
     }
     "uniqueParentCompany (Sondrio) Europe, S.rl.l."{
         $usageLoc                            =   "IT"
-        [string] $officePhone                =   "39029399041"
+        [string] $officePhone                =   "PhoneNumber7"
         $upnSuffix                           =   "uniqueParentCompany.it"
         switch ($shopOrOffice) {
             "Shop" {
@@ -596,7 +596,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-8"{
         $usageLoc                            =  "CN"
-        [string] $officePhone                =  "861000000000"
+        [string] $officePhone                =  "PhoneNumber8"
         $upnSuffix                           =  "uniqueParentCompanychina.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -625,7 +625,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-9"{
         $usageLoc                             = "CN"
-        [string] $officePhone                 = "861000000000"
+        [string] $officePhone                 = "PhoneNumber8"
         $upnSuffix                            = "uniqueParentCompanychina.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -654,7 +654,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-3"{
         $usageLoc                             =   "AU"
-        [string] $officePhone                 =   "861000000000"
+        [string] $officePhone                 =   "PhoneNumber8"
         $upnSuffix                            =   "uniqueParentCompany.com.au"
         switch ($shopOrOffice) {
             "Shop" {
@@ -683,7 +683,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-18"{
         $usageLoc                              =  "US"
-        [string] $officePhone                  =  "19133225165"
+        [string] $officePhone                  =  "PhoneNumber9"
         $upnSuffix                             =  "anonSubsidiary-1.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -691,8 +691,8 @@ switch ($locationHired) {
                 $hybridWorkerCred              =  $null
                 }
             Default {
-                $hybridWorkerGroup             =  "US-AZ-VS-DC01"
-                $hybridWorkerCred              =  "Testing-TT-Credential"
+                $hybridWorkerGroup             =  "Azure-DC01"
+                $hybridWorkerCred              =  "Credential"
                 $defaultOU                     =  'OU=New User Default - Synching,OU=Users,OU=anonSubsidiary-1,DC=anonSubsidiary-1inc,DC=lan'
                 $server                        =  "anonSubsidiary-1.COM"
             }
@@ -712,7 +712,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-5"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "19083792665"
+        [string] $officePhone                   =  "PhoneNumber10"
         $upnSuffix                              =  "uniqueParentCompanydc.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -741,18 +741,18 @@ switch ($locationHired) {
     }
     "unique-Company-Name-21"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "13368242102"
-        $upnSuffix                              =  "towercomponentsinc.com"
+        [string] $officePhone                   =  "PhoneNumber11"
+        $upnSuffix                              =  "Domain.extension2"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "US-AZ-VS-DC01"
-                $hybridWorkerCred               =  "Testing-TT-Credential"
-                $defaultOU                      =  'OU=New User Default - Synching,OU=AAD Connect Sync OU,DC=TOWERCOMPONENTS,DC=local'
-                $server                         =  "TOWERCOMPONENTSINC.COM"
+                $hybridWorkerGroup              =  "Azure-DC01"
+                $hybridWorkerCred               =  "Credential"
+                $defaultOU                      =  OU4
+                $server                         =  "Domain.extension2"
             }
         }
         switch ($workLocation) {
@@ -770,7 +770,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-27"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "16187833433"
+        [string] $officePhone                   =  "PhoneNumber12"
         $upnSuffix                              =  "uniqueParentCompanymw.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -799,7 +799,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-6"{
         $usageLoc                               =  "DK"
-        [string] $officePhone                   =  "14598244999"
+        [string] $officePhone                   =  "PhoneNumber13"
         $upnSuffix                              =  "uniqueParentCompany.DK"
         switch ($shopOrOffice) {
             "Shop" {
@@ -828,7 +828,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-4"{
         $usageLoc                               =  "BR"
-        [string] $officePhone                   =  "1.55E+12"
+        [string] $officePhone                   =  "PhoneNumber14"
         $upnSuffix                              =  "uniqueParentCompany.COM.BR"
         switch ($shopOrOffice) {
             "Shop" {
@@ -857,7 +857,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-16"{
         $usageLoc                               =  "BR"
-        [string] $officePhone                   =  "1.55E+12"
+        [string] $officePhone                   =  "PhoneNumber14"
         $upnSuffix                              =  "anonSubsidiary-1.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -886,7 +886,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-2"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "17173477500"
+        [string] $officePhone                   =  "PhoneNumber15"
         $upnSuffix                              =  "uniqueParentCompany-alcoil.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -894,20 +894,20 @@ switch ($locationHired) {
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "US-AZ-VS-DC01"
-                $hybridWorkerCred               =  "Testing-TT-Credential"
+                $hybridWorkerGroup              =  "Azure-DC01"
+                $hybridWorkerCred               =  "Credential"
                 $defaultOU                      =  $null
                 $server                         =  "uniqueParentCompany-ALCOIL.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Antigena-Alcoil"
+                $group1                         =  "Group6"
                 $group2                         =  "uniqueParentCompany-Alcoil"
                 $group3                         =  "uniqueParentCompany Alcoil Shop Distro"
                 }
             "Office"{
-                $group1                         =  "Antigena-Alcoil"
+                $group1                         =  "Group6"
                 $group2                         =  "uniqueParentCompany-Alcoil"
                 $group3                         =  "uniqueParentCompany Alcoil Office Distro"
             }
@@ -915,7 +915,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-18"{
         $usageLoc                               =  "CN"
-        [string] $officePhone                   =  "8.66E+12"
+        [string] $officePhone                   =  "PhoneNumber16"
         $upnSuffix                              =  "uniqueParentCompanyacs.cn.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -944,7 +944,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-10"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "15074468005"
+        [string] $officePhone                   =  "PhoneNumber17"
         $upnSuffix                              =  "uniqueParentCompanymn.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -960,12 +960,12 @@ switch ($locationHired) {
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Antigena-MN"
+                $group1                         =  "Group7"
                 $group2                         =  "uniqueParentCompany Minnesota Distro"
                 $group3                         =  "Minnesota"
                 }
             "Office"{
-                $group1                         =  "Antigena-MN"
+                $group1                         =  "Group7"
                 $group2                         =  "uniqueParentCompany Minnesota Distro"
                 $group3                         =  "Minnesota"
             }
@@ -973,7 +973,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-11"{
         $usageLoc                               =  "CA"
-        [string] $officePhone                   =  "14506299864"
+        [string] $officePhone                   =  "PhoneNumber18"
         $upnSuffix                              =  "uniqueParentCompanylmp.ca"
         switch ($shopOrOffice) {
             "Shop" {
@@ -1002,7 +1002,7 @@ switch ($locationHired) {
     }
     "unique-Office-Location-21"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "18447859506"
+        [string] $officePhone                   =  "PhoneNumber19"
         $upnSuffix                              =  "uniqueParentCompanyselect.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -1031,7 +1031,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-8"{
         $usageLoc                               =  "DE"
-        [string] $officePhone                   =  "49215969560"
+        [string] $officePhone                   =  "PhoneNumber20"
         $upnSuffix                              =  "uniqueParentCompany.de"
         switch ($shopOrOffice) {
             "Shop" {
@@ -1060,7 +1060,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-17"{
         $usageLoc                               =  "MY"
-        [string] $officePhone                   =  "60380707255"
+        [string] $officePhone                   =  "PhoneNumber21"
         $upnSuffix                              =  "anonSubsidiary-1.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -1068,8 +1068,8 @@ switch ($locationHired) {
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "US-AZ-VS-DC01"
-                $hybridWorkerCred               =  "Testing-TT-Credential"
+                $hybridWorkerGroup              =  "Azure-DC01"
+                $hybridWorkerCred               =  "Credential"
                 $defaultOU                      =  'OU=New User Default - Synching,OU=Users,OU=anonSubsidiary-1,DC=anonSubsidiary-1inc,DC=lan'
                 $server                         =  "anonSubsidiary-1.COM"
             }
@@ -1089,7 +1089,7 @@ switch ($locationHired) {
     }
     "unique-Company-Name-16"{
         $usageLoc                               =  "CN"
-        [string] $officePhone                   =  "8.62E+11"
+        [string] $officePhone                   =  "PhoneNumber22"
         $upnSuffix                              =  "anonSubsidiary-1.com"
         switch ($shopOrOffice) {
             "Shop" {
@@ -1097,8 +1097,8 @@ switch ($locationHired) {
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "US-AZ-VS-DC01"
-                $hybridWorkerCred               =  "Testing-TT-Credential"
+                $hybridWorkerGroup              =  "Azure-DC01"
+                $hybridWorkerCred               =  "Credential"
                 $defaultOU                      =  'OU=New User Default - Synching,OU=Users,OU=anonSubsidiary-1,DC=anonSubsidiary-1inc,DC=lan'
                 $server                         =  "anonSubsidiary-1.COM"
             }
@@ -1322,7 +1322,7 @@ while ($noMailbox){
 #This is where the users get added to their Specific Groups
 #ID Security Group
 if ($Department -eq "Executive"){
-    $group4 = "IDSecurity-Executive Leadership"
+    $group4 = "Group9"
 }
 Elseif ($usageLoc -in "IT","BE","DE","DK","GB"){
 $null
@@ -1360,7 +1360,7 @@ ForEach ($group in $groups){
     }
 }
 #Adds the User to the MFA Enabled Group
-New-MgGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -DirectoryObjectId $newUserID
+New-MgGroupMember -GroupId "Group10" -DirectoryObjectId $newUserID
 
 #The following creates the user on their Local AD if they require a local AD account.
 if ($shopOrOffice -ne 'Shop'){
@@ -1380,10 +1380,10 @@ if ($shopOrOffice -ne 'Shop'){
         $localADParameters
         $now                                        =  Get-Date -Format "HH:mm"
         Write-Output "[$now] | Executing: 'User-Transfer-5-Create-Local-From-Graph-72'"
-        start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $hybridWorkerGroup -Parameters $localADParameters -Wait
+        start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $hybridWorkerGroup -Parameters $localADParameters -Wait
         $now                                        =  Get-Date -Format "HH:mm"
         Write-Output "[$now] | Executing: 'Invoke-uniqueParentCompany-Sync'"
-        start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "US-AZ-VS-DC01" -Wait
+        start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "Azure-DC01" -Wait
     }
     Else{
         $now                                        =  Get-Date -Format "HH:mm"
@@ -1440,7 +1440,7 @@ EmailAddress:       !!!Their Primary Email Address!!!
 If (($softwareNeeds -contains 'Sage') -or ($softwareNeeds -contains 'DocLink')){
     $now = Get-Date -Format "HH:mm"
     Write-Output "[$now] | $displayName requires CompuData Access"
-    $compuDataHybridWorkerGroup                 =  "US-AZ-VS-DC01"
+    $compuDataHybridWorkerGroup                 =  "Azure-DC01"
     if($locationHired -eq 'unique-Office-Location-0'){
         $existingCitrixUser                     =  $true
     }
@@ -1460,7 +1460,7 @@ If (($softwareNeeds -contains 'Sage') -or ($softwareNeeds -contains 'DocLink')){
         "lastName"                                  =  "$formattedSurName"
 
     }
-    start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-New-2-Citrix-Doclink-Sage" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "$compuDataHybridWorkerGroup" -Parameters $citrixADParameters -Wait
+    start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-New-2-Citrix-Doclink-Sage" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "$compuDataHybridWorkerGroup" -Parameters $citrixADParameters -Wait
     Set-SuccessfulCommentRunbook -successMessage "New User Has been Created! UPN: $generatedUPN Password: $pw  CompuData Account: " -jiraHeader $jiraHeader -key $Key
 }
 else{
@@ -1469,6 +1469,43 @@ else{
     Set-SuccessfulCommentRunbook -successMessage "New User Has been Created! UPN: $generatedUPN Password: $pw " -key $key -jiraHeader $jiraHeader
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -2,8 +2,8 @@
 $upnSuffix = '@uniqueParentCompany.com'
 
 # Define secrets
-$tenantId = '9e228334-bae6-4c7e-8b7f-9b0824082151'
-$clientId = '56cb7f72-67ee-4531-96d7-39a4e2b53555'
+$tenantId = 'graphTenantID'
+$clientId = 'graphAppID'
 $clientSecret = 'GraphAPI'
 
 $authority = 'https://login.microsoftonline.com/{0}/oauth2/v2.0/token' -f $tenantId
@@ -65,6 +65,8 @@ foreach ($user in $userList) {
 
 $userData | Export-Csv "C:\Temp\last_login.csv"
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

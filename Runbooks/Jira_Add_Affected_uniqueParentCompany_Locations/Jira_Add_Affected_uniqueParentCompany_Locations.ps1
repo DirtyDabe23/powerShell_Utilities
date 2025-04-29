@@ -18,7 +18,7 @@ Import-Module Az.KeyVault
 try {
     # Read from Azure Key Vault using managed identity
     $connection = Connect-AzAccount -Identity
-    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 }
 catch {
     $errorMessage = $_
@@ -205,6 +205,8 @@ try {
     Write-Output "Payload: $jsonPayload"
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

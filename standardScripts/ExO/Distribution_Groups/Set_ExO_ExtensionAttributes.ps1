@@ -1,4 +1,4 @@
-$shopUsers = Get-DistributionGroupMember -Identity "Taneytown-Shop"
+$shopUsers = Get-DistributionGroupMember -Identity "Location-Shop"
 
 ForEach ($shopUser in $shopUsers)
 {
@@ -7,6 +7,7 @@ ForEach ($shopUser in $shopUsers)
     Get-Mailbox -Identity $shopUser.Name | Set-Mailbox -CustomAttribute1 "Shop" -erroraction SilentlyContinue
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

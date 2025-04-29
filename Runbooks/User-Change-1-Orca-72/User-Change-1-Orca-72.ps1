@@ -226,7 +226,7 @@ Connect-AzAccount -subscription $subscriptionID -Identity
 Connect-MGGraph -NoWelcome -Identity
 
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 
 $hybridWorkerGroup      = $null
 $hybridWorkerCred       = $null
@@ -373,7 +373,7 @@ switch ($isTransfer) {
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
-                    $originHybridWorkerGroup  = "US-AZ-VS-DC01"
+                    $originHybridWorkerGroup  = "Azure-DC01"
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
                     $originParametersUser.Add("Server","uniqueParentCompany.COM")
@@ -587,8 +587,8 @@ switch ($isTransfer) {
                     $originHybridWorkerGroup = "US-NC-VS-DC01"
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@towercomponentsinc.com")
-                    $originParametersObject.Add("Server","@towercomponentsinc.com") 
+                    $originParametersUser.Add("Server","@Domain.extension2")
+                    $originParametersObject.Add("Server","@Domain.extension2") 
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")   
                  }
                  $false {
@@ -798,8 +798,8 @@ switch ($isTransfer) {
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
-                    $destinationHybridWorkerGroup  = "US-AZ-VS-DC01"
-                    $destinationHybridWorkerCred   = "Testing-TT-Credential"
+                    $destinationHybridWorkerGroup  = "Azure-DC01"
+                    $destinationHybridWorkerCred   = "Credential"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
                     $destinationLADParameters.Add("Server","uniqueParentCompany.COM")
                     $destinationLADExtensionAttributes.Add("co","United States")
@@ -833,14 +833,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -858,14 +858,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -883,14 +883,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -908,14 +908,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1corp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1corp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -933,14 +933,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                 }
             }
@@ -958,14 +958,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
@@ -983,7 +983,7 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                     
                  }
@@ -991,7 +991,7 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
@@ -1034,14 +1034,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -1084,14 +1084,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1109,14 +1109,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1128,20 +1128,20 @@ switch ($isTransfer) {
                     $destinationHybridWorkerGroup = "US-NC-VS-DC01"
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@towercomponentsinc.com") 
+                    $destinationLADParameters.Add("Server","@Domain.extension2") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1159,14 +1159,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1184,14 +1184,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                 }
             }
@@ -1209,14 +1209,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.com.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.com.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
@@ -1234,14 +1234,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
@@ -1259,14 +1259,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany-alcoil.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany-alcoil.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1284,14 +1284,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyacs.cn"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyacs.cn"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -1309,14 +1309,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymn.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymn.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1334,14 +1334,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanylmp.ca"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanylmp.ca"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                 }
             }
@@ -1359,14 +1359,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyselect.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyselect.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1384,14 +1384,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.de"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.de"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                 }
             }
@@ -1409,14 +1409,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                 }
             }
@@ -1434,14 +1434,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -1455,7 +1455,7 @@ switch ($isTransfer) {
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
-                    $destinationHybridWorkerGroup  = "US-AZ-VS-DC01"
+                    $destinationHybridWorkerGroup  = "Azure-DC01"
                     $destinationHybridWorkerUser = "$userNameAdmin@uniqueParentCompany.com"
                     $destinationHybridWorkerKeyVault = "TTWorker"
                     
@@ -1492,14 +1492,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1518,14 +1518,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1544,14 +1544,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1570,14 +1570,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1corp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1corp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1596,14 +1596,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                 }
             }
@@ -1622,14 +1622,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
@@ -1648,7 +1648,7 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                     
                  }
@@ -1656,7 +1656,7 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
@@ -1701,14 +1701,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -1753,14 +1753,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1779,14 +1779,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1796,23 +1796,23 @@ switch ($isTransfer) {
                 Default {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-NC-VS-DC01"
-                    $destinationHybridWorkerUser = "uniqueParentCompanyadmin@towercomponentsinc.com"
+                    $destinationHybridWorkerUser = "uniqueParentCompanyadmin@Domain.extension2"
                     $destinationHybridWorkerKeyVault = "US-NC-VS-DC01"
                     
-                    $destinationLADParameters.Add("Server","@towercomponentsinc.com") 
+                    $destinationLADParameters.Add("Server","@Domain.extension2") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1831,14 +1831,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1857,14 +1857,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                 }
             }
@@ -1883,14 +1883,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.com.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.com.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
@@ -1909,14 +1909,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
@@ -1935,14 +1935,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany-alcoil.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany-alcoil.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -1961,14 +1961,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyacs.cn"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyacs.cn"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -1987,14 +1987,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymn.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanymn.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -2013,14 +2013,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanylmp.ca"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanylmp.ca"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                 }
             }
@@ -2039,14 +2039,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyselect.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompanyselect.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
@@ -2065,14 +2065,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.de"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@uniqueParentCompany.de"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                 }
             }
@@ -2091,14 +2091,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                 }
             }
@@ -2117,14 +2117,14 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
                     $upnSuffix = "@anonSubsidiary-1.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -2274,19 +2274,19 @@ switch ($isTransfer) {
             Write-Output "I am on line 2323, this is a user who is synching and there are Hybrid Workers Configured to Modify the Origin Account."
             Write-Output "Executing: '$originRunbook'"  
             $originRunbookParameters = [ordered]@{"Key"="$key";"originParametersUser"=$originParametersUser;"originParametersObject"=$originParametersObject;"originHybridWorkerCred"="$originHybridWorkerCred";"currentUserID"="$currentUserID";"originSynching"=$originSynching}
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name $originRunbook -ResourceGroupName "uniqueParentCompanyGIT"  -RunOn $originHybridWorkerGroup -Parameters $originRunbookParameters -wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name $originRunbook -ResourceGroupName "uniqueParentCompanyGIT"  -RunOn $originHybridWorkerGroup -Parameters $originRunbookParameters -wait
             $restoreRunbookParameters = [ordered]@{"Key"="$key";"originGraphUserID"="$originGraphUserID"}
             Write-Output "Executing: 'User-Transfer-3-Restore'" 
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-3-Restore" -ResourceGroupName "uniqueParentCompanyGIT" -Parameters $restoreRunbookParameters -Wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-3-Restore" -ResourceGroupName "uniqueParentCompanyGIT" -Parameters $restoreRunbookParameters -Wait
             $graphModRunbook = [ordered]@{"Key"="$key";"originUPN"="$jiraUserToModify";"ParamsFromTicket"=$destinationGraphParameters;"newManagerUPN" = $newManagerUPN; "newUPN" = "$newUPN";"isTransfer" = "$isTransfer"}
             Write-Output "Executing: 'User-Transfer-4-Modify-Entra-Account'" 
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "uniqueParentCompanyGIT"  -Parameters $graphModRunbook -Wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "uniqueParentCompanyGIT"  -Parameters $graphModRunbook -Wait
             if ($null -ne $destinationHybridWorkerGroup){
                 $destinationRunbookParameters = [ordered]@{"Key"="$key";"destinationLADParameters"=$destinationLADParameters;"destinationHybridWorkerCred" = "$destinationHybridWorkerCred";"newUPN" = "$newUPN";"currentUserID" = "$originGraphUserID"}
                 Write-Output "Executing: 'User-Transfer-5-Create-Local-From-Graph-72'"
-                start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters -Wait
+                start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters -Wait
                 Write-Output "Executing: 'Invoke-uniqueParentCompany-Sync'"
-                start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "US-AZ-VS-DC01" -Wait
+                start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "Azure-DC01" -Wait
                 $date = get-date
                 $DoW = $date.DayOfWeek.ToString()
                 $Month = (Get-date $date -format "MM").ToString()
@@ -2331,13 +2331,13 @@ switch ($isTransfer) {
         #Starting the Origin Runbook
         $graphModRunbook = [ordered]@{"Key"="$key";"originUPN"="$jiraUserToModify";"ParamsFromTicket"=$destinationGraphParameters;"newManagerUPN" = $newManagerUPN; "newUPN" = "$newUPN";"isTransfer" = "$isTransfer"}
         Write-Output "Executing: 'User-Transfer-4-Modify-Entra-Account'"
-        start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "uniqueParentCompanyGIT"  -Parameters $graphModRunbook -Wait
+        start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "uniqueParentCompanyGIT"  -Parameters $graphModRunbook -Wait
         if ($null -ne $destinationHybridWorkerGroup){
             $destinationRunbookParameters = [ordered]@{"Key"="$key";"destinationLADParameters"=$destinationLADParameters;"destinationHybridWorkerCred" = "$destinationHybridWorkerCred"; "newUPN" = "$newUPN";"currentUserID" = "$originGraphUserID"}
             Write-Output "Executing: 'User-Transfer-5-Create-Local-From-Graph-72'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters  -Wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters  -Wait
             Write-Output "Executing: 'Invoke-uniqueParentCompany-Sync'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "US-AZ-VS-DC01" -Wait        
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "Azure-DC01" -Wait        
             $date = get-date
             $DoW = $date.DayOfWeek.ToString()
             $Month = (Get-date $date -format "MM").ToString()
@@ -2541,8 +2541,8 @@ switch ($isTransfer) {
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
-                        $hybridWorkerGroup  = "US-AZ-VS-DC01"
-                        $hybridWorkerCred = "Testing-TT-Credential"
+                        $hybridWorkerGroup  = "Azure-DC01"
+                        $hybridWorkerCred = "Credential"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompany.COM")
                         $paramsFromTicket.Add("Country","US")
@@ -2568,14 +2568,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompanyWest.COM")
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","15596732207")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber2")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","15596732207")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber2")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2589,14 +2589,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompanyMW.COM")
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","12179233431")
+                        $paramsFromTicket.Add("OfficePhone","phoneNumber3")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","12179233431")
+                        $paramsFromTicket.Add("BusinessPhones","phoneNumber3")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2610,14 +2610,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompanyIA.COM") 
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","17126573223")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber4")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","17126573223")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber4")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2631,14 +2631,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","anonSubsidiary-1CORP.COM")  
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","19797780095")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber5")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","19797780095")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber5")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2652,14 +2652,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompany.BE")
                         $paramsFromTicket.Add("Country","BE")
-                        $paramsFromTicket.Add("OfficePhone","3212395029")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber6")
                         $extensionAttributes.Add("co","Belgium")
                         $extensionAttributes.Add("countryCode","056")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","BE")
-                        $paramsFromTicket.Add("BusinessPhones","3212395029")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber6")
                         $paramsFromTicket.Add("UsageLocation","BE")
                     }
                 }
@@ -2673,14 +2673,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompany.IT")
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("OfficePhone","39029399041")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber7")
                         $extensionAttributes.Add("co","Italy")
                         $extensionAttributes.Add("countryCode","380")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("BusinessPhones","39029399041")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber7")
                         $paramsFromTicket.Add("UsageLocation","IT")
                     }
                 }
@@ -2694,14 +2694,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompany.IT") 
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("OfficePhone","39029399041")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber7")
                         $extensionAttributes.Add("co","Italy")
                         $extensionAttributes.Add("countryCode","380")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("BusinessPhones","39029399041")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber7")
                         $paramsFromTicket.Add("UsageLocation","IT")
                     }
                 }
@@ -2736,14 +2736,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompanyCHINA.com")
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("OfficePhone","8.62E+11")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber22")
                         $extensionAttributes.Add("co","CN")
                         $extensionAttributes.Add("countryCode","156")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("BusinessPhones","8.62E+11")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber22")
                         $paramsFromTicket.Add("UsageLocation","CN")
                     }
                 }
@@ -2778,14 +2778,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","anonSubsidiary-1.com") 
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","19133225165")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber9")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","19133225165")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber9")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2799,14 +2799,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompanyDC.com") 
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","19083792665")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber10")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","19083792665")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber10")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2819,15 +2819,15 @@ switch ($isTransfer) {
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("Server","@towercomponentsinc.com") 
-                        $paramsFromTicket.Add("OfficePhone","13368242102")
+                        $paramsFromTicket.Add("Server","@Domain.extension2") 
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber11")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","13368242102")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber11")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2841,14 +2841,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompanyMW.com")  
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","16187833433")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber12")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","16187833433")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber12")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2862,14 +2862,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompany.DK")  
                         $paramsFromTicket.Add("Country","DK")
-                        $paramsFromTicket.Add("OfficePhone","14598244999")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber13")
                         $extensionAttributes.Add("co","Denmark")
                         $extensionAttributes.Add("countryCode","208")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","DK")
-                        $paramsFromTicket.Add("BusinessPhones","14598244999")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber13")
                         $paramsFromTicket.Add("UsageLocation","DK")
                     }
                 }
@@ -2883,14 +2883,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","uniqueParentCompany.com.br")  
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("OfficePhone","1.55E+12")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber14")
                         $extensionAttributes.Add("co","Brazil")
                         $extensionAttributes.Add("countryCode","076")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("BusinessPhones","1.55E+12")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber14")
                         $paramsFromTicket.Add("UsageLocation","BR")
                     }
                 }
@@ -2904,14 +2904,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","anonSubsidiary-1.com")  
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("OfficePhone","1.55E+12")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber14")
                         $extensionAttributes.Add("co","Brazil")
                         $extensionAttributes.Add("countryCode","076")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("BusinessPhones","1.55E+12")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber14")
                         $paramsFromTicket.Add("UsageLocation","BR")
                     }
                 }
@@ -2925,14 +2925,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme) 
                         $paramsFromTicket.Add("Server","@uniqueParentCompany-alcoil.com")   
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","17173477500")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber15")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","17173477500")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber15")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2947,14 +2947,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@uniqueParentCompanyacs.cn")   
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("OfficePhone","8.66E+12")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber16")
                         $extensionAttributes.Add("co","China")
                         $extensionAttributes.Add("countryCode","156")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("BusinessPhones","8.66E+12")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber16")
                         $paramsFromTicket.Add("UsageLocation","CN")
                     }
                 }
@@ -2968,14 +2968,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@uniqueParentCompanymn.com")    
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","15074468005")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber17")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","15074468005")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber17")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -2989,14 +2989,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@uniqueParentCompanylmp.ca")  
                         $paramsFromTicket.Add("Country","CA")
-                        $paramsFromTicket.Add("OfficePhone","14506299864")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber18")
                         $extensionAttributes.Add("co","Canada")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CA")
-                        $paramsFromTicket.Add("BusinessPhones","14506299864")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber18")
                         $paramsFromTicket.Add("UsageLocation","CA")
                     }
                 }
@@ -3010,14 +3010,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@uniqueParentCompanyselect.com")   
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","18447859506")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber19")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","18447859506")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber19")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
@@ -3031,14 +3031,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@uniqueParentCompany.de")     
                         $paramsFromTicket.Add("Country","DE")
-                        $paramsFromTicket.Add("OfficePhone","49215969560")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber20")
                         $extensionAttributes.Add("co","Germany")
                         $extensionAttributes.Add("countryCode","276")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","DE")
-                        $paramsFromTicket.Add("BusinessPhones","49215969560")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber20")
                         $paramsFromTicket.Add("UsageLocation","DE")
                     }
                 }
@@ -3052,14 +3052,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@anonSubsidiary-1.com")    
                         $paramsFromTicket.Add("Country","MY")
-                        $paramsFromTicket.Add("OfficePhone","60380707255")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber21")
                         $extensionAttributes.Add("co","Malaysia")
                         $extensionAttributes.Add("countryCode","458")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","MY")
-                        $paramsFromTicket.Add("BusinessPhones","60380707255")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber21")
                         $paramsFromTicket.Add("UsageLocation","MY")
                     }
                 }
@@ -3073,14 +3073,14 @@ switch ($isTransfer) {
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Server","@anonSubsidiary-1.com")    
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("OfficePhone","8.62E+11")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber22")
                         $extensionAttributes.Add("co","China")
                         $extensionAttributes.Add("countryCode","156")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("BusinessPhones","8.62E+11")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber22")
                         $paramsFromTicket.Add("UsageLocation","CN")
                     }
                 }
@@ -3109,11 +3109,11 @@ switch ($isTransfer) {
             try{
             Write-Output "Executing: 'User-Change-3-LicenseUpdate'"
             $licenseParameters = [ordered]@{"paramsFromTicket" = $extensionAttributes; "currentUserID" = "$currentUserID"}
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Change-3-LicenseUpdate" -ResourceGroupName "uniqueParentCompanyGIT" -Parameters $licenseParameters -wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Change-3-LicenseUpdate" -ResourceGroupName "uniqueParentCompanyGIT" -Parameters $licenseParameters -wait -ErrorAction Stop
             Write-Output "Executing: 'User-Change-2-LocalAD-72'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Change-2-LocalAD-72" -ResourceGroupName "uniqueParentCompanyGIT"  -RunOn $hybridWorkerGroup -Parameters $runbookParameters -wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Change-2-LocalAD-72" -ResourceGroupName "uniqueParentCompanyGIT"  -RunOn $hybridWorkerGroup -Parameters $runbookParameters -wait -ErrorAction Stop
             Write-Output "Executing: 'Invoke-uniqueParentCompany-Sync'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "US-AZ-VS-DC01" -Wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "Azure-DC01" -Wait -ErrorAction Stop
             
             Set-SuccessfulCommentRunbook -successMessage "This has been resolved by Automation!" -key $key -jiraHeader $jiraHeader -ErrorAction Stop
             exit 0
@@ -3137,7 +3137,7 @@ switch ($isTransfer) {
             $runbookParameters = [ordered]@{"Key"="$key";"OriginUPN" = "$jiraUserToModify";"ParamsFromTicket"=$ParamsFromTicket;"newManagerUPN" = $newManagerUPN}
             Write-Output "Executing: '$Runbook'"
             try{
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name $Runbook -ResourceGroupName "uniqueParentCompanyGIT"  -Parameters $runbookParameters -wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name $Runbook -ResourceGroupName "uniqueParentCompanyGIT"  -Parameters $runbookParameters -wait -ErrorAction Stop
             if($officeAppNeeds -eq '10755'){
                 Write-Output "This user requires a local account created and their license changed to E5. This is a WIP!"
             }
@@ -3156,6 +3156,32 @@ switch ($isTransfer) {
     }
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

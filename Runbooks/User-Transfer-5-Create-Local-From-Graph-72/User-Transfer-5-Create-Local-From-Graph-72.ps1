@@ -177,7 +177,7 @@ Import-Module Az.KeyVault
 Connect-AzAccount -subscription $subscriptionID -Identity
 Connect-MGGraph -Identity -NoWelcome
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 #Jira
 $jiraText = "$userName@uniqueParentCompany.com:$jiraRetrSecret"
 $jiraBytes = [System.Text.Encoding]::UTF8.GetBytes($jiraText)
@@ -554,6 +554,8 @@ catch{
 
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

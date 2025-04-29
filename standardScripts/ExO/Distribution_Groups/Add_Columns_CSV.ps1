@@ -3,7 +3,7 @@ $addr
 $dispName 
 
 # Specify the path to the CSV file
-$csvPath = "C:\Temp\Taneytown Shop Distro.csv"
+$csvPath = "C:\Temp\Location Shop Distro.csv"
 
 # Import the CSV file
 $data = Import-Csv -Path $csvPath
@@ -15,6 +15,7 @@ $data | Add-Member -MemberType NoteProperty -Name "Group Display Name" -Value $d
 # Export the modified data back to CSV
 $data | Export-Csv -Path $csvPath -NoTypeInformation
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

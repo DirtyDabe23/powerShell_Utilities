@@ -1,6 +1,6 @@
 Clear-Host
 Connect-MgGraph 
-$process = "CompuData Taneytown User Creation"
+$process = "CompuData Location User Creation"
 $allStartTime = Get-Date 
 $currTime = Get-Date -format "HH:mm"
 Write-Output "[$($currTime)] | Starting [$process]"
@@ -53,9 +53,9 @@ ForEach ($user in $compuDataUsers)
         Write-Output "[$($currTime)] | [$process] | [$procProcess] starting"
 
 
-        If ($user.'uniqueParentCompany Location' -eq 'TT (TaneyTown) Users')
+        If ($user.'uniqueParentCompany Location' -eq 'TT (Location) Users')
         {
-            Write-Output "Skipping $($User.users) as they are a Taneytown User"
+            Write-Output "Skipping $($User.users) as they are a Location User"
             $errorUsers+= [PSCustomObject]@{
                 failedUser      = $user.Users
                 ReasonFailed    = "Already exists as a TT User"
@@ -276,6 +276,7 @@ $allEndTime = Get-Date
 $allNetTime = $allEndTime - $allStartTime
 Write-Output "[$($currTime)] | [$process] | Time taken for [$process] to complete: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

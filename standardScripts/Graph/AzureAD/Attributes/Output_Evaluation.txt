@@ -1,6 +1,6 @@
 Enter the name of the attribute to check in local AD: Department
 Enter the name of corresponding attribute in AAD: Department
-USER:  aamoss@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC
+USER:  aamoss@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing- HVAC
 USER:  abarnett@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  abecker@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  abigail.jacoby@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
@@ -23,15 +23,15 @@ USER:  andrew.kollasch@uniqueParentCompany.COM  Updating Department from  IR Mar
 USER:  andy.gilfus@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  anowak@uniqueParentCompany.COM  Updating Department from  R&D Lab  to  Research & Development
 USER:  anthony.cafiero@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  anthony.parrotta@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  aradford@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing  Refrigeration
+USER:  anthony.parrotta@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
+USER:  aradford@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing  Refrigeration
 USER:  areilly@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development
 USER:  areineck@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
 USER:  asmith@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Marketing  Refrigeration
 USER:  asulewski@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing  Refrigeration
 USER:  audrey.beckeradmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  austin.storm@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  azoerner@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Production
+USER:  azoerner@uniqueParentCompany.COM  Updating Department from  Department1  to  Production
 USER:  bbartley@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  bbiesecker@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  bbowman@uniqueParentCompany.COM  Updating Department from  Purchasing  to  Materials
@@ -43,7 +43,7 @@ USER:  benjamin.doll@uniqueParentCompany.COM  Updating Department from  HVAC Eng
 USER:  bfox@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
 USER:  bhowe@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing- Refrigeration
 USER:  bjones@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  blake.prescott@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Water Systems
+USER:  blake.prescott@uniqueParentCompany.COM  Updating Department from  Department1  to  Water Systems
 USER:  blivelsberger@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
 USER:  bmayers@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  bobby.bowers@uniqueParentCompany.COM  Updating Department from  Shop Office  to  Maintenance, Machinery & Equipment
@@ -64,7 +64,7 @@ USER:  cavery@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equa
 USER:  cfitzkee@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Production
 USER:  cgnau@uniqueParentCompany.COM  Updating Department from  Parts Department  to  Marketing HVAC
 USER:  cgroves@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  chad.nagle@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  chad.nagle@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  charles.lafountain@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
 USER:  charles.lafountainadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  chartsock@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
@@ -82,14 +82,14 @@ USER:  cwagaman@uniqueParentCompany.COM  Updating Department from  Purchasing  t
 USER:  cwolfgang@uniqueParentCompany.COM  Updating Department from  Customer Solutions  to  Traffic
 USER:  Daniel.Harhangi@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  darren.marshall@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  datwood@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC 
+USER:  datwood@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing- HVAC 
 USER:  David.Carlyle@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development- HVAC
 USER:  $userName@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  david.escobar@uniqueParentCompany.COM  Updating Department from  Customer Solutions  to  Finance
 USER:  david.gebhart@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  david.hannan@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  david.higgsadmin@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  dcline@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing- Refrigeration
+USER:  dcline@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing- Refrigeration
 USER:  ddusman@uniqueParentCompany.COM  Updating Department from  Product Development HVAC  to  Product Development- HVAC
 USER:  Deborah.Miller@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  Devin.Barge@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
@@ -98,7 +98,7 @@ USER:  devin.crossadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  dgrose@uniqueParentCompany.COM  Updating Department from  R&D Lab  to  Research & Development
 USER:  dhamilton@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
 USER:  dhiggs@uniqueParentCompany.COM  Updating Department from  Custom Engineering  to  Production
-USER:  dkardos@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  dkardos@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  dmartin@uniqueParentCompany.COM  Updating Department from  Manufacturing  to  Quality - Office
 USER:  drew.dusman@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  drew.dusmanadmin@uniqueParentCompany.COM  does not exist in AzureAD
@@ -123,7 +123,7 @@ USER:  george.zoerner@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  gergory.dorschadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  ggreen@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  gnettleton@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  grace.li@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC
+USER:  grace.li@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing- HVAC
 USER:  greg.rosieradmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  gregory.beigel@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development Refrigeration
 USER:  grobertson@uniqueParentCompany.COM  Updating Department from  Purchasing  to  Traffic
@@ -167,7 +167,7 @@ USER:  jfoerster@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is e
 USER:  jgibson@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
 USER:  jgonnella@uniqueParentCompany.COM  Updating Department from  Custom Engineering  to  High Side Custom Engineering
 USER:  jgraul@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  jhamilton@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Product Development- HVAC
+USER:  jhamilton@uniqueParentCompany.COM  Updating Department from  Department1  to  Product Development- HVAC
 USER:  Jim.Britenbaugh@uniqueParentCompany.COM  Updating Department from  Shop Office  to  Production
 USER:  jkane@uniqueParentCompany.COM  Updating Department from  Manufacturing Development  to  Manufacturing Engineering
 USER:  jmarkle@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Manufacturing Engineering
@@ -176,7 +176,7 @@ USER:  jnice@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  John.Rock@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  jordan.king@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  joseph.mandato@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  jpegg@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  jpegg@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  jplank@uniqueParentCompany.COM  Updating Department from  Parts Department  to  Shop Office
 USER:  jplibert@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development
 USER:  jpoczekaj@uniqueParentCompany.COM  does not exist in AzureAD
@@ -198,7 +198,7 @@ USER:  kbaker@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equa
 USER:  kbowman@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  kdonohue@uniqueParentCompany.COM  Updating Department from  Water Treatment Systems Marketing  to  Water Systems
 USER:  keith.thomas@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kellie.hicks@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  kellie.hicks@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  kelly.tausen@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  kelsie.nye@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  Kevin.Jordahl@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  uniqueParentCompanyld
@@ -250,7 +250,7 @@ USER:  lynda.bohager@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD 
 USER:  maintenance-key@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  manderson@uniqueParentCompany.COM  Updating Department from  Custom Engineering  to  Highside Custom Engineering
 USER:  maneng@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  maria.true@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  maria.true@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  mark.ray@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  mark.rayadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  mark.zier@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
@@ -259,7 +259,7 @@ USER:  marrington@uniqueParentCompany.COM  Updating Department from  Flat Weldin
 USER:  matt.glowackiadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  matt.ross@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
 USER:  matt.rossadmin@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  matt.sniezek@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  matt.sniezek@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  Matthew.Cool@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  mbassler@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  mchilcote@uniqueParentCompany.COM  Updating Department from  R&D Lab  to  Research & Development
@@ -279,13 +279,13 @@ USER:  mindy.rang@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is 
 USER:  minifill-lab@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  miranda.jacoby@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  mjohnson@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  mkalyani@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  mkalyani@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  mlippy@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  mphillips@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  mreed@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development- HVAC
 USER:  mrohrbaugh@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development- HVAC
 USER:  mshaffer@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  uniqueParentCompanyld
-USER:  mshank@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  mshank@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  msmith@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  msnell@uniqueParentCompany.COM  Updating Department from  Custom Engineering  to  High Side Custom Engineering
 USER:  mspangler@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
@@ -294,7 +294,7 @@ USER:  mvosburgh@uniqueParentCompany.COM  Updating Department from  Shop Office 
 USER:  mweishaar@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  nathan.hostetleradmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  nbassler@uniqueParentCompany.COM  does not exist in AzureAD
-USER:  nhostetler@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Product Development- HVAC
+USER:  nhostetler@uniqueParentCompany.COM  Updating Department from  Department1  to  Product Development- HVAC
 USER:  nicholas.jircitano@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Product Development- Refrigeration
 USER:  nicholas.torres@uniqueParentCompany.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
 USER:  Nick.DeMeester@uniqueParentCompany.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
@@ -307,7 +307,7 @@ USER:  patrick.hrubes@uniqueParentCompany.COM  Updating Department from  Manufac
 USER:  patrick.hrubesadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  paul.wantz@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  pcarky@uniqueParentCompany.COM  Updating Department from  Parts Department  to  Marketing- HVAC
-USER:  pcollison@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC
+USER:  pcollison@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing- HVAC
 USER:  pete.farley@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  phopwood@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  pjohnson@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
@@ -317,7 +317,7 @@ USER:  raf.delausnayadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  randall.stephens@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development
 USER:  randy.bradleyadmin@uniqueParentCompany.COM  does not exist in AzureAD
 USER:  rbarnett@uniqueParentCompany.COM  Updating Department from  Parts Department  to  Marketing HVAC
-USER:  rbecker@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  rbecker@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  rbradley@uniqueParentCompany.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
 USER:  rdelausnay@uniqueParentCompany.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
 USER:  rduvall@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
@@ -345,7 +345,7 @@ USER:  Ryan.Arata@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is 
 USER:  ryan.arrington@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  Ryan.Leister@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  sarah.rill@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  sarah.twigg@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  sarah.twigg@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  sbaker@uniqueParentCompany.COM  Updating Department from  R&D Lab  to  Marketing HVAC
 USER:  sbuckley@uniqueParentCompany.COM  Updating Department from  Parts Department  to  Marketing- HVAC
 USER:  scolson@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
@@ -387,7 +387,7 @@ USER:  tmeisinger@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in loc
 USER:  tmorgan@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development - Refrigeration
 USER:  tpaine@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  tpyles@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  treineck@uniqueParentCompany.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
+USER:  treineck@uniqueParentCompany.COM  Updating Department from  Department1  to  Marketing HVAC
 USER:  trevor.simms@uniqueParentCompany.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
 USER:  trock@uniqueParentCompany.COM  ATTRIBUTE: Department is blank in local AD
 USER:  tromanoff@uniqueParentCompany.COM  Updating Department from  Customer Solutions  to  Finance
@@ -408,6 +408,7 @@ USER:  yanique.santiago@uniqueParentCompany.COM  ATTRIBUTE: Department in local 
 USER:  yi.pang@uniqueParentCompany.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
 USER:  zachary.wienecke@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development
 USER:  zrussell@uniqueParentCompany.COM  Updating Department from  HVAC Engineering  to  Product Development
+
 
 
 

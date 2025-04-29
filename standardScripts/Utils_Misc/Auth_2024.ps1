@@ -33,10 +33,10 @@ $exoORG = "uniqueParentCompanyinc.onmicrosoft.com"
 Connect-ExchangeOnline -CertificateThumbPrint $exoCertThumb -AppID $exoAppID -Organization $exoORG
 
 #Connection to the Jira API after getting the token from the Key Vault
-$jiraVaultName = 'JiraAPI'
-$jiraAPIVersion = "2020-06-01"
+$jiraVaultName = 'jiraAPIKeyKey'
+$jiraAPIKeyKeyVersion = "2020-06-01"
 $jiraResource = "https://vault.azure.net"
-$jiraEndpoint = "{0}?resource={1}&api-version={2}" -f $env:IDENTITY_ENDPOINT,$jiraResource,$jiraAPIVersion
+$jiraEndpoint = "{0}?resource={1}&api-version={2}" -f $env:IDENTITY_ENDPOINT,$jiraResource,$jiraAPIKeyKeyVersion
 $jiraSecretFile = ""
 try
 {
@@ -316,6 +316,8 @@ $shipments = Invoke-RestMethod -Uri $nextPage -Headers $connectionHeader -Method
 
 $shipmentPages | Select-Object -Property 'OrderDate','Address', 'City', 'State', 'Zip','CompanyName'
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

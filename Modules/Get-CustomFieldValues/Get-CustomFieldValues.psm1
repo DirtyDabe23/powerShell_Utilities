@@ -5,7 +5,7 @@ function Get-CustomFieldValues{
     [string]$customFieldName
     )
     #Connect to Jira via the API Secret in the Key Vault
-    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 
     #Jira via the API or by Read-Host 
     If ($null -eq $jiraRetrSecret)
@@ -86,6 +86,8 @@ function Get-CustomFieldValues{
     }
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

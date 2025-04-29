@@ -35,7 +35,7 @@ Connect-ExchangeOnline -CertificateThumbPrint $exoCertThumb -AppID $exoAppID -Or
 
 
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 
 #Jira via the API or by Read-Host 
 If ($null -eq $jiraRetrSecret)
@@ -161,6 +161,8 @@ $shipments = Invoke-RestMethod -Uri $nextPage -Headers $connectionHeader -Method
 $shipmentPages | Select-Object -Property 'OrderDate','Address', 'City', 'State', 'Zip','CompanyName'
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

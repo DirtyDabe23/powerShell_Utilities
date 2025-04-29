@@ -6,7 +6,7 @@ $host.ui.RawUI.WindowTitle = $process
 
 
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 
 #Jira via the API or by Read-Host 
 If ($null -eq $jiraRetrSecret)
@@ -326,6 +326,8 @@ $requestTypeTicketCountCompleted | Out-Host
 
 Write-Output "Your CSV of the total ticket overview is located at: $exportPath"
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

@@ -70,11 +70,12 @@ for ($count = 0; $count -lt $total; $count += 50) {
 $allEndTime = Get-Date 
 $allNetTime = $allEndTime - $allStartTime
 $currTime = Get-Date -format "HH:mm"
-Write-Output "[$($currTime)] | Time taken for [Spectrum Error Audit] to complete: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
+Write-Output "[$($currTime)] | Time taken for [LOBApp1 Error Audit] to complete: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
 $exportPath = "\\uniqueParentCompanyusers\departments\public\Tech-Items\scriptLogs\error_report.csv"
 $ticketsMatching | Export-Csv -Path $exportPath -NoTypeInformation
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

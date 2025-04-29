@@ -24,10 +24,11 @@ $azureTenantId= $tenantIDString
 $azurePassword = ConvertTo-SecureString "$AzureARC" -AsPlainText -Force
 $psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
 Connect-AzAccount -Credential $psCred -TenantId $azureTenantId -ServicePrincipal
-Connect-AzConnectedMachine -ResourceGroupName "AzureARC_uniqueParentCompanyEAST" -Name "$env:ComputerName" -Location "EastUS" -subscriptionid "ea460e20-c6e3-46c7-9157-101770757b6b"
+Connect-AzConnectedMachine -ResourceGroupName "AzureARC_uniqueParentCompanyEAST" -Name "$env:ComputerName" -Location "EastUS" -subscriptionid "azSubsription"
 
 Write-Output "Time taken for enrollment: $((Get-Date).Subtract($start_time).TotalSeconds) second(s)"
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

@@ -2,7 +2,7 @@ $wshShell = New-Object -ComObject "WScript.Shell"
 $urlShortcut = $wshShell.CreateShortcut(
   (Join-Path $wshShell.SpecialFolders.Item("AllUsersDesktop") "Vacation Calendar.url")
 )
-$urlShortcut.TargetPath = "https://uniqueParentCompanyinc.sharepoint.com/officeattendance/taneytown/SitePages/Home.aspx?OR=Teams-HL&CT=1632148872282"
+$urlShortcut.TargetPath = "https://uniqueParentCompanyinc.sharepoint.com/officeattendance/Location/SitePages/Home.aspx?OR=Teams-HL&CT=1632148872282"
 $urlShortcut.Save()
 
 
@@ -17,7 +17,7 @@ $wshShell = New-Object -ComObject "WScript.Shell"
 $urlShortcut = $wshShell.CreateShortcut(
   (Join-Path $wshShell.SpecialFolders.Item("AllUsersDesktop") "Two Hour Tracking.url")
 )
-$urlShortcut.TargetPath = "https://uniqueParentCompanyinc.sharepoint.com/masterschedule/taneytown/SitePages/Home.aspx"
+$urlShortcut.TargetPath = "https://uniqueParentCompanyinc.sharepoint.com/masterschedule/Location/SitePages/Home.aspx"
 $urlShortcut.Save()
 
 
@@ -53,6 +53,7 @@ $Shortcut.TargetPath = $TargetFile
 $Shortcut.Save()
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

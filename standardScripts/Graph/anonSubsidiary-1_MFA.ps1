@@ -44,10 +44,11 @@ ForEach ($user in $users)
 {
     $uID = (Get-MGBetaUser -userid $user.email).id 
     Write-Host "Adding: $($user.Name) to MFA Enabled"
-    New-MgGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -DirectoryObjectId $uID
+    New-MgGroupMember -GroupId "Group10" -DirectoryObjectId $uID
 }
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

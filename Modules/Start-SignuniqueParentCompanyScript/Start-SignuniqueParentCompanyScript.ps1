@@ -41,7 +41,7 @@ function Start-SignuniqueParentCompanyPsScript {
             Continue
         }
     }
-    $TenantId = '9e228334-bae6-4c7e-8b7f-9b0824082151'
+    $TenantId = 'graphTenantID'
     $ApplicationId = 'd8eb3ee1-5a22-461c-a5ac-da204ae20f74'
     $vaultURI = "https://git-dev.vault.azure.net/"
     $certName = "GIT-CSC-2024"
@@ -95,6 +95,7 @@ function Start-SignuniqueParentCompanyPsScript {
         return $output
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

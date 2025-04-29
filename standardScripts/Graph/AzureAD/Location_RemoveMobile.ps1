@@ -10,14 +10,14 @@ $users = Get-AzureADUser -All $true
 # Loop through each user and remove their mobile phone number
 foreach ($user in $users) 
 {
-    if($user.PhysicalDeliveryOfficeName -like "*Taneytown*")
+    if($user.PhysicalDeliveryOfficeName -like "*Location*")
         {
         Set-AzureADUser -ObjectId $user.objectID -ExtensionProperty $properties -ErrorAction SilentlyContinue
         Write-Host $user.DisplayName " phone number has been removed"  
         }
     Else
         {
-        Write-Host $user.DisplayName " is not in the Taneytown MD"
+        Write-Host $user.DisplayName " is not in the Location MD"
         }
 }
 
@@ -38,6 +38,7 @@ foreach ($user in $users)
 # Disconnect from Azure AD
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

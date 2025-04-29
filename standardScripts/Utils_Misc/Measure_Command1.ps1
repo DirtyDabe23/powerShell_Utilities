@@ -1,6 +1,6 @@
 $measureCommand1 = Measure-Command -Expression {
     #Connect to Jira via the API Secret in the Key Vault
-    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 
     #Jira via the API or by Read-Host 
     If ($null -eq $jiraRetrSecret)
@@ -106,6 +106,8 @@ $measureCommand1 = Measure-Command -Expression {
 
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

@@ -33,14 +33,26 @@ for ($count = 0; $count -lt $total; $count += 50) {
 
             foreach ($errorToReview in $errorsToReview) {
                 # Escape special characters in the search string
-                $escapedSearchString= [regex]::Escape($errorToReview.SearchString)
+                $escapedSearchString= [regex]::Escape($errorToReview.StackTraceString)
                 
                 if ($attachmentContent.exception -match $escapedSearchString) {
                     $ticketsMatching += [PSCustomObject]@{
                         TicketNumber = $ticketNum
-                        DateCreated  = $issue.fields.created
+                        DateCreated  = $form.fields.created
                         ErrorType    = $errorToReview.Tag
+                        reporterDisplayName = $form.fields.reporter.displayName
+                        reporterEmailAddress = $form.fields.reporter.emailaddress
                     }
+                    $payload = @{
+        "update" = @{
+            "labels" = @(@{
+                "add" = "$($errorToReview.Tag)"
+            })
+        }
+    }
+    $jsonPayload = $payload | ConvertTo-Json -Depth 10
+
+    Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/2/issue/$($ticketNum)?notifyUsers=false" -Method Put -Body $jsonPayload -Headers $headers
                     break
                 }
             }
@@ -58,11 +70,12 @@ for ($count = 0; $count -lt $total; $count += 50) {
 $allEndTime = Get-Date 
 $allNetTime = $allEndTime - $allStartTime
 $currTime = Get-Date -format "HH:mm"
-Write-Output "[$($currTime)] | Time taken for [Spectrum Error Audit] to complete: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
+Write-Output "[$($currTime)] | Time taken for [LOBApp1 Error Audit] to complete: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
 $exportPath = "\\uniqueParentCompanyusers\departments\public\Tech-Items\scriptLogs\error_report.csv"
 $ticketsMatching | Export-Csv -Path $exportPath -NoTypeInformation
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

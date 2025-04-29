@@ -21,7 +21,7 @@ Import-module Az.Accounts
 Import-Module Az.KeyVault
 Connect-AzAccount -subscription $subscriptionID -Identity
 Connect-MGGraph -Identity -NoWelcome
-$localADAdmin = Get-AutomationPSCredential -Name "Testing-TT-Credential"
+$localADAdmin = Get-AutomationPSCredential -Name "Credential"
 Write-Output "The Credential is: $localADAdmin"
 Write-Output "The Credential - UserName is $($localADAdmin.Username)"
 Write-Output "The Credential - Password is $($localADAdmin.Password)"
@@ -79,6 +79,7 @@ else{
 Add-ADGroupMember -identity $compuDataGroup1 -members $acctSAMName -server 'uniqueParentCompany.com' -credential $myPsCred
 Add-ADGroupMember -identity $compuDataGroup2 -members $acctSAMName -server 'uniqueParentCompany.com' -credential $myPsCred
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

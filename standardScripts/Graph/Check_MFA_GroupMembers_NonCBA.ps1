@@ -7,7 +7,7 @@ $users = Get-MGBetaUser -all -consistencylevel eventual | Where-object {($_.Comp
 Write-Host "Checking $($users.count) users for MFA Enabled Group Membership"
 
 #GroupID is for MFA Enabled
-$groupMembers = Get-MgGroupMember -groupid "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -all -ConsistencyLevel eventual
+$groupMembers = Get-MgGroupMember -groupid "Group10" -all -ConsistencyLevel eventual
 
 $nonMembers = @();
 
@@ -32,6 +32,7 @@ Write-Host "Enter a path for your file. Example's are C:\Temp\2024_03_25_Export.
 $Path = Read-Host "Path"
 $nonMembers | Export-CSV -Path $Path 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

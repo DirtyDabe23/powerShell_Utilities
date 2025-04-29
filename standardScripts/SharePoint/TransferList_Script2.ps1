@@ -67,7 +67,7 @@ Function Copy-ListItems()
 }
  
 #Set Parameters
-$SiteURL= "https://uniqueParentCompanyinc.sharepoint.com/materials/intercompanytransfers/sourcegreenup/"
+$SiteURL= "https://uniqueParentCompanyinc.sharepoint.com/materials/intercompanytransfers/sourceLocation3/"
 $SourceListName="Transfer Requests"
 $TargetListName="2019-2020"
  
@@ -77,6 +77,7 @@ Copy-ListItems -siteURL $SiteURL -SourceListName $SourceListName -TargetListName
 
 #Read more: https://www.sharepointdiary.com/2017/01/sharepoint-online-copy-list-items-to-another-list-using-powershell.html#ixzz7uvcqUxgT
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

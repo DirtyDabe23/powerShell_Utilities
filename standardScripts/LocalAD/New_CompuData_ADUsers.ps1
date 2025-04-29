@@ -29,7 +29,7 @@ ForEach ($user in $compuDataUsers)
 
     try
     {
-        If ($user.'uniqueParentCompany Location' -eq 'TT (TaneyTown) Users')
+        If ($user.'uniqueParentCompany Location' -eq 'TT (Location) Users')
         {
             $errorUsers+= [PSCustomObject]@{
                 failedUser      = $user.Users
@@ -168,6 +168,7 @@ ForEach ($user in $compuDataUsers)
 }
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

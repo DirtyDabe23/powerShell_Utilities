@@ -39,12 +39,14 @@ Write-Output "Time taken to Install: $((Get-Date).Subtract($start_time).TotalSec
 
 $start_time=Get-Date
 Write-Output "Time Of Configuraton Start: $start_time"
-Start-Process -FilePath "C:\Program Files\AzureConnectedMachineAgent\azcmagent.exe" -ArgumentList  "connect" , "--resource-group 'AzureARC_uniqueParentCompanyEAST'" , "--tenant-id 9e228334-bae6-4c7e-8b7f-9b0824082151" , '--location EastUS' , "--subscription-id ea460e20-c6e3-46c7-9157-101770757b6b" -NoNewWindow
+Start-Process -FilePath "C:\Program Files\AzureConnectedMachineAgent\azcmagent.exe" -ArgumentList  "connect" , "--resource-group 'AzureARC_uniqueParentCompanyEAST'" , "--tenant-id graphTenantID" , '--location EastUS' , "--subscription-id azSubsription" -NoNewWindow
 Write-Output "Time taken to Configure: $((Get-Date).Subtract($start_time).TotalSeconds) second(s)"
 
 
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

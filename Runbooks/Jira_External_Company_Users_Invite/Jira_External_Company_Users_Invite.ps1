@@ -298,7 +298,7 @@ $allUsers = Get-MgBetaUser -all -consistencylevel eventual -Property *
 $goodUsers       =  [Collections.Generic.List[object]]::new()
 $badUsers        =  [Collections.Generic.List[object]]::new()
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 #Jira
 $jiraText = "$userName@uniqueParentCompany.com:$jiraRetrSecret"
 $jiraBytes = [System.Text.Encoding]::UTF8.GetBytes($jiraText)
@@ -372,6 +372,8 @@ Write-Output "The Successfully Created Users were: `n$goodUsers"
 Write-OUtput "Errors:`n$error"
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

@@ -1,7 +1,7 @@
 $filter = "(Office -eq 'unique-Office-Location-0')  -and (RecipientType -eq 'UserMailbox')"
 
-New-DynamicDistributionGroup -Name "All Taneytown Employees" -IncludedRecipients "MailboxUsers" -PrimarySmtpAddress "AllTaneytownEmployees@uniqueParentCompany.com"
-Set-DynamicDistributionGroup -Identity "All Taneytown Employees" -AcceptMessagesOnlyFrom "Kevin.Williams@uniqueParentCompany.com","GIT-Helpdesk@uniqueParentCompany.com" -HiddenFromAddressListsEnabled $true -ManagedBy "Kevin.Williams@uniqueParentCompany.com" -RecipientFilter $filter -ForceMembershipRefresh 
+New-DynamicDistributionGroup -Name "All Location Employees" -IncludedRecipients "MailboxUsers" -PrimarySmtpAddress "AllLocationEmployees@uniqueParentCompany.com"
+Set-DynamicDistributionGroup -Identity "All Location Employees" -AcceptMessagesOnlyFrom "Kevin.Williams@uniqueParentCompany.com","GIT-Helpdesk@uniqueParentCompany.com" -HiddenFromAddressListsEnabled $true -ManagedBy "Kevin.Williams@uniqueParentCompany.com" -RecipientFilter $filter -ForceMembershipRefresh 
 
 
 
@@ -155,6 +155,7 @@ $filter = "((((((((UsageLocation -eq 'United States') -and (-not(Company -eq 'No
 New-DynamicDistributionGroup -Name "All US Employees Sans Madera" -IncludedRecipients "MailboxUsers" -PrimarySmtpAddress "AllUSNonMaderaEmployees@uniqueParentCompany.com"
 Set-DynamicDistributionGroup -Identity "All US Employees Sans Madera" -AcceptMessagesOnlyFrom "Kevin.Williams@uniqueParentCompany.com","GIT-Helpdesk@uniqueParentCompany.com","jeff.poczekaj@uniqueParentCompany.COM" -HiddenFromAddressListsEnabled $true -ManagedBy "Kevin.Williams@uniqueParentCompany.com" -RecipientFilter $filter -ForceMembershipRefresh 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

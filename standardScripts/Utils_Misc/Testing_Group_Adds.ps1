@@ -1,4 +1,4 @@
-$gname = "Taneytown-Shop"
+$gname = "Location-Shop"
 $groupObjID = (Get-MGGroup -Search "displayname:$gname" -ConsistencyLevel:eventual -top 1).ID
 $userObjID = (Get-MGUser -UserID "$userName@uniqueParentCompany.com").ID
         try 
@@ -55,7 +55,7 @@ Write-Host "$($udata.customfield_10772)"
 
 #TryingwithErrorAction
 
-   $gname = "Taneytown-Shop"
+   $gname = "Location-Shop"
         $groupObjID = (Get-MGGroup -Search "displayname:$gname" -ConsistencyLevel:eventual -top 1).ID
         $userObjID = (Get-MGUser -UserID $userName@uniqueParentCompany.com).ID
         try 
@@ -75,6 +75,7 @@ Write-Host "$($udata.customfield_10772)"
                 }
             }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

@@ -45,7 +45,7 @@ ForEach ($user in $users)
         #Write-Host "Modifiying $($user.displayName)'s office name, which is currently $($user.office)"
 	    #Set-ADUser $user.SID -office $officeLoc
     #}
-    #if ($user.Office -eq "Greenup")
+    #if ($user.Office -eq "Location3")
     #{
         #Write-Host "Modifiying $($user.displayName)'s office name, which is currently $($user.office)"
 	    #Set-ADUser $user.SID -office $officeLoc
@@ -59,6 +59,7 @@ $fileName = $Date+"."+$locName+".csv"
 
 Get-ADUser -Filter * -Properties *  | Export-CSV -Path C:\Temp\$fileName
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

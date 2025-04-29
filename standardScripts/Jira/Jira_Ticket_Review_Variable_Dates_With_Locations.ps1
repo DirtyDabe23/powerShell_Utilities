@@ -7,7 +7,7 @@ $host.ui.RawUI.WindowTitle = $process
 
 # Import CSV
 #Connection to the Jira API after getting the token from the Key Vault
-$vaultName = 'JiraAPI'
+$vaultName = 'jiraAPIKeyKey'
 $apiVersion = "2020-06-01"
 $resource = "https://vault.azure.net"
 $endpoint = "{0}?resource={1}&api-version={2}" -f $env:IDENTITY_ENDPOINT,$resource,$apiVersion
@@ -234,6 +234,8 @@ $requestTypeTicketCountCompleted | Out-Host
 
 Write-Output "Your CSV of the total ticket overview is located at: $exportPath"
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

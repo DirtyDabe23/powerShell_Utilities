@@ -1,4 +1,4 @@
-$officeusers = Get-DistributionGroupMember -Identity "Taneytown-Office"
+$officeusers = Get-DistributionGroupMember -Identity "Location-Office"
 
 ForEach ($officeuser in $officeusers)
 {
@@ -7,6 +7,7 @@ ForEach ($officeuser in $officeusers)
     Get-Mailbox -Identity $officeuser.Name | Set-Mailbox -CustomAttribute1 "Office" -erroraction SilentlyContinue
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

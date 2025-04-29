@@ -691,8 +691,9 @@ $jsonPayload = @"
 
                 }
         #add the New User to the MFA Enabled Group
-        New-MgGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -DirectoryObjectId $userObjID       
+        New-MgGroupMember -GroupId "Group10" -DirectoryObjectId $userObjID       
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

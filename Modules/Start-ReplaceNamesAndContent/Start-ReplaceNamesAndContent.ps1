@@ -74,7 +74,7 @@
 
     
         # Gather all items recursively
-        $files = Get-ChildItem -Path $rootPath -Recurse -Force
+        $files = Get-ChildItem -Path $rootPath -Recurse | select-object -property *
 
         # Sort items deepest path first (safe for renaming folders)
         $files = $files | Sort-Object { $_.FullName.Split('\').Count } -Descending
@@ -113,10 +113,13 @@
                 if ($item.Name -match [regex]::Escape($pattern)) {
                     $newName = $item.Name -replace [regex]::Escape($pattern), $replacementValue
                     if (-not $item.PSIsContainer){
-                    $newFullPath = Join-Path -Path $item.DirectoryName -ChildPath $newName -ErrorAction SilentlyContinue
+                    $newFullPath = Join-Path -Path $item.Parent.FullName -ChildPath $newName -ErrorAction SilentlyContinue
                     }
                     try{
-                    Rename-Item -LiteralPath $item.FullName -NewName $newName -ErrorAction Stop
+                        if($null -eq $newFullPath){
+                            $newFullPath = $newName
+                        }
+                    Rename-Item -LiteralPath $item.FullName -NewName $newFullPath -ErrorAction Stop
                     $filesModified += [PSCustomObject]@{
                         File        = $item.FullName
                         FileNewName = $newName

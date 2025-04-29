@@ -1,7 +1,7 @@
 $officeLoc = "unique-Company-Name-2"
 $companyName = "unique-Company-Name-2"
 $country = "US"
-$phoneNumber = "+17173477500"
+$phoneNumber = "+PhoneNumber15"
 
 $Date = Get-Date -Format yyyy.MM.dd.HH.mm
 $locName = (Get-ADDomain).name
@@ -46,6 +46,7 @@ $fileName = $Date+"."+$locName+".csv"
 
 Get-ADUser -Filter * -Properties *  | Export-CSV -Path C:\Temp\$fileName
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

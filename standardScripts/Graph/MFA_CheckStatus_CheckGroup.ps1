@@ -1,4 +1,4 @@
-$mfaGroupMembers = Get-MgGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -All -ConsistencyLevel eventual
+$mfaGroupMembers = Get-MgGroupMember -GroupId "Group10" -All -ConsistencyLevel eventual
 $users = Get-MsolUser -All
 
 $usersNoMFA = @()
@@ -45,6 +45,7 @@ $usersNoMFA | Export-CSV -Path "C:\Temp\2024_03_26_UsersNoMFA.csv"
 $usersNotInGroup | Export-CSV -Path "C:\Temp\2024_03_26_UsersNotInGroup.csv"
 $usersInGroupAlready | Export-CSV -Path "C:\Temp\2024_03_26_UsersInGroup.csv"
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

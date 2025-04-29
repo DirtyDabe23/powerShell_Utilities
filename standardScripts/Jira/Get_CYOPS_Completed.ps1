@@ -7,7 +7,7 @@ $allStartTime = Get-Date
 $pageCount = 1
 # Import CSV
 #Connection to the Jira API after getting the token from the Key Vault
-$vaultName = 'JiraAPI'
+$vaultName = 'jiraAPIKeyKey'
 $apiVersion = "2020-06-01"
 $resource = "https://vault.azure.net"
 $endpoint = "{0}?resource={1}&api-version={2}" -f $env:IDENTITY_ENDPOINT,$resource,$apiVersion
@@ -117,6 +117,8 @@ ForEach ($assignee in $assignees)
 $assigneeTicketCount | sort-object -Property CompletedTickets -Descending
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

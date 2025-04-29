@@ -41,10 +41,11 @@ function Invoke-uniqueParentCompanySync{
         }
 }
 
-$syncServerCred = Get-AutomationPSCredential -Name 'Testing-TT-Credential'
+$syncServerCred = Get-AutomationPSCredential -Name 'Credential'
 Invoke-uniqueParentCompanySync -syncServerCred $syncServerCred
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

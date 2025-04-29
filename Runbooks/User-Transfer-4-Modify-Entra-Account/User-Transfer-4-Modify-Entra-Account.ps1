@@ -255,7 +255,7 @@ $graphSecureToken = ($graphTokenRequest.content | convertfrom-json).access_token
 Write-Output "Attempting to connect to Graph"
 Connect-MgGraph -NoWelcome -AccessToken $graphSecureToken -ErrorAction Stop
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
 #Jira
 $jiraText = "$userName@uniqueParentCompany.com:$jiraRetrSecret"
 $jiraBytes = [System.Text.Encoding]::UTF8.GetBytes($jiraText)
@@ -441,6 +441,8 @@ try{
         Exit 1
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
+
 
 
 

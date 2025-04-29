@@ -32,7 +32,7 @@ Write-Host "Starting Sleep for 10 minutes at: $time"
 Start-Sleep -Seconds "30"
 
 # Import the CSV file
-$csvFilePath = "C:\Temp\taneytown_Directory.csv"
+$csvFilePath = "C:\Temp\Location_Directory.csv"
 $users = Import-Csv $csvFilePath
 
 # Iterate through the users in the CSV file and set their Azure AD properties
@@ -49,6 +49,7 @@ foreach ($user in $users) {
                   
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

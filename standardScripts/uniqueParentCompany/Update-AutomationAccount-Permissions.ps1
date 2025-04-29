@@ -1,7 +1,7 @@
 Connect-MgGraph -NoWelcome
 $failedPerms = @()
 $GraphServicePrincipal = Get-MgServicePrincipal -Filter "displayName eq 'Microsoft Graph'"
-$principalDisplay = Read-Host "Enter the Service Principal Name that needs permissions updated`n`nExample: GIT-Infrastructure-Automation`nExample: PREFIX-VS-MGMT01`nEnter"
+$principalDisplay = Read-Host "Enter the Service Principal Name that needs permissions updated`n`nExample: AutomationAccount1`nExample: PREFIX-VS-MGMT01`nEnter"
 $principal = Get-MgServicePrincipal -Search "DisplayName: $principalDisplay" -ConsistencyLevel:eventual
 
 #build the scopes off the context you're using
@@ -24,6 +24,7 @@ $permission = $graphServicePrincipal.AppRoles | Where-Object {($_.Value -eq $per
 }
 
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 

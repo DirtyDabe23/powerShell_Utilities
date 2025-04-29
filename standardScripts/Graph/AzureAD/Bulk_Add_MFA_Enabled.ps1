@@ -1,5 +1,5 @@
 $users = Import-CSV -Path C:\Temp\2024_04_04_uniqueParentCompanyDotcomUsers.csv
-$members = Get-MGGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -All -ConsistencyLevel eventual
+$members = Get-MGGroupMember -GroupId "Group10" -All -ConsistencyLevel eventual
 $counter = 1
 $maxCount = $users.count 
 
@@ -52,7 +52,7 @@ ForEach ($user in $users)
             If ($userObjID -notin $members.id)
             {
                 Write-Host "$counter/$maxCount $userDispName is joining the group"
-                New-MgGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -DirectoryObjectId $userObjID
+                New-MgGroupMember -GroupId "Group10" -DirectoryObjectId $userObjID
             }
             else
             {
@@ -64,6 +64,7 @@ ForEach ($user in $users)
 
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
+
 
 
 
