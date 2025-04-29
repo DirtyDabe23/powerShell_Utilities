@@ -25,7 +25,7 @@ $jiraAPIEndpoint = "/api/2/filter/defaultShareScope"
 $jql = 'project = GHD AND summary ~ "Onboard Request" AND Status = "Needs Licenses Purchased"'
 $encodedJQL = [System.Web.HttpUtility]::UrlEncode($jql)
 $uri = $jirAPIBaseURI , $jiraAPIEndpoint , $encodedJQL -Join ""
-Invoke-RestMethod -Method get -uri $uri -Headers $jiraHeader
+Invoke-RestMethod -Method get -uri $uri -Headers $jiraHeader -ContentType "application/json" -HttpVersion 2.0
 
 
 

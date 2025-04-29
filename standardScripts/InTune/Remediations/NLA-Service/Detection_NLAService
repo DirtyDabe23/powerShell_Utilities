@@ -1,0 +1,7 @@
+$serviceStatus = Get-Service -Name NlaSvc
+If ($serviceStatus.Status -ne "Running"){
+    Exit 1
+}
+Else{
+    Exit 0
+}
