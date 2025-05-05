@@ -42,9 +42,9 @@ function Start-SignuniqueParentCompanyPsScript {
         }
     }
     $TenantId = 'graphTenantID'
-    $ApplicationId = 'd8eb3ee1-5a22-461c-a5ac-da204ae20f74'
-    $vaultURI = "https://git-dev.vault.azure.net/"
-    $certName = "GIT-CSC-2024"
+    $ApplicationId = "$appIDString"
+    $vaultURI = "https://$vaultName.vault.azure.net/"
+    $certName = "$certNameString"
     If (Test-Path -Path $Path){
         "*.ps1","*.psm1" | ForEach-Object{
             Get-ChildItem -Path $Path -filter $_  -Recurse | ForEach-Object {
@@ -95,11 +95,3 @@ function Start-SignuniqueParentCompanyPsScript {
         return $output
 }
 # SIG # Begin signature block#Script Signature# SIG # End signature block
-
-
-
-
-
-
-
-
