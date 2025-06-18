@@ -3,21 +3,21 @@
 	Have to Use PowerShell 7
 	
 	
-	Connect-PNPOnline -url "https://uniqueParentCompanyinc.sharepoint.com/EmployeeRoster/Taneytown/" -Interactive
+	Connect-PNPOnline -url "https://uniqueParentCompanyinc.sharepoint.com/EmployeeRoster/Location/" -Interactive
 	Get-PNPList
 	
 	#Get the ID of the user we are trying to edit here
-	Get-PnPListItem -List "Taneytown Office Employee Roster" 
+	Get-PnPListItem -List "Location Office Employee Roster" 
 	
 	
 	#The following command is used to expose all of the values that are set for the user with the specified ID 
 	
-	(Get-PnPListItem -List "Taneytown Office Employee Roster" -ID 455).fieldvalues
+	(Get-PnPListItem -List "Location Office Employee Roster" -ID 455).fieldvalues
 	
 	FieldName / Key to Modify: JobTitle
 	
 	#The following sets the values in SharePoint, the first entry is the key to modify, the second entry is the value to add/modify 
-	Set-PnPListItem -List "Taneytown Office Employee Roster" -Identity 455 -Values @{"JobTitle"="GIT System Administrator"} -UpdateType UpdateOverwriteVersion
+	Set-PnPListItem -List "Location Office Employee Roster" -Identity 455 -Values @{"JobTitle"="GIT System Administrator"} -UpdateType UpdateOverwriteVersion
 	
 	Modified by field adds my username, which is based off my -interactive login for Connect-PNPOnline 
 	
@@ -31,19 +31,20 @@
 		Email_x0020_Address              $userName@uniqueParentCompany.com
 		
 		
-	Get-PnPListItem -List "Taneytown Office Employee Roster" -Query "<View><Query><Where><Eq><FieldRef Name='Email_x0020_Address'/><Value Type='String'>$userName@uniqueParentCompany.com</Value></Eq></Where></Query></View>"
+	Get-PnPListItem -List "Location Office Employee Roster" -Query "<View><Query><Where><Eq><FieldRef Name='Email_x0020_Address'/><Value Type='String'>$userName@uniqueParentCompany.com</Value></Eq></Where></Query></View>"
 	
 	
 	#search for the user and return all values stored in their entry.
-	$user = (Get-PnPListItem -List "Taneytown Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq "$userName@uniqueParentCompany.com"}
+	$user = (Get-PnPListItem -List "Location Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq "$userName@uniqueParentCompany.com"}
 	
 	
 	$toMod = "$userName@uniqueParentCompany.com"
-	$user = (Get-PnPListItem -List "Taneytown Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq $toMod}
+	$user = (Get-PnPListItem -List "Location Office Employee Roster").fieldvalues | where-object {$_.Email_x0020_Address -eq $toMod}
 	
 	#Returned parameters are case sensitive.
 	$user.id -eq $null
 	$user.ID -neq $null 
+
 
 
 
