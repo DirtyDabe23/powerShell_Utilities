@@ -1,0 +1,5 @@
+$modules = get-installedpsresource | Select-Object -Property *                                                                          
+$module = $modules[12]
+$modPath = $module.InstalledLocation
+cd ./Documents/Projects/EvapcoRepo/ 
+Copy-item -path ./Modules/EvapcoModule/ -Recurse -Destination $modPath  -Verbose -Force 

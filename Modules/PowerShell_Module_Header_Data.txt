@@ -1,0 +1,8 @@
+Synopsis
+Description
+Component
+Parameter(s)
+Example
+Notes
+Link
+Outputs

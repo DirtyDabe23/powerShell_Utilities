@@ -366,6 +366,10 @@ ASALocalRun/
 
 # Visual Studio History (VSHistory) files
 .vshistory/
+*.vs
+.vs/
+.vs/*
+.vs
 
 # BeatPulse healthcheck temp database
 healthchecksdb
@@ -386,7 +390,8 @@ FodyWeavers.xsd
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
-
+*.vsCode/*
+.vsCode
 # Local History for Visual Studio Code
 .history/
 
@@ -399,5 +404,4 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
-
-*.DS_Store
+/.vs/slnx.sqlite

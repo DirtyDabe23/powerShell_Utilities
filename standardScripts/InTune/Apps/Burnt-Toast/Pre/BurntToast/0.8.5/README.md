@@ -148,7 +148,3 @@ The [default image](BurntToast.png) for BurntToast Notifications is a photo take
 
 - Twitter: [@WindosNZ](https://twitter.com/windosnz)
 - Blog: [ToastIT.dev](https://toastit.dev/)
-
-
-
-

@@ -161,5 +161,3 @@ GOTO CLEANUP
 if exist %TMP%\senseTmp.txt del %TMP%\senseTmp.txt
 EXIT /B %errorCode%
 
-
-

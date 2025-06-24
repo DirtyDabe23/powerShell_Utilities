@@ -1,5 +1,5 @@
 param(
-    [string] $Key
+    [string] $jiraTicket
 )
 function Set-PrivateErrorJiraRunbook{
     [CmdletBinding()]
@@ -7,8 +7,10 @@ function Set-PrivateErrorJiraRunbook{
     [Parameter(ParameterSetName = 'Full', Position = 0)]
     [switch]$Continue,
     [Parameter(Position = 1 , HelpMessage = "Enter the Ticket Key. Example: GHD-44881`n`nEnter")]
-    [string] $key,
-    [Parameter(Position = 2 , HelpMessage = "Enter your Jira Header here")]
+    [string] $jiraTicket,
+    [Parameter(Position = 2, HelpMessage = "Enter the Private Comment to include with your Jira Ticket!")]
+    [string] $privateErrorMessage,
+    [Parameter(Position = 3 , HelpMessage = "Enter your Jira Header here")]
     [hashtable] $jiraHeader
     )
     $currTime = Get-Date -format "HH:mm"
@@ -29,21 +31,11 @@ function Set-PrivateErrorJiraRunbook{
                 content = @(
                     @{
                         type = "text"
-                        text = "Time Failed: $($errorLog.timeToFail)"
-                    }
-                )
-            },
-            @{
-                type = "paragraph"
-                content = @(
-                    @{
-                        type = "text"
-                        text = "Reason Failed: $($errorLog.reasonFailed)"
+                        text = "$privateErrorMessage"
                     }
                 )
             }
         )
-        
         $jbody += $paragraphs
 
 
@@ -67,7 +59,7 @@ function Set-PrivateErrorJiraRunbook{
     $jsonPayloadString = $jsonPayload | ConvertTo-Json -Depth 10
     # Perform the API call
     try {
-        $response = Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/3/issue/$key/comment" -Method Post -Body $jsonPayloadString -Headers $jiraHeader
+        $response = Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/3/issue/$jiraTicket/comment" -Method Post -Body $jsonPayloadString -Headers $jiraHeader
         if ($response){
             $currTime = Get-Date -format "HH:mm"
             Write-Output "[$($currTime)] | [$process] | [$procProcess] Internal Comment Successfully Made with Error Details"
@@ -92,7 +84,7 @@ param(
 [Parameter(Position = 1, HelpMessage = "Enter the message to include with your Jira Ticket!")]
 [string] $publicErrorMessage,
 [Parameter(Position = 2 , HelpMessage = "Enter the Ticket Key. Example: GHD-44881`n`nEnter")]
-[string] $key,
+[string] $jiraTicket,
 [Parameter(Position = 3 , HelpMessage = "Enter your Jira Header here")]
 [hashtable] $jiraHeader
 )
@@ -112,7 +104,7 @@ param(
     }
 }
 "@
-        Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/2/issue/$key/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader
+        Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$jiraTicket/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader
         
     switch ($Continue){
     $False {$null}
@@ -128,7 +120,7 @@ param(
 [Parameter(Position = 1, HelpMessage = "Enter the message to include with your Jira Ticket!")]
 [string] $successMessage,
 [Parameter(Position = 2 , HelpMessage = "Enter the Ticket Key. Example: GHD-44881`n`nEnter")]
-[string] $key,
+[string] $jiraTicket,
 [Parameter(Position = 3 , HelpMessage = "Enter your Jira Header here")]
 [hashtable] $jiraHeader
 )
@@ -149,7 +141,7 @@ $jsonPayload = @"
 }
 "@
 try {
-    $response = Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/2/issue/$key/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader -ContentType "application/json"
+    $response = Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$jiraTicket/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader -ContentType "application/json"
     if ($response){
     $currTime = Get-Date -format "HH:mm"
     Write-Output "[$($currTime)] | Internal Comment Successfully Made with Error Details"
@@ -222,20 +214,20 @@ function Format-Name {
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 Import-module Az.Accounts
 Import-Module Az.KeyVault
-Connect-ExchangeOnline -ManagedIdentity -Organization uniqueParentCompany.onmicrosoft.com
-Connect-AzAccount -subscription $subscriptionID -Identity
+Connect-ExchangeOnline -ManagedIdentity -Organization evapco.onmicrosoft.com
+Connect-AzAccount -subscription 'ea460e20-c6e3-46c7-9157-101770757b6b' -Identity
 #Connect to: Graph / Via: Secret
 
 #The Tenant ID from App Registrations
-$graphTenantId      = $tenantIDString
+$graphTenantId      = "9e228334-bae6-4c7e-8b7f-9b0824082151"
 
 # Construct the authentication URL
 $graphURI           = "https://login.microsoftonline.com/$graphTenantId/oauth2/v2.0/token"
 
 #The Client ID from App Registrations
-$graphAppClientId   = $appIDString
+$graphAppClientId   = "56cb7f72-67ee-4531-96d7-39a4e2b53555"
 
-$graphRetrSecret    = Get-AzKeyVaultSecret -VaultName "PREFIX-VAULT" -Name "$graphSecretName" -AsPlainText
+$graphRetrSecret    = Get-AzKeyVaultSecret -VaultName "US-TT-VAULT" -Name "GITGraphApi" -AsPlainText
 
 # Construct the body to be used in Invoke-WebRequest
 $graphAuthBody    = @{
@@ -254,7 +246,7 @@ $now = Get-Date -Format "HH:mm"
 Write-Output "[$now] | Attempting to connect to Graph"
 Connect-MgGraph -NoWelcome -AccessToken $graphSecureToken -ErrorAction Stop
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "US-TT-Vault" -Name "JiraAPI" -AsPlainText
 
 $hybridWorkerGroup      =   $null
 $hybridWorkerCred       =   $null
@@ -272,7 +264,7 @@ else{
 
 
 #Jira
-$jiraText = "$userName@uniqueParentCompany.com:$jiraRetrSecret"
+$jiraText = "david.drosdick@evapco.com:$jiraRetrSecret"
 $jiraBytes = [System.Text.Encoding]::UTF8.GetBytes($jiraText)
 $jiraEncodedText = [Convert]::ToBase64String($jiraBytes)
 $jiraHeader         = @{
@@ -280,8 +272,8 @@ $jiraHeader         = @{
     "Content-Type"  = "application/json"
 }
 #Pull the values from Jira
-$TicketNum = $Key
-$form = Invoke-RestMethod -Method get -uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/2/issue/$TicketNum" -Headers $jiraHeader
+$TicketNum = $jiraTicket
+$form = Invoke-RestMethod -Method get -uri "https://evapco.atlassian.net/rest/api/2/issue/$TicketNum" -Headers $jiraHeader
 
 
 <#CustomField_10787 is "New Departments" which is a select list (cascading) in Jira. 
@@ -295,6 +287,7 @@ $workLocation           =   $form.fields.customfield_10738.value
 $shopOrOffice           =   $workLocation
 $employeeType           =   $form.fields.customfield_10736.value
 $softwareNeeds          =   $form.fields.customfield_10747.value
+$pilotUsage             =   $Form.fields.customfield_10750.value
 $officeAppNeeds         =   $form.fields.customfield_10751.ID
 
 
@@ -362,97 +355,97 @@ if ($shopOrOffice -eq "Shop"){
 #>
 
 switch ($locationHired) {
-    "unique-Office-Location-0"{
+    "EVAPCO East"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "PhoneNumber24"
-        $upnSuffix                          =   "uniqueParentCompany.com"
+        [string] $officePhone               =   "+1 410 756 2600"
+        $upnSuffix                          =   "Evapco.com"
         switch ($shopOrOffice) {
             "Shop"{
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 }
             Default{
-                $hybridWorkerGroup          =   "Azure-DC01"
-                $hybridWorkerCred           =   "Credential"
-                $defaultOU                  =   'OU=New User Default - Synching,DC=uniqueParentCompany,DC=COM'
-                $server                     =   "uniqueParentCompany.com"
+                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
+                $hybridWorkerCred           =   "Testing-TT-Credential"
+                $defaultOU                  =   'OU=New User Default - Synching,DC=EVAPCO,DC=COM'
+                $server                     =   "evapco.com"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     = "Group1"
-                $group2                     = "Location-Shop"
-                $group3                     = "Location Shop Distro"
+                $group1                     = "Antigena-Email-Include"
+                $group2                     = "Taneytown-Shop"
+                $group3                     = "Taneytown Shop Distro"
                 }
             "Office"{
-                $group1                     =   "Group1"
-                $group2                     =   "Location-Office"
-                $group3                     =   "Location Office Distro"
+                $group1                     =   "Antigena-Email-Include"
+                $group2                     =   "Taneytown-Office"
+                $group3                     =   "Taneytown Office Distro"
             }
         }
     }
-    "unique-Office-Location-1"{
+    "EVAPCO West"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "PhoneNumber2"
-        $upnSuffix                          =   "uniqueParentCompanywest.com"
+        [string] $officePhone               =   "15596732207"
+        $upnSuffix                          =   "evapcowest.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 }
             Default {
-                $hybridWorkerGroup          =   "Azure-DC01"
-                $hybridWorkerCred           =   "Credential"
+                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
+                $hybridWorkerCred           =   "Testing-TT-Credential"
                 $defaultOU                  =   $null
-                $server                     =   "uniqueParentCompanyWest.com"
+                $server                     =   "EVAPCOWest.com"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     =   "Antigena-uniqueParentCompanyWest"
-                $group2                     =   "unique-Office-Location-1 - General"
-                $group3                     =   "unique-Office-Location-1 Distro"
+                $group1                     =   "Antigena-EvapcoWest"
+                $group2                     =   "Evapco West - General"
+                $group3                     =   "Evapco West Distro"
             }
             "Office"{
-                $group1                     =   "Antigena-uniqueParentCompanyWest"
-                $group2                     =   "unique-Office-Location-1 - General"
-                $group3                     =   "unique-Office-Location-1 Distro"
+                $group1                     =   "Antigena-EvapcoWest"
+                $group2                     =   "Evapco West - General"
+                $group3                     =   "Evapco West Distro"
             }
         }
     }
-    "unique-Office-Location-2"{
+    "EVAPCO Midwest"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "phoneNumber3"
-        $upnSuffix                          =   "uniqueParentCompanymw.com"
+        [string] $officePhone               =   "12179233431"
+        $upnSuffix                          =   "evapcomw.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 }
             Default {
-                $hybridWorkerGroup          =   "Azure-DC01"
-                $hybridWorkerCred           =   "Credential"
-                $defaultOU                  =   'OU=New Users,OU=End Users,OU=AD-Midwest,DC=Location3,DC=uniqueParentCompany,DC=com'
-                $server                     =   "uniqueParentCompanyMW.COM"
+                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
+                $hybridWorkerCred           =   "Testing-TT-Credential"
+                $defaultOU                  =   'OU=New Users,OU=End Users,OU=AD-Midwest,DC=greenup,DC=evapco,DC=com'
+                $server                     =   "EVAPCOMW.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     =   "Antigena-uniqueParentCompanyMW"
-                $group2                     =   "Location3"
-                $group3                     =   "unique-Office-Location-2 Distro"
+                $group1                     =   "Antigena-EvapcoMW"
+                $group2                     =   "Greenup"
+                $group3                     =   "Evapco Midwest Distro"
             }
             "Office"{
-                $group1                     =   "Antigena-uniqueParentCompanyMW"
-                $group2                     =   "Location3"
-                $group3                     =   "unique-Office-Location-2 Distro"
+                $group1                     =   "Antigena-EvapcoMW"
+                $group2                     =   "Greenup"
+                $group3                     =   "Evapco Midwest Distro"
             }
         }
     }
-    "unique-Office-Location-3"{
+    "EVAPCO Iowa"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "PhoneNumber4"
-        $upnSuffix                          =   "uniqueParentCompanyia.com"
+        [string] $officePhone               =   "17126573223"
+        $upnSuffix                          =   "evapcoia.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup          =   $null
@@ -462,55 +455,55 @@ switch ($locationHired) {
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 $defaultOU                  =   $null
-                $server                     =   "uniqueParentCompanyIA.COM"
+                $server                     =   "EVAPCOIA.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     =   "Group4"
+                $group1                     =   "Antigena-IA"
                 $group2                     =   "Iowa"
-                $group3                     =   "unique-Office-Location-3 Distro"
+                $group3                     =   "Evapco Iowa Distro"
                 }
             "Office"{
-                $group1                     =   "Group4"
+                $group1                     =   "Antigena-IA"
                 $group2                     =   "Iowa"
-                $group3                     =   "unique-Office-Location-3 Distro"
+                $group3                     =   "Evapco Iowa Distro"
             }
         }
     }
-    "unique-Company-Name-20"{
+    "Refrigeration Vessels & Systems Corporation"{
         $usageLoc                           =   "US"
-        [string] $officePhone               =   "PhoneNumber5"
-        $upnSuffix                          =   "anonSubsidiary-1corp.com"
+        [string] $officePhone               =   "19797780095"
+        $upnSuffix                          =   "rvscorp.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 }
             Default {
-                $hybridWorkerGroup          =   "Azure-DC01"
-                $hybridWorkerCred           =   "Credential"
-                $defaultOU                  =   'OU=New User Default - Synching,OU=anonSubsidiary-1,DC=anonSubsidiary-1CORP,DC=LOCAL'
-                $server                     =   "anonSubsidiary-1Corp.com"
+                $hybridWorkerGroup          =   "US-AZ-VS-DC01"
+                $hybridWorkerCred           =   "Testing-TT-Credential"
+                $defaultOU                  =   'OU=New User Default - Synching,OU=RVS,DC=RVSCORP,DC=LOCAL'
+                $server                     =   "RVSCorp.com"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                     =   "Antigena-anonSubsidiary-1"
-                $group2                     =   "anonSubsidiary-1"
-                $group3                     =   "anonSubsidiary-1 Shop Staff"
+                $group1                     =   "Antigena-RVS"
+                $group2                     =   "RVS"
+                $group3                     =   "RVS Shop Staff"
                 }
             "Office"{
-                $group1                     =   "Antigena-anonSubsidiary-1"
-                $group2                     =   "anonSubsidiary-1"
-                $group3                     =   "anonSubsidiary-1 Office Staff"
+                $group1                     =   "Antigena-RVS"
+                $group2                     =   "RVS"
+                $group3                     =   "RVS Office Staff"
             }
         }
     }
-    "unique-Company-Name-7"{
+    "EVAPCO Europe BVBA"{
         $usageLoc                           =   "BE"
-        [string] $officePhone               =   "PhoneNumber6"
-        $upnSuffix                          =   "uniqueParentCompany.be"
+        [string] $officePhone               =   "3212395029"
+        $upnSuffix                          =   "evapco.be"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup          =   $null
@@ -520,7 +513,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 $defaultOU                  =   $null
-                $server                     =   "uniqueParentCompany.BE"
+                $server                     =   "EVAPCO.BE"
             }
         }
         switch ($workLocation) {
@@ -536,10 +529,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Office-Location-6"{
+    "EVAPCO (Milano) Europe, S.r.l."{
         $usageLoc                           =   "IT"
-        [string] $officePhone               =   "PhoneNumber7"
-        $upnSuffix                          =   "uniqueParentCompany.it"
+        [string] $officePhone               =   "39029399041"
+        $upnSuffix                          =   "evapco.it"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup          =   $null
@@ -549,7 +542,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup          =   $null
                 $hybridWorkerCred           =   $null
                 $defaultOU                  =   $null
-                $server                     =   "uniqueParentCompany.IT"
+                $server                     =   "EVAPCO.IT"
             }
         }
         switch ($workLocation) {
@@ -565,10 +558,10 @@ switch ($locationHired) {
             }
         }
     }
-    "uniqueParentCompany (Sondrio) Europe, S.rl.l."{
+    "EVAPCO (Sondrio) Europe, S.r.l."{
         $usageLoc                            =   "IT"
-        [string] $officePhone                =   "PhoneNumber7"
-        $upnSuffix                           =   "uniqueParentCompany.it"
+        [string] $officePhone                =   "39029399041"
+        $upnSuffix                           =   "evapco.it"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup           =   $null
@@ -578,7 +571,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup           =   $null
                 $hybridWorkerCred            =   $null
                 $defaultOU                   =   $null
-                $server                      =   "uniqueParentCompany.IT"
+                $server                      =   "EVAPCO.IT"
             }
         }
         switch ($workLocation) {
@@ -594,10 +587,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Office-Location-8"{
+    "EVAPCO (Beijing) Refrigeration Equipment Co., Ltd."{
         $usageLoc                            =  "CN"
-        [string] $officePhone                =  "PhoneNumber8"
-        $upnSuffix                           =  "uniqueParentCompanychina.com"
+        [string] $officePhone                =  "861000000000"
+        $upnSuffix                           =  "evapcochina.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup           =  $null
@@ -607,7 +600,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup           =  $null
                 $hybridWorkerCred            =  $null
                 $defaultOU                   =  $null
-                $server                      =  "uniqueParentCompanyCHINA.COM"
+                $server                      =  "EVAPCOCHINA.COM"
             }
         }
         switch ($workLocation) {
@@ -623,10 +616,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Office-Location-9"{
+    "EVAPCO (Shanghai) Refrigeration Equipment Co., Ltd."{
         $usageLoc                             = "CN"
-        [string] $officePhone                 = "PhoneNumber8"
-        $upnSuffix                            = "uniqueParentCompanychina.com"
+        [string] $officePhone                 = "861000000000"
+        $upnSuffix                            = "evapcochina.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup            = $null
@@ -636,7 +629,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup            = $null
                 $hybridWorkerCred             = $null
                 $defaultOU                    = $null
-                $server                      =  "uniqueParentCompanyCHINA.COM"
+                $server                      =  "EVAPCOCHINA.COM"
             }
         }
         switch ($workLocation) {
@@ -652,10 +645,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Company-Name-3"{
+    "EVAPCO Australia (Pty.) Ltd."{
         $usageLoc                             =   "AU"
-        [string] $officePhone                 =   "PhoneNumber8"
-        $upnSuffix                            =   "uniqueParentCompany.com.au"
+        [string] $officePhone                 =   "861000000000"
+        $upnSuffix                            =   "evapco.com.au"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup            =   $null
@@ -665,7 +658,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup            =   $null
                 $hybridWorkerCred             =   $null
                 $defaultOU                    =   $null
-                $server                       =   "uniqueParentCompany.COM.AU"
+                $server                       =   "EVAPCO.COM.AU"
             }
         }
         switch ($workLocation) {
@@ -681,39 +674,39 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Company-Name-18"{
+    "EvapTech, Inc."{
         $usageLoc                              =  "US"
-        [string] $officePhone                  =  "PhoneNumber9"
-        $upnSuffix                             =  "anonSubsidiary-1.com"
+        [string] $officePhone                  =  "19133225165"
+        $upnSuffix                             =  "evaptech.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup             =  $null
                 $hybridWorkerCred              =  $null
                 }
             Default {
-                $hybridWorkerGroup             =  "Azure-DC01"
-                $hybridWorkerCred              =  "Credential"
-                $defaultOU                     =  'OU=New User Default - Synching,OU=Users,OU=anonSubsidiary-1,DC=anonSubsidiary-1inc,DC=lan'
-                $server                        =  "anonSubsidiary-1.COM"
+                $hybridWorkerGroup             =  "US-KS-HW"
+                $hybridWorkerCred              =  "EvapTech-Hybrid-Worker"
+                $defaultOU                     =  'OU=New User Default - Synching,OU=Users,OU=Evaptech,DC=evaptechinc,DC=lan'
+                $server                        =  "EVAPTECHINC.LAN"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                        =  "{anonSubsidiary-1 Direct Benefit Employees}"
-                $group2                        =  "{anonSubsidiary-1 KS Office}"
-                $group3                        =  "{anonSubsidiary-1 Staff}"
+                $group1                        =  "{Evaptech Direct Benefit Employees}"
+                $group2                        =  "{Evaptech KS Office}"
+                $group3                        =  "{Evaptech Staff}"
                 }
             "Office"{
-                $group1                        =  "{anonSubsidiary-1 Direct Benefit Employees}"
-                $group2                        =  "{anonSubsidiary-1 KS Office}"
-                $group3                        =  "{anonSubsidiary-1 Staff}"
+                $group1                        =  "{Evaptech Direct Benefit Employees}"
+                $group2                        =  "{Evaptech KS Office}"
+                $group3                        =  "{Evaptech Staff}"
             }
         }
     }
-    "unique-Company-Name-5"{
+    "EVAPCO Dry Cooling, Inc."{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "PhoneNumber10"
-        $upnSuffix                              =  "uniqueParentCompanydc.com"
+        [string] $officePhone                   =  "19083792665"
+        $upnSuffix                              =  "evapcodc.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -723,55 +716,55 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompanyDC.COM"
+                $server                         =  "EVAPCODC.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Antigena-uniqueParentCompanyDC"
-                $group2                         =  "uniqueParentCompany Dry Cooling"
-                $group3                         =  "uniqueParentCompany Dry Cooling Distro"
+                $group1                         =  "Antigena-EvapcoDC"
+                $group2                         =  "Evapco Dry Cooling"
+                $group3                         =  "Evapco Dry Cooling Distro"
                 }
             "Office"{
-                $group1                         =  "Antigena-uniqueParentCompanyDC"
-                $group2                         =  "uniqueParentCompany Dry Cooling"
-                $group3                         =  "uniqueParentCompany Dry Cooling Distro"
+                $group1                         =  "Antigena-EvapcoDC"
+                $group2                         =  "Evapco Dry Cooling"
+                $group3                         =  "Evapco Dry Cooling Distro"
             }
         }
     }
-    "unique-Company-Name-21"{
+    "Tower Components, Inc."{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "PhoneNumber11"
-        $upnSuffix                              =  "Domain.extension2"
+        [string] $officePhone                   =  "13368242102"
+        $upnSuffix                              =  "towercomponentsinc.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "Azure-DC01"
-                $hybridWorkerCred               =  "Credential"
-                $defaultOU                      =  OU4
-                $server                         =  "Domain.extension2"
+                $hybridWorkerGroup              =  "US-AZ-VS-DC01"
+                $hybridWorkerCred               =  "Testing-TT-Credential"
+                $defaultOU                      =  'OU=New User Default - Synching,OU=AAD Connect Sync OU,DC=TOWERCOMPONENTS,DC=local'
+                $server                         =  "TOWERCOMPONENTSINC.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Antigena-anonSubsidiary-1"
-                $group2                         =  "anonSubsidiary-1"
-                $group3                         =  "anonSubsidiary-1 Shop Distro"
+                $group1                         =  "Antigena-TCI"
+                $group2                         =  "TCI"
+                $group3                         =  "TCI Shop Distro"
                 }
             "Office"{
-                $group1                         =  "Antigena-anonSubsidiary-1"
-                $group2                         =  "anonSubsidiary-1"
-                $group3                         =  "anonSubsidiary-1 Office Distro"
+                $group1                         =  "Antigena-TCI"
+                $group2                         =  "TCI"
+                $group3                         =  "TCI Office Distro"
             }
         }
     }
-    "unique-Office-Location-27"{
+    "EVAPCO Newton"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "PhoneNumber12"
-        $upnSuffix                              =  "uniqueParentCompanymw.com"
+        [string] $officePhone                   =  "16187833433"
+        $upnSuffix                              =  "evapcomw.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -781,26 +774,26 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompanyMW.COM"
+                $server                         =  "EVAPCOMW.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Antigena-uniqueParentCompanyMW"
-                $group2                         =  "anonSubsidiary-1"
-                $group3                         =  "unique-Office-Location-2 Distro"
+                $group1                         =  "Antigena-EvapcoMW"
+                $group2                         =  "Newton"
+                $group3                         =  "Evapco Midwest Distro"
                 }
             "Office"{
-                $group1                         =  "Antigena-uniqueParentCompanyMW"
-                $group2                         =  "anonSubsidiary-1"
-                $group3                         =  "unique-Office-Location-2 Distro"
+                $group1                         =  "Antigena-EvapcoMW"
+                $group2                         =  "Newton"
+                $group3                         =  "Evapco Midwest Distro"
             }
         }
     }
-    "unique-Company-Name-6"{
+    "EVAPCO Europe A/S"{
         $usageLoc                               =  "DK"
-        [string] $officePhone                   =  "PhoneNumber13"
-        $upnSuffix                              =  "uniqueParentCompany.DK"
+        [string] $officePhone                   =  "14598244999"
+        $upnSuffix                              =  "EVAPCO.DK"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -810,7 +803,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompany.DK"
+                $server                         =  "EVAPCO.DK"
             }
         }
         switch ($workLocation) {
@@ -826,10 +819,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Company-Name-4"{
+    "EVAPCO Brasil"{
         $usageLoc                               =  "BR"
-        [string] $officePhone                   =  "PhoneNumber14"
-        $upnSuffix                              =  "uniqueParentCompany.COM.BR"
+        [string] $officePhone                   =  "1.55E+12"
+        $upnSuffix                              =  "EVAPCO.COM.BR"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -839,7 +832,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompany.COM.BR"
+                $server                         =  "EVAPCO.COM.BR"
             }
         }
         switch ($workLocation) {
@@ -855,10 +848,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Office-Location-16"{
+    "Fan TR"{
         $usageLoc                               =  "BR"
-        [string] $officePhone                   =  "PhoneNumber14"
-        $upnSuffix                              =  "anonSubsidiary-1.com"
+        [string] $officePhone                   =  "1.55E+12"
+        $upnSuffix                              =  "fantr.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -868,7 +861,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "anonSubsidiary-1.COM"
+                $server                         =  "FANTR.COM"
             }
         }
         switch ($workLocation) {
@@ -884,39 +877,39 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Company-Name-2"{
+    "EVAPCO Alcoil, Inc."{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "PhoneNumber15"
-        $upnSuffix                              =  "uniqueParentCompany-alcoil.com"
+        [string] $officePhone                   =  "17173477500"
+        $upnSuffix                              =  "evapco-alcoil.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "Azure-DC01"
-                $hybridWorkerCred               =  "Credential"
+                $hybridWorkerGroup              =  "US-AZ-VS-DC01"
+                $hybridWorkerCred               =  "Testing-TT-Credential"
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompany-ALCOIL.COM"
+                $server                         =  "EVAPCO-ALCOIL.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Group6"
-                $group2                         =  "uniqueParentCompany-Alcoil"
-                $group3                         =  "uniqueParentCompany Alcoil Shop Distro"
+                $group1                         =  "Antigena-Alcoil"
+                $group2                         =  "Evapco-Alcoil"
+                $group3                         =  "Evapco Alcoil Shop Distro"
                 }
             "Office"{
-                $group1                         =  "Group6"
-                $group2                         =  "uniqueParentCompany-Alcoil"
-                $group3                         =  "uniqueParentCompany Alcoil Office Distro"
+                $group1                         =  "Antigena-Alcoil"
+                $group2                         =  "Evapco-Alcoil"
+                $group3                         =  "Evapco Alcoil Office Distro"
             }
         }
     }
-    "unique-Office-Location-18"{
+    "EVAPCO Air Cooling Systems (Jiaxing) Co., Ltd."{
         $usageLoc                               =  "CN"
-        [string] $officePhone                   =  "PhoneNumber16"
-        $upnSuffix                              =  "uniqueParentCompanyacs.cn.com"
+        [string] $officePhone                   =  "8.66E+12"
+        $upnSuffix                              =  "evapcoacs.cn.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -926,7 +919,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompanyACS.CN"
+                $server                         =  "EVAPCOACS.CN"
             }
         }
         switch ($workLocation) {
@@ -942,10 +935,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Company-Name-10"{
+    "EVAPCO Iowa Sales & Engineering"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "PhoneNumber17"
-        $upnSuffix                              =  "uniqueParentCompanymn.com"
+        [string] $officePhone                   =  "15074468005"
+        $upnSuffix                              =  "evapcomn.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -955,26 +948,26 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompanyMN.COM"
+                $server                         =  "EVAPCOMN.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Group7"
-                $group2                         =  "uniqueParentCompany Minnesota Distro"
+                $group1                         =  "Antigena-MN"
+                $group2                         =  "Evapco Minnesota Distro"
                 $group3                         =  "Minnesota"
                 }
             "Office"{
-                $group1                         =  "Group7"
-                $group2                         =  "uniqueParentCompany Minnesota Distro"
+                $group1                         =  "Antigena-MN"
+                $group2                         =  "Evapco Minnesota Distro"
                 $group3                         =  "Minnesota"
             }
         }
     }
-    "unique-Company-Name-11"{
+    "EVAPCO LMP"{
         $usageLoc                               =  "CA"
-        [string] $officePhone                   =  "PhoneNumber18"
-        $upnSuffix                              =  "uniqueParentCompanylmp.ca"
+        [string] $officePhone                   =  "14506299864"
+        $upnSuffix                              =  "evapcolmp.ca"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -984,7 +977,7 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompanyLMP.CA"
+                $server                         =  "EVAPCOLMP.CA"
             }
         }
         switch ($workLocation) {
@@ -1000,10 +993,10 @@ switch ($locationHired) {
             }
         }
     }
-    "unique-Office-Location-21"{
+    "EVAPCO Select Tech"{
         $usageLoc                               =  "US"
-        [string] $officePhone                   =  "PhoneNumber19"
-        $upnSuffix                              =  "uniqueParentCompanyselect.com"
+        [string] $officePhone                   =  "18447859506"
+        $upnSuffix                              =  "evapcoselect.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -1013,26 +1006,26 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompanySELECT.COM"
+                $server                         =  "EVAPCOSELECT.COM"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "Antigena-uniqueParentCompanySelect"
-                $group2                         =  "uniqueParentCompany Select Distro"
+                $group1                         =  "Antigena-EvapcoSelect"
+                $group2                         =  "EVAPCO Select Distro"
                 $group3                         =  $null
                 }
             "Office"{
-                $group1                         =  "Antigena-uniqueParentCompanySelect"
-                $group2                         =  "uniqueParentCompany Select Distro"
+                $group1                         =  "Antigena-EvapcoSelect"
+                $group2                         =  "EVAPCO Select Distro"
                 $group3                         =  $null
             }
         }
     }
-    "unique-Company-Name-8"{
+    "EVAPCO Europe GmbH"{
         $usageLoc                               =  "DE"
-        [string] $officePhone                   =  "PhoneNumber20"
-        $upnSuffix                              =  "uniqueParentCompany.de"
+        [string] $officePhone                   =  "49215969560"
+        $upnSuffix                              =  "evapco.de"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
@@ -1042,75 +1035,75 @@ switch ($locationHired) {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 $defaultOU                      =  $null
-                $server                         =  "uniqueParentCompany.DE"
+                $server                         =  "EVAPCO.DE"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "unique-Company-Name-8 Distro"
+                $group1                         =  "EVAPCO Europe GmbH Distro"
                 $group2                         =  $null
                 $group3                         =  $null
                 }
             "Office"{
-                $group1                         =  "unique-Company-Name-8 Distro"
+                $group1                         =  "EVAPCO Europe GmbH Distro"
                 $group2                         =  $null
                 $group3                         =  $null
             }
         }
     }
-    "unique-Company-Name-17"{
+    "EvapTech Asia Pacific Sdn Bhd"{
         $usageLoc                               =  "MY"
-        [string] $officePhone                   =  "PhoneNumber21"
-        $upnSuffix                              =  "anonSubsidiary-1.com"
+        [string] $officePhone                   =  "60380707255"
+        $upnSuffix                              =  "evaptech.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "Azure-DC01"
-                $hybridWorkerCred               =  "Credential"
-                $defaultOU                      =  'OU=New User Default - Synching,OU=Users,OU=anonSubsidiary-1,DC=anonSubsidiary-1inc,DC=lan'
-                $server                         =  "anonSubsidiary-1.COM"
+                $hybridWorkerGroup              =  "US-KS-HW"
+                $hybridWorkerCred               =  "EvapTech-Hybrid-Worker"
+                $defaultOU                      =  'OU=New User Default - Synching,OU=Users,OU=Evaptech,DC=evaptechinc,DC=lan'
+                $server                         =  "EVAPTECHINC.LAN"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "{anonSubsidiary-1 Asia-Pacific}"
+                $group1                         =  "{Evaptech Asia-Pacific}"
                 $group2                         =  $null
                 $group3                         =  $null
                 }
             "Office"{
-                $group1                         =  "{anonSubsidiary-1 Asia-Pacific}"
+                $group1                         =  "{Evaptech Asia-Pacific}"
                 $group2                         =  $null
                 $group3                         =  $null
             }
         }
     }
-    "unique-Company-Name-16"{
+    "EvapTech (Shanghai) Cooling Tower Co., Ltd."{
         $usageLoc                               =  "CN"
-        [string] $officePhone                   =  "PhoneNumber22"
-        $upnSuffix                              =  "anonSubsidiary-1.com"
+        [string] $officePhone                   =  "8.62E+11"
+        $upnSuffix                              =  "evaptech.com"
         switch ($shopOrOffice) {
             "Shop" {
                 $hybridWorkerGroup              =  $null
                 $hybridWorkerCred               =  $null
                 }
             Default {
-                $hybridWorkerGroup              =  "Azure-DC01"
-                $hybridWorkerCred               =  "Credential"
-                $defaultOU                      =  'OU=New User Default - Synching,OU=Users,OU=anonSubsidiary-1,DC=anonSubsidiary-1inc,DC=lan'
-                $server                         =  "anonSubsidiary-1.COM"
+                $hybridWorkerGroup              =  "US-KS-HW"
+                $hybridWorkerCred               =  "EvapTech-Hybrid-Worker"
+                $defaultOU                      =  'OU=New User Default - Synching,OU=Users,OU=Evaptech,DC=evaptechinc,DC=lan'
+                $server                         =  "EVAPTECHINC.LAN"
             }
         }
         switch ($workLocation) {
             "Shop"{
-                $group1                         =  "{anonSubsidiary-1 Asia-Pacific}"
+                $group1                         =  "{Evaptech Asia-Pacific}"
                 $group2                         =  $null
                 $group3                         =  $null
                 }
             "Office"{
-                $group1                         =  "{anonSubsidiary-1 Asia-Pacific}"
+                $group1                         =  "{Evaptech Asia-Pacific}"
                 $group2                         =  $null
                 $group3                         =  $null
             }
@@ -1125,46 +1118,16 @@ switch ($locationHired) {
     UsageLocation: As Usage Location is used to identify where their data resides, we use this to set the user's Country Attributes across AD and EID
 #>
 switch ($usageLoc) {
-    "US"{
-        $countryString            =     "United States" 
-        $countryCode              =     840
-    }
-    "CA"{
-        $countryString            =     "Canada" 
-        $countryCode              =     124
-    }
-    "IT"{
-        $countryString            =     "Italy" 
-        $countryCode              =     380
-    }
-    "BR"{
-        $countryString            =     "Brazil" 
-        $countryCode              =     076
-    }
-    "DK"{
-        $countryString            =     "Denmark" 
-        $countryCode              =     208
-    }
-    "MY"{
-        $countryString            =     "Malaysia" 
-        $countryCode              =     458
-    }
-    "BE"{
-        $countryString            =     "Belgium" 
-        $countryCode              =     056
-    }
-    "CN"{
-        $countryString            =     "China" 
-        $countryCode              =     156
-    }
-    "AU"{
-        $countryString            =     "Australia" 
-        $countryCode              =     036
-    }
-    "DE"{
-        $countryString            =     "Germany" 
-        $countryCode              =     276
-    }
+    "US"{$countryString = "United States";  $countryCode = 840}
+    "CA"{$countryString = "Canada";         $countryCode = 124}
+    "IT"{$countryString = "Italy" ;         $countryCode = 380}
+    "BR"{$countryString = "Brazil";         $countryCode = 076}
+    "DK"{$countryString = "Denmark";        $countryCode = 208}
+    "MY"{$countryString = "Malaysia";       $countryCode = 458}
+    "BE"{$countryString = "Belgium";        $countryCode = 056}
+    "CN"{$countryString = "China";          $countryCode = 156}
+    "AU"{$countryString = "Australia";      $countryCode = 036}
+    "DE"{$countryString = "Germany";        $countryCode = 276}
     
     Default {
         $now = Get-Date -Format "HH:mm"
@@ -1281,7 +1244,10 @@ ForEach ($license in $licenses){
     if ($remlisc -le 0){ 
         $now = Get-Date -Format "HH:mm"
         Write-Output "[$now] $licStr Needs Purchased"
-        Set-LicenseNeedPurchased -Continue=$true -license $licStr
+        Set-PrivateErrorJira -jiraTicket $jiraTicket -privateErrorMessage "License $licStr needs to be purchased" -jiraHeader $jiraHeader
+        $publicErrorMEssage = "GIT Will Review and Remediate"
+        Set-PublicErrorJira -jiraTicket $jiraTicket -publicErrorMessage $publicErrorMEssage -jiraHeader $jiraHeader
+
     }
     Else{
         $newSKU = $sku.skuID
@@ -1322,7 +1288,7 @@ while ($noMailbox){
 #This is where the users get added to their Specific Groups
 #ID Security Group
 if ($Department -eq "Executive"){
-    $group4 = "Group9"
+    $group4 = "IDSecurity-Executive Leadership"
 }
 Elseif ($usageLoc -in "IT","BE","DE","DK","GB"){
 $null
@@ -1360,7 +1326,7 @@ ForEach ($group in $groups){
     }
 }
 #Adds the User to the MFA Enabled Group
-New-MgGroupMember -GroupId "Group10" -DirectoryObjectId $newUserID
+New-MgGroupMember -GroupId "276cd6bd-7e8f-483b-9e33-6b6e364bdd50" -DirectoryObjectId $newUserID
 
 #The following creates the user on their Local AD if they require a local AD account.
 if ($shopOrOffice -ne 'Shop'){
@@ -1372,25 +1338,26 @@ if ($shopOrOffice -ne 'Shop'){
         $createLADParameters.Add('TargetPath',$formattedOU)
         $createLADParameters.Add('Server',$server)
         $localADParameters                          =  [ordered]@{
-            "Key"                                   =  "$key";`
+            "jiraTicket"                            =  "$jiraTicket";`
             "destinationLADParameters"              =  $createLADParameters; `
             "destinationHybridWorkerCred"           =  "$hybridWorkerCred"; `
             "newUPN"                                =  "$generatedUPN"
+            "startDate"                             =   "$date"
         }
         $localADParameters
         $now                                        =  Get-Date -Format "HH:mm"
         Write-Output "[$now] | Executing: 'User-Transfer-5-Create-Local-From-Graph-72'"
-        start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $hybridWorkerGroup -Parameters $localADParameters -Wait
+        start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "EvapcoGIT" -RunOn $hybridWorkerGroup -Parameters $localADParameters -Wait
         $now                                        =  Get-Date -Format "HH:mm"
-        Write-Output "[$now] | Executing: 'Invoke-uniqueParentCompany-Sync'"
-        start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-uniqueParentCompany-Sync" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "Azure-DC01" -Wait
+        Write-Output "[$now] | Executing: 'Invoke-Evapco-Sync'"
+        start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-Evapco-Sync" -ResourceGroupName "EvapcoGIT" -RunOn "US-AZ-VS-DC01" -Wait
     }
     Else{
         $now                                        =  Get-Date -Format "HH:mm"
         $publicErrorMEssage                         = "[$now] | $locationHired is not configured for a Hybrid Worker Runbook.",`
                                                     " $displayName Local Account will need to be done manually" -join ""
         Write-output $publicErrorMEssage
-        #Set-PublicErrorJira -key $key -publicErrorMessage $publicErrorMEssage -jiraHeader $jiraHeader
+        Set-PrivateErrorJiraRunbook -jiraTicket $jiraTicket -privateErrorMessage $publicErrorMEssage -jiraHeader $jiraHeader -Continue:$true
     }
 }
 
@@ -1399,8 +1366,6 @@ to add the required users into whatever groups are required.
 #>
 If (($softwareNeeds -contains 'CoPilot') -or ($workLoc -eq "Shop")){
     $subTaskKey = ($form.fields.subtasks | Where-Object {($_.Fields -like "*CoPilot*")}).key
-
-
     $payload = @{
         "update" = @{
             "customfield_10718" = @(@{
@@ -1410,38 +1375,72 @@ If (($softwareNeeds -contains 'CoPilot') -or ($workLoc -eq "Shop")){
     }
 # Convert the payload to JSON
 $jsonPayload = $payload | ConvertTo-Json -Depth 10
-Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/2/issue/$($subTaskKey)" -Method Put -Body $jsonPayload -Headers $headers
+Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$($subTaskKey)" -Method Put -Body $jsonPayload -Headers $jiraHeader
+}
+
+<#For JetStream, as this is fully a manual process, a comment is made on a subtask for the JetStream Team
+to add the required users into whatever groups are required.
+#>
+If ($softwareNeeds -contains 'JetStream'){
+    $subTaskKey = ($form.fields.subtasks | Where-Object {($_.Fields -like "*JetStream*")}).key
+    $payload = @{
+        "update" = @{
+            "customfield_10718" = @(@{
+                "set" = "$emailAddr"
+            })
+        }
+    }
+# Convert the payload to JSON
+$jsonPayload = $payload | ConvertTo-Json -Depth 10
+Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$($subTaskKey)" -Method Put -Body $jsonPayload -Headers $jiraHeader
+}
+
+<#For Pilot, as this is fully a manual process, a comment is made on a subtask for the Pilot Team
+to add the required users into whatever groups are required.
+#>
+If (($pilotUsage -like "*Training*") -or ($pilotUsage -like "*Daily Work*")){
+    $subTaskKey = ($form.fields.subtasks | Where-Object {($_.Fields -like "@{summary=Pilot*")}).Key
+    $payload = @{
+        "update" = @{
+            "customfield_10718" = @(@{
+                "set" = "$emailAddr"
+            })
+        }
+    }
+# Convert the payload to JSON
+$jsonPayload = $payload | ConvertTo-Json -Depth 10
+Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$($subTaskKey)" -Method Put -Body $jsonPayload -Headers $jiraHeader
 }
 
 <#From the above, the user is created either on both Entra ID and Local AD, or just Entra ID
 We then evaluate their software needs. If a user has 'Sage' or 'Doclink' as required software
-we add their user account to two Active Directory Groups on unique-Office-Location-0's Domain, 'uniqueParentCompany.com'
+we add their user account to two Active Directory Groups on EVAPCO East's Domain, 'EVAPCO.com'
 Group 1:Citrix Cloud W11M Desktop Users
 Group 2: DocLink Users
 
-If a user is NOT an unique-Office-Location-0 Employee, with their primary account on said domain controller:
+If a user is NOT an Evapco East Employee, with their primary account on said domain controller:
 The most critical thing is that their primary UPN must be set as their email attribute.
 Name:               Primary Account Display Name
 Country:            US 
 DisplayName:        Primary Account Display Name
-UserPrincipalName:  The same as their standard UPN, except with @uniqueParentCompany.com instead of their specific domain suffix. 
+UserPrincipalName:  The same as their standard UPN, except with @evapco.com instead of their specific domain suffix. 
 OfficePhone:        14107562600
 Company:            Not Affiliated 
 Title:              DocLink User
 AccountPassword:    The same as their intial Standard User Account Password prior to reset. 
 Department:         Service Account
 GivenName:          GivenName
-Office:             unique-Office-Location-0
-Path:               "OU=CompuData - External Sage Users - Non-Synching,DC=uniqueParentCompany,DC=COM" `
+Office:             EVAPCO East
+Path:               "OU=CompuData - External Sage Users - Non-Synching,DC=EVAPCO,DC=COM" `
 Surname:            Surname
-Server:             uniqueParentCompany.COM
+Server:             EVAPCO.COM
 EmailAddress:       !!!Their Primary Email Address!!!
 #>
 If (($softwareNeeds -contains 'Sage') -or ($softwareNeeds -contains 'DocLink')){
     $now = Get-Date -Format "HH:mm"
     Write-Output "[$now] | $displayName requires CompuData Access"
-    $compuDataHybridWorkerGroup                 =  "Azure-DC01"
-    if($locationHired -eq 'unique-Office-Location-0'){
+    $compuDataHybridWorkerGroup                 =  "US-AZ-VS-DC01"
+    if($locationHired -eq 'EVAPCO East'){
         $existingCitrixUser                     =  $true
     }
     else{
@@ -1460,90 +1459,262 @@ If (($softwareNeeds -contains 'Sage') -or ($softwareNeeds -contains 'DocLink')){
         "lastName"                                  =  "$formattedSurName"
 
     }
-    start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-New-2-Citrix-Doclink-Sage" -ResourceGroupName "uniqueParentCompanyGIT" -RunOn "$compuDataHybridWorkerGroup" -Parameters $citrixADParameters -Wait
-    Set-SuccessfulCommentRunbook -successMessage "New User Has been Created! UPN: $generatedUPN Password: $pw  CompuData Account: " -jiraHeader $jiraHeader -key $Key
+    start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-New-2-Citrix-Doclink-Sage" -ResourceGroupName "EvapcoGIT" -RunOn "$compuDataHybridWorkerGroup" -Parameters $citrixADParameters -Wait
+    Set-SuccessfulCommentRunbook -successMessage "New User Has been Created! UPN: $generatedUPN Password: $pw  CompuData Account: " -jiraHeader $jiraHeader -jiraTicket $jiraTicket
 }
 else{
     $now = Get-Date -Format "HH:mm"
     Write-output "[$now] | Compudata and Citrix Not needed"
-    Set-SuccessfulCommentRunbook -successMessage "New User Has been Created! UPN: $generatedUPN Password: $pw " -key $key -jiraHeader $jiraHeader
+    Set-SuccessfulCommentRunbook -successMessage "New User Has been Created! UPN: $generatedUPN Password: $pw " -jiraTicket $jiraTicket -jiraHeader $jiraHeader
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# SIG # Begin signature block
+# MIIumQYJKoZIhvcNAQcCoIIuijCCLoYCAQExDzANBglghkgBZQMEAgEFADB5Bgor
+# BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
+# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCDLjxVY1cyQNrct
+# 4zYiWgG225i4BSMEmxNnZXUi6AncZ6CCFAUwggWQMIIDeKADAgECAhAFmxtXno4h
+# MuI5B72nd3VcMA0GCSqGSIb3DQEBDAUAMGIxCzAJBgNVBAYTAlVTMRUwEwYDVQQK
+# EwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xITAfBgNV
+# BAMTGERpZ2lDZXJ0IFRydXN0ZWQgUm9vdCBHNDAeFw0xMzA4MDExMjAwMDBaFw0z
+# ODAxMTUxMjAwMDBaMGIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJ
+# bmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xITAfBgNVBAMTGERpZ2lDZXJ0
+# IFRydXN0ZWQgUm9vdCBHNDCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIB
+# AL/mkHNo3rvkXUo8MCIwaTPswqclLskhPfKK2FnC4SmnPVirdprNrnsbhA3EMB/z
+# G6Q4FutWxpdtHauyefLKEdLkX9YFPFIPUh/GnhWlfr6fqVcWWVVyr2iTcMKyunWZ
+# anMylNEQRBAu34LzB4TmdDttceItDBvuINXJIB1jKS3O7F5OyJP4IWGbNOsFxl7s
+# Wxq868nPzaw0QF+xembud8hIqGZXV59UWI4MK7dPpzDZVu7Ke13jrclPXuU15zHL
+# 2pNe3I6PgNq2kZhAkHnDeMe2scS1ahg4AxCN2NQ3pC4FfYj1gj4QkXCrVYJBMtfb
+# BHMqbpEBfCFM1LyuGwN1XXhm2ToxRJozQL8I11pJpMLmqaBn3aQnvKFPObURWBf3
+# JFxGj2T3wWmIdph2PVldQnaHiZdpekjw4KISG2aadMreSx7nDmOu5tTvkpI6nj3c
+# AORFJYm2mkQZK37AlLTSYW3rM9nF30sEAMx9HJXDj/chsrIRt7t/8tWMcCxBYKqx
+# YxhElRp2Yn72gLD76GSmM9GJB+G9t+ZDpBi4pncB4Q+UDCEdslQpJYls5Q5SUUd0
+# viastkF13nqsX40/ybzTQRESW+UQUOsxxcpyFiIJ33xMdT9j7CFfxCBRa2+xq4aL
+# T8LWRV+dIPyhHsXAj6KxfgommfXkaS+YHS312amyHeUbAgMBAAGjQjBAMA8GA1Ud
+# EwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMB0GA1UdDgQWBBTs1+OC0nFdZEzf
+# Lmc/57qYrhwPTzANBgkqhkiG9w0BAQwFAAOCAgEAu2HZfalsvhfEkRvDoaIAjeNk
+# aA9Wz3eucPn9mkqZucl4XAwMX+TmFClWCzZJXURj4K2clhhmGyMNPXnpbWvWVPjS
+# PMFDQK4dUPVS/JA7u5iZaWvHwaeoaKQn3J35J64whbn2Z006Po9ZOSJTROvIXQPK
+# 7VB6fWIhCoDIc2bRoAVgX+iltKevqPdtNZx8WorWojiZ83iL9E3SIAveBO6Mm0eB
+# cg3AFDLvMFkuruBx8lbkapdvklBtlo1oepqyNhR6BvIkuQkRUNcIsbiJeoQjYUIp
+# 5aPNoiBB19GcZNnqJqGLFNdMGbJQQXE9P01wI4YMStyB0swylIQNCAmXHE/A7msg
+# dDDS4Dk0EIUhFQEI6FUy3nFJ2SgXUE3mvk3RdazQyvtBuEOlqtPDBURPLDab4vri
+# RbgjU2wGb2dVf0a1TD9uKFp5JtKkqGKX0h7i7UqLvBv9R0oN32dmfrJbQdA75PQ7
+# 9ARj6e/CVABRoIoqyc54zNXqhwQYs86vSYiv85KZtrPmYQ/ShQDnUBrkG5WdGaG5
+# nLGbsQAe79APT0JsyQq87kP6OnGlyE0mpTX9iV28hWIdMtKgK1TtmlfB2/oQzxm3
+# i0objwG2J5VT6LaJbVu8aNQj6ItRolb58KaAoNYes7wPD1N1KarqE3fk3oyBIa0H
+# EEcRrYc9B9F1vM/zZn4wggawMIIEmKADAgECAhAIrUCyYNKcTJ9ezam9k67ZMA0G
+# CSqGSIb3DQEBDAUAMGIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJ
+# bmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xITAfBgNVBAMTGERpZ2lDZXJ0
+# IFRydXN0ZWQgUm9vdCBHNDAeFw0yMTA0MjkwMDAwMDBaFw0zNjA0MjgyMzU5NTla
+# MGkxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjFBMD8GA1UE
+# AxM4RGlnaUNlcnQgVHJ1c3RlZCBHNCBDb2RlIFNpZ25pbmcgUlNBNDA5NiBTSEEz
+# ODQgMjAyMSBDQTEwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDVtC9C
+# 0CiteLdd1TlZG7GIQvUzjOs9gZdwxbvEhSYwn6SOaNhc9es0JAfhS0/TeEP0F9ce
+# 2vnS1WcaUk8OoVf8iJnBkcyBAz5NcCRks43iCH00fUyAVxJrQ5qZ8sU7H/Lvy0da
+# E6ZMswEgJfMQ04uy+wjwiuCdCcBlp/qYgEk1hz1RGeiQIXhFLqGfLOEYwhrMxe6T
+# SXBCMo/7xuoc82VokaJNTIIRSFJo3hC9FFdd6BgTZcV/sk+FLEikVoQ11vkunKoA
+# FdE3/hoGlMJ8yOobMubKwvSnowMOdKWvObarYBLj6Na59zHh3K3kGKDYwSNHR7Oh
+# D26jq22YBoMbt2pnLdK9RBqSEIGPsDsJ18ebMlrC/2pgVItJwZPt4bRc4G/rJvmM
+# 1bL5OBDm6s6R9b7T+2+TYTRcvJNFKIM2KmYoX7BzzosmJQayg9Rc9hUZTO1i4F4z
+# 8ujo7AqnsAMrkbI2eb73rQgedaZlzLvjSFDzd5Ea/ttQokbIYViY9XwCFjyDKK05
+# huzUtw1T0PhH5nUwjewwk3YUpltLXXRhTT8SkXbev1jLchApQfDVxW0mdmgRQRNY
+# mtwmKwH0iU1Z23jPgUo+QEdfyYFQc4UQIyFZYIpkVMHMIRroOBl8ZhzNeDhFMJlP
+# /2NPTLuqDQhTQXxYPUez+rbsjDIJAsxsPAxWEQIDAQABo4IBWTCCAVUwEgYDVR0T
+# AQH/BAgwBgEB/wIBADAdBgNVHQ4EFgQUaDfg67Y7+F8Rhvv+YXsIiGX0TkIwHwYD
+# VR0jBBgwFoAU7NfjgtJxXWRM3y5nP+e6mK4cD08wDgYDVR0PAQH/BAQDAgGGMBMG
+# A1UdJQQMMAoGCCsGAQUFBwMDMHcGCCsGAQUFBwEBBGswaTAkBggrBgEFBQcwAYYY
+# aHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEEGCCsGAQUFBzAChjVodHRwOi8vY2Fj
+# ZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRUcnVzdGVkUm9vdEc0LmNydDBDBgNV
+# HR8EPDA6MDigNqA0hjJodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRU
+# cnVzdGVkUm9vdEc0LmNybDAcBgNVHSAEFTATMAcGBWeBDAEDMAgGBmeBDAEEATAN
+# BgkqhkiG9w0BAQwFAAOCAgEAOiNEPY0Idu6PvDqZ01bgAhql+Eg08yy25nRm95Ry
+# sQDKr2wwJxMSnpBEn0v9nqN8JtU3vDpdSG2V1T9J9Ce7FoFFUP2cvbaF4HZ+N3HL
+# IvdaqpDP9ZNq4+sg0dVQeYiaiorBtr2hSBh+3NiAGhEZGM1hmYFW9snjdufE5Btf
+# Q/g+lP92OT2e1JnPSt0o618moZVYSNUa/tcnP/2Q0XaG3RywYFzzDaju4ImhvTnh
+# OE7abrs2nfvlIVNaw8rpavGiPttDuDPITzgUkpn13c5UbdldAhQfQDN8A+KVssIh
+# dXNSy0bYxDQcoqVLjc1vdjcshT8azibpGL6QB7BDf5WIIIJw8MzK7/0pNVwfiThV
+# 9zeKiwmhywvpMRr/LhlcOXHhvpynCgbWJme3kuZOX956rEnPLqR0kq3bPKSchh/j
+# wVYbKyP/j7XqiHtwa+aguv06P0WmxOgWkVKLQcBIhEuWTatEQOON8BUozu3xGFYH
+# Ki8QxAwIZDwzj64ojDzLj4gLDb879M4ee47vtevLt/B3E+bnKD+sEq6lLyJsQfmC
+# XBVmzGwOysWGw/YmMwwHS6DTBwJqakAwSEs0qFEgu60bhQjiWQ1tygVQK+pKHJ6l
+# /aCnHwZ05/LWUpD9r4VIIflXO7ScA+2GRfS0YW6/aOImYIbqyK+p/pQd52MbOoZW
+# eE4wgge5MIIFoaADAgECAhAOeHFNrWpQadD+X7fviblJMA0GCSqGSIb3DQEBCwUA
+# MGkxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjFBMD8GA1UE
+# AxM4RGlnaUNlcnQgVHJ1c3RlZCBHNCBDb2RlIFNpZ25pbmcgUlNBNDA5NiBTSEEz
+# ODQgMjAyMSBDQTEwHhcNMjQxMTEyMDAwMDAwWhcNMjUxMTEyMjM1OTU5WjCBwTET
+# MBEGCysGAQQBgjc8AgEDEwJVUzEZMBcGCysGAQQBgjc8AgECEwhNYXJ5bGFuZDEd
+# MBsGA1UEDwwUUHJpdmF0ZSBPcmdhbml6YXRpb24xEjAQBgNVBAUTCUQwMDY2ODUz
+# MzELMAkGA1UEBhMCVVMxETAPBgNVBAgTCE1hcnlsYW5kMRIwEAYDVQQHEwlUYW5l
+# eXRvd24xEzARBgNVBAoTCkV2YXBjbyBJbmMxEzARBgNVBAMTCkV2YXBjbyBJbmMw
+# ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC4VmB16u7QUgi83PhnLWjD
+# oSTpgThLIDktbX4jcd5iGW2EIcARhLhX7iUEamx07U9bQgFAElu145EAozu/h/Ed
+# KmK6ij2NWOeiv7le/1LlElR+5A5zxYETPArZvETgBa0aORcVZ6MZogWcoSCUH9uo
+# 64yLR7rCUAFYjLwfWfnMrjFclOhmzHhQdkrhz527pJbOIPjJFNITmM6RhYzTq02L
+# 0fPq7oIkL5eXgkFljr90IUDj5mL5aqRgTUzMEfTWBJYeBkA+lS6xaPyPhFtQazxi
+# Rel1K+kyD+1ohzgUOWXIO3RiQKCgWeuVJZMQrS1+ODcFba/hepMT8MKDNGwXeSc5
+# RHNJ2mCkdbP3CfIO7BhKJC+4p7L6a1+YsRR/c3CEcFH++NsOKdcmFbzpzpH3skNe
+# X+71Vn0VNXmgrSje/x26Wo+FKzra50FA57QXtBB3rz/0mtZaLWuqkoG/tSuBjNvV
+# J2yCAajIuiS5Nooik8+76Ajw4PQSkIe/s9xOzHc6gvxekQtLYV6fJQ/f15VuPSZ1
+# Gdo9310rzQWnB9xiZe2BR1ylzq/5/aM/1HmU+zXwyEFthy2wFkGXJK8u4JC7vmcH
+# Rp7pyhhwyWn56UHZANllz08OpeR13yvWQZeaJwp0TOLgHglth+XDuULMv8vkR98c
+# ge7YAkIOLVFeiLUKjYGT1wIDAQABo4ICAjCCAf4wHwYDVR0jBBgwFoAUaDfg67Y7
+# +F8Rhvv+YXsIiGX0TkIwHQYDVR0OBBYEFOdeboNElsywAuHpL+DqJa6ik83MMD0G
+# A1UdIAQ2MDQwMgYFZ4EMAQMwKTAnBggrBgEFBQcCARYbaHR0cDovL3d3dy5kaWdp
+# Y2VydC5jb20vQ1BTMA4GA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcD
+# AzCBtQYDVR0fBIGtMIGqMFOgUaBPhk1odHRwOi8vY3JsMy5kaWdpY2VydC5jb20v
+# RGlnaUNlcnRUcnVzdGVkRzRDb2RlU2lnbmluZ1JTQTQwOTZTSEEzODQyMDIxQ0Ex
+# LmNybDBToFGgT4ZNaHR0cDovL2NybDQuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1
+# c3RlZEc0Q29kZVNpZ25pbmdSU0E0MDk2U0hBMzg0MjAyMUNBMS5jcmwwgZQGCCsG
+# AQUFBwEBBIGHMIGEMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5j
+# b20wXAYIKwYBBQUHMAKGUGh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdp
+# Q2VydFRydXN0ZWRHNENvZGVTaWduaW5nUlNBNDA5NlNIQTM4NDIwMjFDQTEuY3J0
+# MAkGA1UdEwQCMAAwDQYJKoZIhvcNAQELBQADggIBAM8Sju/eIoI6/OS+2VcTmBjQ
+# CJsjEtyjxGAWS7OQm1XuJqOyR4XZIFbi9UE5A0zDAuH4pwD8fYpEfn3terhffRHz
+# /HA/cMSu92C4OJAf/AUO20BMo7fRnWh1F+wTUv+K1bCWHZS245m03NE+UqlvTNu8
+# LzvvXBTtEckQdB2XlY39MdWDYxJFINL6bQT7vtGdBvZqDGAeyTaVlvSxHkvDVDtQ
+# r2K1y3aaZyz91Ek+eTyeCxb0dUkEsntT066cqd1DuvDg5o6qsCJXS/CEfV5u27py
+# 5XV3GMeRSw9iAK8eujrfCoztRUia+ZLZoZ/5isqRmokeynNi+KY/VSe2jMIqoJ3J
+# yNsEZFJAPF0M6hDcAjzETOSA1ZcvR6npB1jaUDPWKIld7s8gpWV/8jM+61Kh3Sj0
+# I1O2JZCxpLegx1dDSCkmUufK6Io3FH1zjQtddQnlAFwW+3IPfyoP0YKlIyenlF0h
+# fuBxOlaJ8LZ7VLFcNWzGjhOdwOV/t+JnxVJPFx1RXR3Q8NmmMe08afq22TLpkXQL
+# KwXuKtSi3h1cmOFPtnEqABB5VLUPYZlINCgNFWSY+gKCULWJKkQhpVN5r1yO3LbT
+# tDRvoQRwPoNs9CkNVl9HQ+Qv6sbpqAqLfGEeN+SEv7lo9lUsUKxAaw1yaVBHIISI
+# anBZbb3T3Kf7DmGQDth6MYIZ6jCCGeYCAQEwfTBpMQswCQYDVQQGEwJVUzEXMBUG
+# A1UEChMORGlnaUNlcnQsIEluYy4xQTA/BgNVBAMTOERpZ2lDZXJ0IFRydXN0ZWQg
+# RzQgQ29kZSBTaWduaW5nIFJTQTQwOTYgU0hBMzg0IDIwMjEgQ0ExAhAOeHFNrWpQ
+# adD+X7fviblJMA0GCWCGSAFlAwQCAQUAoIGEMBgGCisGAQQBgjcCAQwxCjAIoAKA
+# AKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEO
+# MAwGCisGAQQBgjcCARUwLwYJKoZIhvcNAQkEMSIEILMQZa7dK0bhweUPsT7hix8I
+# iBQFcXW42z5IIChpc/BWMA0GCSqGSIb3DQEBAQUABIICAE/0q4ozILIkUdVgOJ/d
+# Ehpm9MpfnS7oTdFXN1aQ0WksGffB2z/SGaM5pGaonZkqZsG/3P6QtDNaJFXhVOML
+# V8906PGouhU2YQ1fP4OdsYKpA3I10viSDAHNy6gGippfN3n2vzp+z7aOKiYU6CkF
+# sGzTsP23M3QczLcC37rDn9UVoTG7eTJEu3VOHpEo/iu55AYyflMXKs9qhtsHS1TY
+# 4FIhWVs8Wb5PqbBep9dlG2RXOj7cXhVn8sEizgQZCXq8Gl034oc8oe0vArtz98Ll
+# mURqif727Kp5oLPuIpDJUcS/aTZDOstjKzzY81slkRGoUXjvD1I27XbRSOlOr0bV
+# PXe7RmXRzNLpmdeam4Ropw0tGBcxZor9L6Wzkhs1c94h9A6Yc/bsyfBvR/7i9rs+
+# FeexYirPdqvwTX6dkWgjBWIChJvFPwWAdjh7On/ZT4vw0DWMVZ1bNFnnZwpthVIf
+# Wd7hCHSl4rJAy52Sszrmk2lSOW3RoS+/ih3nq4FNexBy+hH6J6ij54gRxByGsrZJ
+# UYirdWoffQGJ3Mwqb7KParQvsteBvsAyzItMINENIFQDeFiPpt7PZlsxj2r7CjwY
+# qCfwoSZR+b4OI2rZmBa9lt4q26xFbj1t+dj+uCyCqHX5oXuRBWP6Xi6xrcuvTrP+
+# T2VxTqsIEZTrIEhNXKBbgpLQoYIWtzCCFrMGCisGAQQBgjcDAwExghajMIIWnwYJ
+# KoZIhvcNAQcCoIIWkDCCFowCAQMxDTALBglghkgBZQMEAgEwgdwGCyqGSIb3DQEJ
+# EAEEoIHMBIHJMIHGAgEBBgkrBgEEAaAyAgMwMTANBglghkgBZQMEAgEFAAQgJBwa
+# bYyf6n9FazX4y9cMOUBM8r90RnhBJFCjygO6G7MCFFu1LMucG4mBYHWGQwr8rgSr
+# EvbKGA8yMDI1MDYxMjE0MTg1OFowAwIBAaBXpFUwUzELMAkGA1UEBhMCQkUxGTAX
+# BgNVBAoMEEdsb2JhbFNpZ24gbnYtc2ExKTAnBgNVBAMMIEdsb2JhbHNpZ24gVFNB
+# IGZvciBBZHZhbmNlZCAtIEc0oIISSjCCBmIwggRKoAMCAQICEAEDMuFlv5t4Q+CZ
+# dZRjdwswDQYJKoZIhvcNAQEMBQAwWzELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEds
+# b2JhbFNpZ24gbnYtc2ExMTAvBgNVBAMTKEdsb2JhbFNpZ24gVGltZXN0YW1waW5n
+# IENBIC0gU0hBMzg0IC0gRzQwHhcNMjUwNDExMTQ0NzAxWhcNMzQxMjEwMDAwMDAw
+# WjBTMQswCQYDVQQGEwJCRTEZMBcGA1UECgwQR2xvYmFsU2lnbiBudi1zYTEpMCcG
+# A1UEAwwgR2xvYmFsc2lnbiBUU0EgZm9yIEFkdmFuY2VkIC0gRzQwggGiMA0GCSqG
+# SIb3DQEBAQUAA4IBjwAwggGKAoIBgQC+JXo5QxiuddbVs6HIm9Ymnp6AFjdZrvTn
+# J4O4KsPMxDqvLLcu68jav8MFr3ls1zYS2rYzXjENJ/PhPQOBG7M77kRoJp4z5Mj1
+# JiUv4JDZA0f0JmVdQcS8rAkBIT3sGSBGL0AfbGW91TNlveIgpETFWnAjLUSqtkbK
+# gHnqPL47bMhpuDIKV0jiCQRzOq+BcygWcvkbE7c49EY4N+npJSP57DC2giCg/hO3
+# YApe+2L4b4W8fBs3r3ZP72NR/BEAlwWWuiTbX0eg2iw8LIfIMU3MyObEXSN8pmKT
+# aL/MplcAc7p9yluDLJNATCJ9uX3Mb2+dNYSCHyqZ1wGRCs2j0Bgw8ZZMezzXVM18
+# PnhenlcyWHk6C0Vzmpjh2K0l/vjC9Ajrz6trIPxnl5Ry9XjG/1IYyilNK8bYoNbI
+# wzB7MBqEGEn0tszc1tTaHh0RQoEvzrCelYFi3JcxSBaRk8wK2YipbvGWm2/lyDvJ
+# QD8fXUFP+gAtDE6VcRvVSawwkMtKGE8CAwEAAaOCAagwggGkMA4GA1UdDwEB/wQE
+# AwIHgDAWBgNVHSUBAf8EDDAKBggrBgEFBQcDCDAdBgNVHQ4EFgQU2Te2M0VujzUH
+# zvepswr9oKnI+YIwVgYDVR0gBE8wTTAIBgZngQwBBAIwQQYJKwYBBAGgMgEeMDQw
+# MgYIKwYBBQUHAgEWJmh0dHBzOi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRv
+# cnkvMAwGA1UdEwEB/wQCMAAwgZAGCCsGAQUFBwEBBIGDMIGAMDkGCCsGAQUFBzAB
+# hi1odHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9jYS9nc3RzYWNhc2hhMzg0ZzQw
+# QwYIKwYBBQUHMAKGN2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0
+# L2dzdHNhY2FzaGEzODRnNC5jcnQwHwYDVR0jBBgwFoAU6hbGaefjy1dFOTOk8EC+
+# 0MO9ZZYwQQYDVR0fBDowODA2oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNv
+# bS9jYS9nc3RzYWNhc2hhMzg0ZzQuY3JsMA0GCSqGSIb3DQEBDAUAA4ICAQBmH88E
+# YcQnDDBjnRcpWHsx9D3GkugAavxN8Xn4ZyxS8YdPVDHm9oBP1zw7gQ2jkdQKy3pa
+# bMFSC0L5KQbMM34XmmdI/8PnI6vxNNyJ+xw/PBfVkZ+9jcaJEgVTDnaRBqslnWcn
+# iHL9Q29hKa5m9ryMIrjDXrOf368ag0X9sO9uFF9Oy7pi2FUTQ7R+HSJe6pasn3fn
+# J93urP7ljSRjshdGJPVN8Oom5AFZqPVtiakjEcnEPHAu7LxP5LqtxoM7HEjmaKs5
+# 9zCmpDSw41abvc+xod+ka7pQq6lRXb2QwIISzxYlxsVXPuycrJVahcm2wjpM1LzB
+# NPG73ccEYyDAwYD0kkBq4RrCkRnc5/TD91SfUKRwrgK9vb95+LRknaOzedxzPtFg
+# WIJnrIisxmo8u/f+KUTn5GpkEMzPonq4LYGtHDWqvYSvJ6W6woQdDUgPqgaU8YIH
+# 9JnM5VL3mRfiBeiFuPjScQW9v6VBX8n0qoNz0fhtw/oE0pAIP3XEtA5OX9CY6tLq
+# pE4wOMNC96neBY2TXdLDbQEwiCFk+xTep7DEjQbVkj115kd1PfAHxtP+de/0gcYg
+# oALzlsdIZg0wnaVCX0d72pNjsQZWUUMX7nQIPNBsvFydseV5W03AWsgB4Q9o7Zvd
+# RXRIJRRcUjNOZkvwCXgxMNvS1WU5UbBgTGMekDCCBlkwggRBoAMCAQICDQHsHJJA
+# 3v0uQF18R3QwDQYJKoZIhvcNAQEMBQAwTDEgMB4GA1UECxMXR2xvYmFsU2lnbiBS
+# b290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
+# bFNpZ24wHhcNMTgwNjIwMDAwMDAwWhcNMzQxMjEwMDAwMDAwWjBbMQswCQYDVQQG
+# EwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTExMC8GA1UEAxMoR2xvYmFs
+# U2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBTSEEzODQgLSBHNDCCAiIwDQYJKoZIhvcN
+# AQEBBQADggIPADCCAgoCggIBAPAC4jAj+uAb4Zp0s691g1+pR1LHYTpjfDkjeW10
+# /DHkdBIZlvrOJ2JbrgeKJ+5Xo8Q17bM0x6zDDOuAZm3RKErBLLu5cPJyroz3mVpd
+# dq6/RKh8QSSOj7rFT/82QaunLf14TkOI/pMZF9nuMc+8ijtuasSI8O6X9tzzGKBL
+# mRwOh6cm4YjJoOWZ4p70nEw/XVvstu/SZc9FC1Q9sVRTB4uZbrhUmYqoMZI78np9
+# /A5Y34Fq4bBsHmWCKtQhx5T+QpY78Quxf39GmA6HPXpl69FWqS69+1g9tYX6U5lN
+# W3TtckuiDYI3GQzQq+pawe8P1Zm5P/RPNfGcD9M3E1LZJTTtlu/4Z+oIvo9Jev+Q
+# sdT3KRXX+Q1d1odDHnTEcCi0gHu9Kpu7hOEOrG8NubX2bVb+ih0JPiQOZybH/LIN
+# oJSwspTMe+Zn/qZYstTYQRLBVf1ukcW7sUwIS57UQgZvGxjVNupkrs799QXm4mbQ
+# DgUhrLERBiMZ5PsFNETqCK6dSWcRi4LlrVqGp2b9MwMB3pkl+XFu6ZxdAkxgPM8C
+# jwH9cu6S8acS3kISTeypJuV3AqwOVwwJ0WGeJoj8yLJN22TwRZ+6wT9Uo9h2ApVs
+# ao3KIlz2DATjKfpLsBzTN3SE2R1mqzRzjx59fF6W1j0ZsJfqjFCRba9Xhn4QNx1r
+# GhTfAgMBAAGjggEpMIIBJTAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB
+# /wIBADAdBgNVHQ4EFgQU6hbGaefjy1dFOTOk8EC+0MO9ZZYwHwYDVR0jBBgwFoAU
+# rmwFo5MT4qLn4tcc1sfwf8hnU6AwPgYIKwYBBQUHAQEEMjAwMC4GCCsGAQUFBzAB
+# hiJodHRwOi8vb2NzcDIuZ2xvYmFsc2lnbi5jb20vcm9vdHI2MDYGA1UdHwQvMC0w
+# K6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFsc2lnbi5jb20vcm9vdC1yNi5jcmwwRwYD
+# VR0gBEAwPjA8BgRVHSAAMDQwMgYIKwYBBQUHAgEWJmh0dHBzOi8vd3d3Lmdsb2Jh
+# bHNpZ24uY29tL3JlcG9zaXRvcnkvMA0GCSqGSIb3DQEBDAUAA4ICAQB/4ojZV2cr
+# Ql+BpwkLusS7KBhW1ky/2xsHcMb7CwmtADpgMx85xhZrGUBJJQge5Jv31qQNjx6W
+# 8oaiF95Bv0/hvKvN7sAjjMaF/ksVJPkYROwfwqSs0LLP7MJWZR29f/begsi3n2HT
+# tUZImJcCZ3oWlUrbYsbQswLMNEhFVd3s6UqfXhTtchBxdnDSD5bz6jdXlJEYr9yN
+# mTgZWMKpoX6ibhUm6rT5fyrn50hkaS/SmqFy9vckS3RafXKGNbMCVx+LnPy7rEze
+# +t5TTIP9ErG2SVVPdZ2sb0rILmq5yojDEjBOsghzn16h1pnO6X1LlizMFmsYzeRZ
+# N4YJLOJF1rLNboJ1pdqNHrdbL4guPX3x8pEwBZzOe3ygxayvUQbwEccdMMVRVmDo
+# fJU9IuPVCiRTJ5eA+kiJJyx54jzlmx7jqoSCiT7ASvUh/mIQ7R0w/PbM6kgnfIt1
+# Qn9ry/Ola5UfBFg0ContglDk0Xuoyea+SKorVdmNtyUgDhtRoNRjqoPqbHJhSsn6
+# Q8TGV8Wdtjywi7C5HDHvve8U2BRAbCAdwi3oC8aNbYy2ce1SIf4+9p+fORqurNIv
+# eiCx9KyqHeItFJ36lmodxjzK89kcv1NNpEdZfJXEQ0H5JeIsEH6B+Q2Up33ytQn1
+# 2GByQFCVINRDRL76oJXnIFm2eMakaqoimzCCBYMwggNroAMCAQICDkXmuwODM8OF
+# ZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsTF0dsb2JhbFNpZ24gUm9v
+# dCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpHbG9iYWxT
+# aWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMX
+# R2xvYmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzAR
+# BgNVBAMTCkdsb2JhbFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoIC
+# AQCVB+hzymb57BTKezz3DQjxtEULLIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2
+# idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDKRN5zlE7zp4l/T3hjCMgSUG1C
+# Zi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEGxb7ibTIGph75
+# ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
+# jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+
+# vFAEYzTfa5MYvms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrx
+# clZuLojFUUJEFZTuo8U4lptOTloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeE
+# CmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4LsgizYWYJarEGOmWWWcDwNf3J2iiN
+# GhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiDD9H/3zAR+YXPM0j1
+# ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPpDW+4
+# LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNV
+# HQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn
+# 4tcc1sfwf8hnU6AwHwYDVR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJ
+# KoZIhvcNAQEMBQADggIBAIMl7ejR/ZVSzZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlb
+# qDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSWtJVewHuOmXgWQxNWV7Oi
+# szu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x362AczdlQA
+# Iiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8a
+# HARcphXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADo
+# mK4OeDTDJfuvCp8ga907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXS
+# e7frgP4lN/4Cm2isQl3D7vXM3PBQddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKpp
+# Q++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/07kwIwdMjxC/hpbZmVq0mVcc
+# pMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yLSqGQdCWnsz5L
+# yCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
+# rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQ
+# MYIDSTCCA0UCAQEwbzBbMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2ln
+# biBudi1zYTExMC8GA1UEAxMoR2xvYmFsU2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBT
+# SEEzODQgLSBHNAIQAQMy4WW/m3hD4Jl1lGN3CzALBglghkgBZQMEAgGgggEtMBoG
+# CSqGSIb3DQEJAzENBgsqhkiG9w0BCRABBDArBgkqhkiG9w0BCTQxHjAcMAsGCWCG
+# SAFlAwQCAaENBgkqhkiG9w0BAQsFADAvBgkqhkiG9w0BCQQxIgQgKwXvZVIKg2Qa
+# ByysuwrqLfZOFtxrp7exqwFaWC+KZXEwgbAGCyqGSIb3DQEJEAIvMYGgMIGdMIGa
+# MIGXBCCRkkebYjW5dia/tgFteAiRg3ID2HORwGwbjj13/+LHNzBzMF+kXTBbMQsw
+# CQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTExMC8GA1UEAxMo
+# R2xvYmFsU2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBTSEEzODQgLSBHNAIQAQMy4WW/
+# m3hD4Jl1lGN3CzANBgkqhkiG9w0BAQsFAASCAYAPs47IorxbZWUqSy/HQk232kV4
+# v3onXMyQf5d/y4g8obkYlVrcaY5CYFw7H846u5HzyZyRYnv4mQz1z+gtrrWUnQA/
+# hTvt4sepd42MdHzE9uBKerPGJjCmIoeYJRSHP69yDskuBS4zBkeNbSM/VX0E1eE5
+# Rx5/KcDnv1noqY4Syp84UJxsXzBL60jjrueXkoywn7m9YiSmxewhpvSqnaxc7+BR
+# CRglZPLLhzPWOvWSkJxOSgfbFrJV7yIKJ6AyCP9fYhje71/QTcx3niyhHhCAYpVT
+# uEAH0LkXSA1haFmrdr7kmAHoxspeTANE8esFfkEF6qucgBc6q4PnDuXKiNyrXmys
+# LOEfyYBNa2Ydsr2VvgFmjdfZK5L52dVyMLsHCyhXzNtTQacqMEfzwNT4yj/n27eS
+# GtP4CyzFp9Sf4tJnBa15nxIOxwG2LRgiq52xT02f4Ybkhkr3Nc9a7NNgxtr3kbzd
+# LZAYkW/ftvtt+cNYslHTHSpJ9nCtgnzX6lJKGNc=
+# SIG # End signature block
