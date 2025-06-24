@@ -34,7 +34,8 @@ ForEach ($scheduledTask in $scheduledTasks)
     $Settings = New-ScheduledTaskSettingsSet -Compatibility Win8
     Register-ScheduledTask -TaskName $scheduledTask.TaskName -Trigger $Trigger -User $user -Action $Action -Settings $Settings -RunLevel Highest -Force
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

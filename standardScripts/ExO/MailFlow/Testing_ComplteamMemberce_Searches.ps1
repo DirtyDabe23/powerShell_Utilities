@@ -8,7 +8,8 @@ $startedSearch = $createdSearch | Start-ComplteamMemberceSearch
 $newComplteamMemberceSearches.Add($startedSearch)
 }
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

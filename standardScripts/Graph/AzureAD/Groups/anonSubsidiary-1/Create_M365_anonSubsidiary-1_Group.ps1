@@ -69,7 +69,8 @@ $groupDescrip = "unique-Company-Name-5 - AM Orders"
 $groupOwner = "$userName@uniqueParentCompany.com"
 
 New-DistributionGroup -DisplayName $groupName -PrimarySmtpAddress $emailAddr -Description $groupDescrip -Name $groupName -ManagedBy $groupOwner -MemberJoinRestriction Closed -MemberDepartRestriction Closed 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

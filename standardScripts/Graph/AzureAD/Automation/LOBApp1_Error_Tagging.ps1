@@ -31,7 +31,7 @@ $devErrors = Import-CSV -Path "ScriptConfigs:\DevErrors.CSV"
 try {
     # Read from Azure Key Vault using managed identity
     $connection = Connect-AzAccount -Identity
-    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKeyKey" -AsPlainText
 }
 catch {
     $errorMessage = $_
@@ -85,7 +85,8 @@ Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/ap
 
 #End / Cleanup
 Remove-PSDrive -Name "ScriptConfigs"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

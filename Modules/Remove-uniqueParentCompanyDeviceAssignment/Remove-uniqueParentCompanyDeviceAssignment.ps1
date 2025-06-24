@@ -51,7 +51,8 @@ function Remove-uniqueParentCompanyDeviceAssignment{
         Write-Output "$UserPrincipalName has no devices assigned!"
     }
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -64,7 +64,8 @@ ForEach ($group in $groupData)
 }
 
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

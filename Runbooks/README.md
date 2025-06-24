@@ -1,11 +1,11 @@
-# EVAPCO Automation Runbooks
+# parentCompany Automation Runbooks
 
 This directory contains automated workflows and runbooks for complex IT processes. These runbooks combine multiple operations into streamlined workflows for common administrative tasks.
 
 ## Quick Start
 
 ### Prerequisites
-- EVAPCO PowerShell modules installed
+- parentCompany PowerShell modules installed
 - Appropriate system permissions
 - Network connectivity to target systems
 - **Always backup data before running runbooks**
@@ -46,7 +46,7 @@ cd .\User-New-1-Orca\
 - **M365_Update_Device_Attributes** - Update Microsoft 365 device attributes
 
 #### Data Synchronization
-- **Invoke-Evapco-Sync** - Comprehensive data synchronization between systems
+- **Invoke-parentCompany-Sync** - Comprehensive data synchronization between systems
 
 #### Device Management
 - **device42-Update-endUsers** - Update end user information in Device42
@@ -58,7 +58,7 @@ cd .\User-New-1-Orca\
 - **jira-userAudit-Invalid-Office** - Audit users with invalid office assignments
 
 #### Process Automation
-- **Jira_Add_Affected_EVAPCO_Locations** - Add affected locations to Jira tickets
+- **Jira_Add_Affected_parentCompany_Locations** - Add affected locations to Jira tickets
 - **Jira_Connection_Update_Orders_With_Shipment_Info** - Update orders with shipment information
 - **Jira_External_Company_Users_Create** - Create external company user accounts
 - **Jira_External_Company_Users_Invite** - Send invitations to external users
@@ -70,7 +70,7 @@ cd .\User-New-1-Orca\
 - **ExO-Set-mailboxRegion** - Set mailbox regions in Exchange Online
 
 ### Monitoring & Maintenance
-- **Spectrum_Error_Tagging** - Tag errors in Spectrum monitoring system
+- **LOBApp1_Error_Tagging** - Tag errors in LOBApp1 monitoring system
 
 ### Testing & Development
 - **Test-HybridWorker-Runbook-51** - Test hybrid worker functionality (Server 51)
@@ -111,7 +111,7 @@ cd .\M365_Update_Device_Attributes\
 .\UpdateDeviceAttributes.ps1
 
 # Synchronize systems
-cd ..\Invoke-Evapco-Sync\
+cd ..\Invoke-parentCompany-Sync\
 .\StartSync.ps1
 ```
 
@@ -151,7 +151,8 @@ Check logs in each runbook's `Logs\` directory for detailed execution informatio
 For runbook-specific assistance:
 - Review runbook-specific README.md files
 - Check execution logs
-- Contact: GIT-HelpDesk@EVAPCO.com
+- Contact: GIT-HelpDesk@Domain.extension1
 
 ---
 **Last Updated**: June 2025
+

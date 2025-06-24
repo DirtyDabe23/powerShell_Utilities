@@ -1,4 +1,4 @@
-# EVAPCO Standard Scripts
+# parentCompany Standard Scripts
 
 This directory contains PowerShell scripts organized by technology and service type. These scripts provide focused functionality for specific systems and applications.
 
@@ -53,8 +53,8 @@ DocLink document management system scripts
 - User access management
 - System configuration
 
-### **Evapco\**
-EVAPCO-specific business logic scripts
+### **parentCompany\**
+parentCompany-specific business logic scripts
 - Custom business processes
 - Internal system integrations
 - Company-specific workflows
@@ -170,10 +170,10 @@ VMware infrastructure management
 ```powershell
 cd .\Graph\
 # Get user information
-.\Get-GraphUser.ps1 -UserPrincipalName "user@evapco.com"
+.\Get-GraphUser.ps1 -UserPrincipalName "user@Domain.extension1"
 
 # Update user properties
-.\Set-GraphUserProperty.ps1 -UserPrincipalName "user@evapco.com" -Department "IT"
+.\Set-GraphUserProperty.ps1 -UserPrincipalName "user@Domain.extension1" -Department "IT"
 ```
 
 ### Exchange Online Tasks
@@ -183,7 +183,7 @@ cd .\ExO\
 .\New-SharedMailbox.ps1 -Name "IT-Support" -Alias "itsupport"
 
 # Set mailbox permissions
-.\Set-MailboxPermission.ps1 -Mailbox "shared@evapco.com" -User "admin@evapco.com"
+.\Set-MailboxPermission.ps1 -Mailbox "shared@Domain.extension1" -User "admin@Domain.extension1"
 ```
 
 ### Active Directory Management
@@ -269,7 +269,8 @@ For script-specific questions:
 - Review inline script documentation
 - Check script help: `Get-Help .\ScriptName.ps1 -Full`
 - Examine script comments and examples
-- Contact: GIT-HelpDesk@EVAPCO.com
+- Contact: GIT-HelpDesk@Domain.extension1
 
 ---
 **Last Updated**: June 2025
+

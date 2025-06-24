@@ -28,7 +28,8 @@ $permission = $graphServicePrincipal.AppRoles | Where-Object {($_.Value -eq $per
     }
 }
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

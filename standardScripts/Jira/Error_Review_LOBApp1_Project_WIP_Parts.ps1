@@ -49,7 +49,8 @@ $headers = @{
 $issuePages += Invoke-RestMethod -Method get -uri $uri -Headers $headers
 
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

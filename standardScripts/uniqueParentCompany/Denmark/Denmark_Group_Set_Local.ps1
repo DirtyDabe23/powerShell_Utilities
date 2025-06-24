@@ -72,7 +72,8 @@ ForEach ($group in $localgroups)
     Set-ADGroup -identity $group.localID -DisplayName $group.newGroupName 
 
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -24,7 +24,8 @@ Invoke-Command -Session $session -ScriptBlock {
         $Content = New-BTContent -Visual $Visual -Actions $action
         Submit-BTNotification -Content $Content
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -17,7 +17,8 @@ foreach ($user in $users) {
 # Disconnect from Azure AD
 Disconnect-AzureAD
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

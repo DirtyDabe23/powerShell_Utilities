@@ -22,7 +22,8 @@ If ($devices)
 Else{
     Write-Output "$userToRemove has no devices assigned!"
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

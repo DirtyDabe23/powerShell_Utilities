@@ -1,5 +1,5 @@
 ExtensionProperty              : {[odata.type, Microsoft.DirectoryServices.User], [createdDateTime, 2/22/2023 9:55:04 PM], [employeeId, ], [onPremisesDistinguishedName, CN=David 
-                                 Drosdick,OU=GIT Team,OU=Employees,DC=EVAPCO,DC=COM]...}
+                                 Drosdick,OU=GIT Team,OU=Employees,DC=parentCompany,DC=COM]...}
 DeletionTimestamp              : 
 ObjectId                       : bc8d1273-9884-4bbe-904d-e4a163d1bdca
 ObjectType                     : User
@@ -44,7 +44,7 @@ AssignedPlans                  : {class AssignedPlan {
                                  }
                                  ...}
 City                           : 
-CompanyName                    : EVAPCO, Inc
+CompanyName                    : parentCompany, Inc
 ConsentProvidedForMinor        : 
 Country                        : United States
 CreationType                   : 
@@ -58,14 +58,14 @@ ImmutableId                    : R3+J2M2F+UqsTVy9+hw1gg==
 JobTitle                       : GIT System Administrator
 LastDirSyncTime                : 5/10/2023 2:39:14 PM
 LegalAgeGroupClassification    : 
-Mail                           : David.Drosdick@evapco.com
+Mail                           : David.Drosdick@Domain.extension1
 MailNickName                   : David.Drosdick
 Mobile                         : 
 OnPremisesSecurityIdentifier   : S-1-5-21-1606498617-567609507-740312968-12303
 OtherMails                     : {}
 PasswordPolicies               : DisablePasswordExpiration
 PasswordProfile                : 
-PhysicalDeliveryOfficeName     : EVAPCO East
+PhysicalDeliveryOfficeName     : parentCompany East
 PostalCode                     : 
 PreferredLanguage              : 
 ProvisionedPlans               : {class ProvisionedPlan {
@@ -90,17 +90,17 @@ ProvisionedPlans               : {class ProvisionedPlan {
                                  }
                                  ...}
 ProvisioningErrors             : {}
-ProxyAddresses                 : {smtp:David.Drosdick@EvapcoInc.onmicrosoft.com, SMTP:David.Drosdick@evapco.com}
+ProxyAddresses                 : {smtp:David.Drosdick@parentCompanyInc.onmicrosoft.com, SMTP:David.Drosdick@Domain.extension1}
 RefreshTokensValidFromDateTime : 2/27/2023 1:22:59 PM
 ShowInAddressList              : 
 SignInNames                    : {}
-SipProxyAddress                : david.drosdick@evapco.com
+SipProxyAddress                : david.drosdick@Domain.extension1
 State                          : 
 StreetAddress                  : 
 Surname                        : Drosdick
 TelephoneNumber                : 4107562600
 UsageLocation                  : US
-UserPrincipalName              : david.drosdick@EVAPCO.COM
+UserPrincipalName              : david.drosdick@Domain.extension1
 UserState                      : 
 UserStateChangedOn             : 
 UserType                       : Member

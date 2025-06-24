@@ -254,7 +254,8 @@ $jsonPayload = @"
 "@
 
 Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/3/issue/$TicketNum/transitions" -Method Post -Body $jsonPayload -Headers $headers
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

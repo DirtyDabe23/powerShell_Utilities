@@ -10,7 +10,8 @@ $prodMSIPath = "C:\Temp\CoPilot_Production_$($prodXMLContent.node.mainpackage.ve
 invoke-webrequest -uri $prodDownloadURL -OutFile $prodMSIPath
 Add-AppxProvisionedPackage -Online -PackagePath $prodMSIPath -SkipLicense -Verbose
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

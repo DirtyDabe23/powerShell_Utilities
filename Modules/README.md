@@ -1,4 +1,4 @@
-# EVAPCO PowerShell Modules
+# parentCompany PowerShell Modules
 
 This directory contains ready-to-use PowerShell modules for common IT operations and management tasks.
 
@@ -6,8 +6,8 @@ This directory contains ready-to-use PowerShell modules for common IT operations
 
 ### Installation
 ```powershell
-# Navigate to the Install-EvapcoModule directory
-cd .\Install-EvapcoModule\
+# Navigate to the Install-parentCompanyModule directory
+cd .\Install-parentCompanyModule\
 # Run the installation script
 .\InstallModule.ps1
 ```
@@ -15,10 +15,10 @@ cd .\Install-EvapcoModule\
 ## Available Modules
 
 ### User Management
-- **Get-EvapcoUser** - Retrieve comprehensive user information from various systems
-- **Get-EvapcoUserDevices** - List all devices assigned to a specific user
-- **Rename-EvapcoUser** - Safely rename user accounts across systems
-- **Remove-EvapcoDeviceAssignment** - Remove device assignments from users
+- **Get-parentCompanyUser** - Retrieve comprehensive user information from various systems
+- **Get-parentCompanyUserDevices** - List all devices assigned to a specific user
+- **Rename-parentCompanyUser** - Safely rename user accounts across systems
+- **Remove-parentCompanyDeviceAssignment** - Remove device assignments from users
 - **Get-LicenseAssignedDate** - Check when licenses were assigned to users
 - **Get-LocationUserCount** - Get user counts by location
 
@@ -39,7 +39,7 @@ cd .\Install-EvapcoModule\
 - **Jira-Tickets** - Create, update, and modify Jira tickets
 
 ### Server & Network Tools
-- **Start-ConfigureEvapcoServer** - Automated server configuration and setup
+- **Start-ConfigureparentCompanyServer** - Automated server configuration and setup
 - **Start-ConfigureServerTLS** - Configure TLS settings on servers
 - **Start-FullNetTest** - Comprehensive network connectivity testing
 - **Start-BetterIISReset** - Enhanced IIS restart with logging
@@ -66,22 +66,22 @@ cd .\Install-EvapcoModule\
 
 ### Specialized Tools
 - **Get-CompliantDepartments** - Check departmental compliance status
-- **New-DeviceGroupPerEvapcoLocation** - Create device groups by location
+- **New-DeviceGroupPerparentCompanyLocation** - Create device groups by location
 - **Set-MgDeviceExtensionAttribute** - Modify device extension attributes
 - **Set-NewUserDataPath** - Configure data paths for new users
 - **Start-ReplaceNamesAndContent** - Bulk find and replace operations
-- **Start-SignEvapcoScript** - Digitally sign PowerShell scripts
-- **Invoke-EvapcoSync** - Synchronize data across systems
+- **Start-SignparentCompanyScript** - Digitally sign PowerShell scripts
+- **Invoke-parentCompanySync** - Synchronize data across systems
 
 ## Usage Examples
 
 ### Basic User Operations
 ```powershell
 # Get user information
-Get-EvapcoUser -UserName "john.doe"
+Get-parentCompanyUser -UserName "john.doe"
 
 # Check user's devices
-Get-EvapcoUserDevices -UserName "john.doe"
+Get-parentCompanyUserDevices -UserName "john.doe"
 
 # Get license assignment date
 Get-LicenseAssignedDate -UserName "john.doe"
@@ -123,7 +123,8 @@ Get-AssignedJiraIssues -UserName "john.doe"
 For module-specific questions or issues:
 - Review the inline help: `Get-Help <ModuleName> -Full`
 - Check module documentation in each subdirectory
-- Contact: GIT-HelpDesk@EVAPCO.com
+- Contact: GIT-HelpDesk@Domain.extension1
 
 ---
 **Last Updated**: June 2025
+

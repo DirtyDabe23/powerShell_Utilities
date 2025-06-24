@@ -64,7 +64,8 @@ foreach ($user in $userList) {
 # Convert and Output to CSV
 
 $userData | Export-Csv "C:\Temp\last_login.csv"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

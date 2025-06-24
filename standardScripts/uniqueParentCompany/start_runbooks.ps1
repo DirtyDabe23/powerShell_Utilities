@@ -10,7 +10,8 @@ $runbook = "User-Transfer-5-Create-Local-74"
 $runbook = "Test-MGGraph-72"
 start-azautomationRunbook -AutomationAccountName "AutomationAccount1" -Name $runbook -ResourceGroupName "uniqueParentCompanyGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters -verbose
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

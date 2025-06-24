@@ -1,411 +1,412 @@
 Enter the name of the attribute to check in local AD: Department
 Enter the name of corresponding attribute in AAD: Department
-USER:  aamoss@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC
-USER:  abarnett@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  abecker@EVAPCO.COM  does not exist in AzureAD
-USER:  abigail.jacoby@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  ablack@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  acollins@EVAPCO.COM  does not exist in AzureAD
-USER:  acope@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  adam.geimanadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  addison.hetrick@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  adubbs@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing HVAC
-USER:  ageiman@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  ahana.rahman@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  ahana.rahmanadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  aking@EVAPCO.COM  does not exist in AzureAD
-USER:  alex.copeadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  Alex.Eisold@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing HVAC
-USER:  Alexis.Jensen@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development-HVAC
-USER:  allison.roemer@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  amanjarrez@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  andrew.kollasch@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing  Refrigeration
-USER:  andy.gilfus@EVAPCO.COM  does not exist in AzureAD
-USER:  anowak@EVAPCO.COM  Updating Department from  R&D Lab  to  Research & Development
-USER:  anthony.cafiero@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  anthony.parrotta@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  aradford@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing  Refrigeration
-USER:  areilly@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development
-USER:  areineck@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
-USER:  asmith@EVAPCO.COM  Updating Department from  IR Engineering  to  Marketing  Refrigeration
-USER:  asulewski@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing  Refrigeration
-USER:  audrey.beckeradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  austin.storm@EVAPCO.COM  does not exist in AzureAD
-USER:  azoerner@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Production
-USER:  bbartley@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  bbiesecker@EVAPCO.COM  does not exist in AzureAD
-USER:  bbowman@EVAPCO.COM  Updating Department from  Purchasing  to  Materials
-USER:  bduttera@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  ben.herwig@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  ben.hildebrandt@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  ben.hildebrandtadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  benjamin.doll@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  bfox@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  bhowe@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing- Refrigeration
-USER:  bjones@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  blake.prescott@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Water Systems
-USER:  blivelsberger@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  bmayers@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  bobby.bowers@EVAPCO.COM  Updating Department from  Shop Office  to  Maintenance, Machinery & Equipment
-USER:  Bobby.Dimitri@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  Brach.Jaworski@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing  Refrigeration
-USER:  brad.shaw@EVAPCO.COM  does not exist in AzureAD
-USER:  braden.unger@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  bradley.murphy@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development
-USER:  brandon.ulsh@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  brian.hart@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  bruss@EVAPCO.COM  Updating Department from  IR Marketing  to  Product Development- Refrigeration
-USER:  bshindledecker@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  bweishaar@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  caitlin.bagot@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  carnold@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Cassidy.Jessen@EVAPCO.COM  Updating Department from  Customer Solutions  to  Traffic
-USER:  cavery@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  cfitzkee@EVAPCO.COM  Updating Department from  IR Engineering  to  Production
-USER:  cgnau@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing HVAC
-USER:  cgroves@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  chad.nagle@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  charles.lafountain@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  charles.lafountainadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  chartsock@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  chelsea.storm@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  ChemLab@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  chris.naylor@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  chris.nayloradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  cmccleaf@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  cnagle@EVAPCO.COM  Updating Department from  Water Treatment Systems Marketing  to  Water Systems
-USER:  cole.wetzel@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  cory.brubaker@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  cory.brubakeradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  cstaiger@EVAPCO.COM  Updating Department from  Purchasing  to  Materials
-USER:  cwagaman@EVAPCO.COM  Updating Department from  Purchasing  to  Materials
-USER:  cwolfgang@EVAPCO.COM  Updating Department from  Customer Solutions  to  Traffic
-USER:  Daniel.Harhangi@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  darren.marshall@EVAPCO.COM  does not exist in AzureAD
-USER:  datwood@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC 
-USER:  David.Carlyle@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- HVAC
-USER:  david.drosdick@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  david.escobar@EVAPCO.COM  Updating Department from  Customer Solutions  to  Finance
-USER:  david.gebhart@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  david.hannan@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  david.higgsadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  dcline@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing- Refrigeration
-USER:  ddusman@EVAPCO.COM  Updating Department from  Product Development HVAC  to  Product Development- HVAC
-USER:  Deborah.Miller@EVAPCO.COM  does not exist in AzureAD
-USER:  Devin.Barge@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  devin.cross@EVAPCO.COM  does not exist in AzureAD
-USER:  devin.crossadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  dgrose@EVAPCO.COM  Updating Department from  R&D Lab  to  Research & Development
-USER:  dhamilton@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  dhiggs@EVAPCO.COM  Updating Department from  Custom Engineering  to  Production
-USER:  dkardos@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  dmartin@EVAPCO.COM  Updating Department from  Manufacturing  to  Quality - Office
-USER:  drew.dusman@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  drew.dusmanadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  dsheppard@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  dsims@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  dsmartin@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development
-USER:  dustin.groseadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  dvargas@EVAPCO.COM  does not exist in AzureAD
-USER:  dweller@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing  Refrigeration
-USER:  dyingling@EVAPCO.COM  Updating Department from  Key Building Shop  to  Assembly
-USER:  eddie.saunders@EVAPCO.COM  does not exist in AzureAD
-USER:  elizabeth.weishaar@EVAPCO.COM  Updating Department from  Marketing Marketing Refrigeration  to  Marketing Refrigeration
-USER:  elizabeth.wierzbicky@EVAPCO.COM  Updating Department from  Shop Office  to  Quality Assurance (Shop)
-USER:  emily.redmond@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  emummert@EVAPCO.COM  does not exist in AzureAD
-USER:  Fmontenegro@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  frank.boyer@EVAPCO.COM  Updating Department from  Parts Department  to  Sheet Metal
-USER:  gday@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing- HVAC
-USER:  gderosier@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  gdorsch@EVAPCO.COM  does not exist in AzureAD
-USER:  george.zoerner@EVAPCO.COM  does not exist in AzureAD
-USER:  gergory.dorschadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  ggreen@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  gnettleton@EVAPCO.COM  does not exist in AzureAD
-USER:  grace.li@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC
-USER:  greg.rosieradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  gregory.beigel@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development Refrigeration
-USER:  grobertson@EVAPCO.COM  Updating Department from  Purchasing  to  Traffic
-USER:  gstruder@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  hcarbaugh@EVAPCO.COM  does not exist in AzureAD
-USER:  heather.pelletier@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  heather.plank@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  isaac.mazur@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing  Refrigeration
-USER:  jacob.huttel@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  jacob.hutteladmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jacob.langille@EVAPCO.COM  Updating Department from  Product Development- Refrigeration  to  Product Development - Refrigeration
-USER:  jake.denisonadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jake.myersadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jake.smith@EVAPCO.COM  Updating Department from  IR Marketing  to  Evapcold
-USER:  jakemyers@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  james.halpert@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  janet.caple@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Jarret.Lemmon@EVAPCO.COM  does not exist in AzureAD
-USER:  Jarrod.Stebick@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jason.sheareradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jbaker@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jblount@EVAPCO.COM  does not exist in AzureAD
-USER:  jboehner@EVAPCO.COM  does not exist in AzureAD
-USER:  jcalkins@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jdenison@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  jeff.chrest@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  jeff.chrestadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jeff.findley@EVAPCO.COM  Updating Department from  Manufacturing  to  Production
-USER:  jeff.gibsonadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jeff.kaneadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jeff.smith@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  jeffrey.grove@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jeffrey.niceadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  Jennifer.Forbes@EVAPCO.COM  Updating Department from  Finance  to  Accounting
-USER:  Jeremiah.Shearer@EVAPCO.COM  Updating Department from  Shop Office  to  Maintenance, Machinery & Equipment
-USER:  jeremy.mehring@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  jeremy.princeadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  jfacius@EVAPCO.COM  does not exist in AzureAD
-USER:  jfinch@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jfoerster@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jgibson@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  jgonnella@EVAPCO.COM  Updating Department from  Custom Engineering  to  High Side Custom Engineering
-USER:  jgraul@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  jhamilton@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Product Development- HVAC
-USER:  Jim.Britenbaugh@EVAPCO.COM  Updating Department from  Shop Office  to  Production
-USER:  jkane@EVAPCO.COM  Updating Department from  Manufacturing Development  to  Manufacturing Engineering
-USER:  jmarkle@EVAPCO.COM  Updating Department from  IR Engineering  to  Manufacturing Engineering
-USER:  jnesbitt@EVAPCO.COM  does not exist in AzureAD
-USER:  jnice@EVAPCO.COM  does not exist in AzureAD
-USER:  John.Rock@EVAPCO.COM  does not exist in AzureAD
-USER:  jordan.king@EVAPCO.COM  does not exist in AzureAD
-USER:  joseph.mandato@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  jpegg@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  jplank@EVAPCO.COM  Updating Department from  Parts Department  to  Shop Office
-USER:  jplibert@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development
-USER:  jpoczekaj@EVAPCO.COM  does not exist in AzureAD
-USER:  jprince@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  jproctor@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  jreed@EVAPCO.COM  does not exist in AzureAD
-USER:  jrosario@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jshearer@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  jslonaker@EVAPCO.COM  Updating Department from  Custom Engineering  to  Marketing  HVAC
-USER:  jstorm@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  jtatum@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing HVAC
-USER:  jtopper@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  justin.liller@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  justin.markleadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  justin.meckley@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  jyocum@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kbaker.admin@EVAPCO.COM  does not exist in AzureAD
-USER:  kbaker@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kbowman@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kdonohue@EVAPCO.COM  Updating Department from  Water Treatment Systems Marketing  to  Water Systems
-USER:  keith.thomas@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kellie.hicks@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  kelly.tausen@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kelsie.nye@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Kevin.Jordahl@EVAPCO.COM  Updating Department from  IR Marketing  to  Evapcold
-USER:  Kevin.Williams@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kevins.test@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Key.Kiosk@EVAPCO.COM  does not exist in AzureAD
-USER:  key-tubemill@EVAPCO.COM  does not exist in AzureAD
-USER:  kgreen@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  kholtzople@EVAPCO.COM  does not exist in AzureAD
-USER:  khutchinson@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kliebendorfer@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  kmullin@EVAPCO.COM  does not exist in AzureAD
-USER:  knye@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  kseymer@EVAPCO.COM  Updating Department from  R&D Lab  to  Research & Development
-USER:  kspeelman@EVAPCO.COM  Updating Department from  IR Marketing  to  Product Development- Refrigeration
-USER:  kswope@EVAPCO.COM  does not exist in AzureAD
-USER:  kweishaar@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  kwright@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  lab-a@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-b@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-c@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-d@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-e@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-f@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-g@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  lab-h@EVAPCO.COM  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
-USER:  ladams@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Lane.Nye@EVAPCO.COM  Updating Department from  R&D Lab  to  Marketing HVAC
-USER:  Larry.Airing@EVAPCO.COM  does not exist in AzureAD
-USER:  lauren.wilhide@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  lchilcote@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  lcooper@EVAPCO.COM  does not exist in AzureAD
-USER:  ldibari@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  lee.heider@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  lester.schue@EVAPCO.COM  does not exist in AzureAD
-USER:  lherwig@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Marketing HVAC
-USER:  liam.bates@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  lindsay.hall@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  lisa.wood@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  ljones@EVAPCO.COM  Updating Department from  Customer Solutions  to  Traffic
-USER:  llosego@EVAPCO.COM  Updating Department from  Customer Solutions  to  Finance
-USER:  lmiller@EVAPCO.COM  does not exist in AzureAD
-USER:  lprice@EVAPCO.COM  Updating Department from  Production  to  Quality - Office
-USER:  lsaldana@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  lsavage@EVAPCO.COM  does not exist in AzureAD
-USER:  lsutherland@EVAPCO.COM  Updating Department from  Purchasing  to  Materials
-USER:  Luke.Biesecker@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  lynda.bohager@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  maintenance-key@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  manderson@EVAPCO.COM  Updating Department from  Custom Engineering  to  Highside Custom Engineering
-USER:  maneng@EVAPCO.COM  does not exist in AzureAD
-USER:  maria.true@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  mark.ray@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  mark.rayadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  mark.zier@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  mark.zieradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  marrington@EVAPCO.COM  Updating Department from  Flat Welding Leader  to  Sub-Assembly and Support
-USER:  matt.glowackiadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  matt.ross@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  matt.rossadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  matt.sniezek@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  Matthew.Cool@EVAPCO.COM  does not exist in AzureAD
-USER:  mbassler@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  mchilcote@EVAPCO.COM  Updating Department from  R&D Lab  to  Research & Development
-USER:  mcline@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Megan.Alisauckas@EVAPCO.COM  Updating Department from  IR Marketing  to  Product Development - Refrigeration
-USER:  Megan.Cheng@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  mevans@EVAPCO.COM  does not exist in AzureAD
-USER:  mglowacki@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  mheflin@EVAPCO.COM  does not exist in AzureAD
-USER:  mhuber@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development
-USER:  michael.eline@EVAPCO.COM  Updating Department from  Product Development- Refrigeration  to  Product Development- HVAC
-USER:  michael.naugler@EVAPCO.COM  Updating Department from  Product Development- Refrigeration  to  Evapcold
-USER:  michelle.weller@EVAPCO.COM  Updating Department from  Accounting  to  Finance
-USER:  mike.hilker@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  mike.shubert@EVAPCO.COM  Updating Department from  Manufacturing  to  Safety - Office
-USER:  mindy.rang@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  minifill-lab@EVAPCO.COM  does not exist in AzureAD
-USER:  miranda.jacoby@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  mjohnson@EVAPCO.COM  does not exist in AzureAD
-USER:  mkalyani@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  mlippy@EVAPCO.COM  does not exist in AzureAD
-USER:  mphillips@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  mreed@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- HVAC
-USER:  mrohrbaugh@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- HVAC
-USER:  mshaffer@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Evapcold
-USER:  mshank@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  msmith@EVAPCO.COM  does not exist in AzureAD
-USER:  msnell@EVAPCO.COM  Updating Department from  Custom Engineering  to  High Side Custom Engineering
-USER:  mspangler@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  mstaub@EVAPCO.COM  Updating Department from  Custom Engineering  to  High Side Custom Engineering
-USER:  mvosburgh@EVAPCO.COM  Updating Department from  Shop Office  to  Quality Assurance (Shop)
-USER:  mweishaar@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  nathan.hostetleradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  nbassler@EVAPCO.COM  does not exist in AzureAD
-USER:  nhostetler@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Product Development- HVAC
-USER:  nicholas.jircitano@EVAPCO.COM  Updating Department from  IR Marketing  to  Product Development- Refrigeration
-USER:  nicholas.torres@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  Nick.DeMeester@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  nick.demeesteradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  noah.main@EVAPCO.COM  Updating Department from  IR Engineering  to  Marketing Refrigeration
-USER:  nperegoy@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  npeterson@EVAPCO.COM  does not exist in AzureAD
-USER:  Olga.Blevins@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  patrick.hrubes@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  patrick.hrubesadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  paul.wantz@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  pcarky@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing- HVAC
-USER:  pcollison@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing- HVAC
-USER:  pete.farley@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  phopwood@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  pjohnson@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
-USER:  prod_training@EVAPCO.COM  does not exist in AzureAD
-USER:  pstrine@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  raf.delausnayadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  randall.stephens@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development
-USER:  randy.bradleyadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  rbarnett@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing HVAC
-USER:  rbecker@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  rbradley@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  rdelausnay@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  rduvall@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  reckard@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  rfahringer@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  rfitzkee@EVAPCO.COM  Updating Department from  Manufacturing  to  Maintenance, Machinery & Equipment
-USER:  rhochreiter@EVAPCO.COM  does not exist in AzureAD
-USER:  richard.hill@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  richard.hochreiteradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  Richard.Simpson@EVAPCO.COM  does not exist in AzureAD
-USER:  ricky.franklin@EVAPCO.COM  does not exist in AzureAD
-USER:  rking@EVAPCO.COM  Updating Department from  R&D Lab  to  Research & Development
-USER:  rkuhn@EVAPCO.COM  Updating Department from  IR Marketing  to  Marketing Refrigeration
-USER:  rmullen@EVAPCO.COM  does not exist in AzureAD
-USER:  robert.fahringeradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  robert.kurtz@EVAPCO.COM  does not exist in AzureAD
-USER:  robert.selby@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  rodney.fitzkeeadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  rportney@EVAPCO.COM  Updating Department from  IR Marketing  to  Evapcold
-USER:  rshindledecker@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  rtyler@EVAPCO.COM  Updating Department from  IR Engineering  to  Marketing Refrigeration
-USER:  rwarfield@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  rwilhelm@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  Ryan.Arata@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  ryan.arrington@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Ryan.Leister@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  sarah.rill@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  sarah.twigg@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  sbaker@EVAPCO.COM  Updating Department from  R&D Lab  to  Marketing HVAC
-USER:  sbuckley@EVAPCO.COM  Updating Department from  Parts Department  to  Marketing- HVAC
-USER:  scolson@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  scott.barnett@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  sduke@EVAPCO.COM  does not exist in AzureAD
-USER:  sean.clark@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  sean.mihalik@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  sean.wilson@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  sengelhardt@EVAPCO.COM  Updating Department from  IR Marketing  to  Product Development- Refrigeration
-USER:  sgamarra@EVAPCO.COM  does not exist in AzureAD
-USER:  sgopalan@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  skahlert@EVAPCO.COM  Updating Department from  Manufacturing  to  Shop Office
-USER:  skelly@EVAPCO.COM  Updating Department from  Shop Office  to  Assembly
-USER:  smurray@EVAPCO.COM  does not exist in AzureAD
-USER:  snevins@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  srhoads@EVAPCO.COM  does not exist in AzureAD
-USER:  srice@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  sstoll@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  stacey.carter@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  stacey.carteradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  Stephanie.McConnell@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  steven.eltz@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  steven.halterman@EVAPCO.COM  Updating Department from  IR Marketing  to  Product Development- Refrigeration
-USER:  stockroom@EVAPCO.COM  does not exist in AzureAD
-USER:  Tara.Perry@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  tbitzel@EVAPCO.COM  does not exist in AzureAD
-USER:  tbritt@EVAPCO.COM  does not exist in AzureAD
-USER:  telder@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  tester@EVAPCO.COM  does not exist in AzureAD
-USER:  thegg@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  thumm@EVAPCO.COM  Updating Department from  R&D Lab  to  Research & Development
-USER:  Tiffany.Green@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  Timothy.Ditman@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  timothy.ditmanadmin@EVAPCO.COM  does not exist in AzureAD
-USER:  TLewis.Admin@EVAPCO.COM  does not exist in AzureAD
-USER:  tlewis@EVAPCO.COM  Updating Department from  HR  to  People Operations
-USER:  tmcglynn@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  tmeisinger@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  tmorgan@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development - Refrigeration
-USER:  tpaine@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  tpyles@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  treineck@EVAPCO.COM  Updating Department from  HVAC Marketing  to  Marketing HVAC
-USER:  trevor.simms@EVAPCO.COM  Updating Department from  IR Engineering  to  Product Development- Refrigeration
-USER:  trock@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  tromanoff@EVAPCO.COM  Updating Department from  Customer Solutions  to  Finance
-USER:  troy.weishaaradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  tshoff@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
-USER:  tspielman@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  tweishaar@EVAPCO.COM  Updating Department from  Manufacturing  to  Manufacturing Engineering
-USER:  Tyler.Bollinger@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  vince.zabbara@EVAPCO.COM  ATTRIBUTE: Department is blank in local AD
-USER:  wayne.sexton@EVAPCO.COM  Updating Department from  PD Power  to  Product Development
-USER:  wbradley@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  wcarr@EVAPCO.COM  does not exist in AzureAD
-USER:  william.carradmin@EVAPCO.COM  does not exist in AzureAD
-USER:  wnuckolls@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  wzfair@EVAPCO.COM  does not exist in AzureAD
-USER:  Yan.Peng@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development- HVAC
-USER:  yanique.santiago@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  yi.pang@EVAPCO.COM  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
-USER:  zachary.wienecke@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development
-USER:  zrussell@EVAPCO.COM  Updating Department from  HVAC Engineering  to  Product Development
+USER:  aamoss@Domain.extension1  Updating Department from  Department1  to  Marketing- HVAC
+USER:  abarnett@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  abecker@Domain.extension1  does not exist in AzureAD
+USER:  abigail.jacoby@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  ablack@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  acollins@Domain.extension1  does not exist in AzureAD
+USER:  acope@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  adam.geimanadmin@Domain.extension1  does not exist in AzureAD
+USER:  addison.hetrick@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  adubbs@Domain.extension1  Updating Department from  Parts Department  to  Marketing HVAC
+USER:  ageiman@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  ahana.rahman@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  ahana.rahmanadmin@Domain.extension1  does not exist in AzureAD
+USER:  aking@Domain.extension1  does not exist in AzureAD
+USER:  alex.copeadmin@Domain.extension1  does not exist in AzureAD
+USER:  Alex.Eisold@Domain.extension1  Updating Department from  Parts Department  to  Marketing HVAC
+USER:  Alexis.Jensen@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development-HVAC
+USER:  allison.roemer@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  amanjarrez@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  andrew.kollasch@Domain.extension1  Updating Department from  IR Marketing  to  Marketing  Refrigeration
+USER:  andy.gilfus@Domain.extension1  does not exist in AzureAD
+USER:  anowak@Domain.extension1  Updating Department from  R&D Lab  to  Research & Development
+USER:  anthony.cafiero@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  anthony.parrotta@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  aradford@Domain.extension1  Updating Department from  Department1  to  Marketing  Refrigeration
+USER:  areilly@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development
+USER:  areineck@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
+USER:  asmith@Domain.extension1  Updating Department from  IR Engineering  to  Marketing  Refrigeration
+USER:  asulewski@Domain.extension1  Updating Department from  IR Marketing  to  Marketing  Refrigeration
+USER:  audrey.beckeradmin@Domain.extension1  does not exist in AzureAD
+USER:  austin.storm@Domain.extension1  does not exist in AzureAD
+USER:  azoerner@Domain.extension1  Updating Department from  Department1  to  Production
+USER:  bbartley@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  bbiesecker@Domain.extension1  does not exist in AzureAD
+USER:  bbowman@Domain.extension1  Updating Department from  Purchasing  to  Materials
+USER:  bduttera@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  ben.herwig@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  ben.hildebrandt@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  ben.hildebrandtadmin@Domain.extension1  does not exist in AzureAD
+USER:  benjamin.doll@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  bfox@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  bhowe@Domain.extension1  Updating Department from  IR Marketing  to  Marketing- Refrigeration
+USER:  bjones@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  blake.prescott@Domain.extension1  Updating Department from  Department1  to  Water Systems
+USER:  blivelsberger@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  bmayers@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  bobby.bowers@Domain.extension1  Updating Department from  Shop Office  to  Maintenance, Machinery & Equipment
+USER:  Bobby.Dimitri@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  Brach.Jaworski@Domain.extension1  Updating Department from  IR Marketing  to  Marketing  Refrigeration
+USER:  brad.shaw@Domain.extension1  does not exist in AzureAD
+USER:  braden.unger@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  bradley.murphy@Domain.extension1  Updating Department from  IR Engineering  to  Product Development
+USER:  brandon.ulsh@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  brian.hart@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  bruss@Domain.extension1  Updating Department from  IR Marketing  to  Product Development- Refrigeration
+USER:  bshindledecker@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  bweishaar@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  caitlin.bagot@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  carnold@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Cassidy.Jessen@Domain.extension1  Updating Department from  Customer Solutions  to  Traffic
+USER:  cavery@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  cfitzkee@Domain.extension1  Updating Department from  IR Engineering  to  Production
+USER:  cgnau@Domain.extension1  Updating Department from  Parts Department  to  Marketing HVAC
+USER:  cgroves@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  chad.nagle@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  charles.lafountain@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  charles.lafountainadmin@Domain.extension1  does not exist in AzureAD
+USER:  chartsock@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  chelsea.storm@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  ChemLab@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  chris.naylor@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  chris.nayloradmin@Domain.extension1  does not exist in AzureAD
+USER:  cmccleaf@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  cnagle@Domain.extension1  Updating Department from  Water Treatment Systems Marketing  to  Water Systems
+USER:  cole.wetzel@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  cory.brubaker@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  cory.brubakeradmin@Domain.extension1  does not exist in AzureAD
+USER:  cstaiger@Domain.extension1  Updating Department from  Purchasing  to  Materials
+USER:  cwagaman@Domain.extension1  Updating Department from  Purchasing  to  Materials
+USER:  cwolfgang@Domain.extension1  Updating Department from  Customer Solutions  to  Traffic
+USER:  Daniel.Harhangi@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  darren.marshall@Domain.extension1  does not exist in AzureAD
+USER:  datwood@Domain.extension1  Updating Department from  Department1  to  Marketing- HVAC 
+USER:  David.Carlyle@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- HVAC
+USER:  david.drosdick@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  david.escobar@Domain.extension1  Updating Department from  Customer Solutions  to  Finance
+USER:  david.gebhart@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  david.hannan@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  david.higgsadmin@Domain.extension1  does not exist in AzureAD
+USER:  dcline@Domain.extension1  Updating Department from  Department1  to  Marketing- Refrigeration
+USER:  ddusman@Domain.extension1  Updating Department from  Product Development HVAC  to  Product Development- HVAC
+USER:  Deborah.Miller@Domain.extension1  does not exist in AzureAD
+USER:  Devin.Barge@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  devin.cross@Domain.extension1  does not exist in AzureAD
+USER:  devin.crossadmin@Domain.extension1  does not exist in AzureAD
+USER:  dgrose@Domain.extension1  Updating Department from  R&D Lab  to  Research & Development
+USER:  dhamilton@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  dhiggs@Domain.extension1  Updating Department from  Custom Engineering  to  Production
+USER:  dkardos@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  dmartin@Domain.extension1  Updating Department from  Manufacturing  to  Quality - Office
+USER:  drew.dusman@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  drew.dusmanadmin@Domain.extension1  does not exist in AzureAD
+USER:  dsheppard@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  dsims@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  dsmartin@Domain.extension1  Updating Department from  IR Engineering  to  Product Development
+USER:  dustin.groseadmin@Domain.extension1  does not exist in AzureAD
+USER:  dvargas@Domain.extension1  does not exist in AzureAD
+USER:  dweller@Domain.extension1  Updating Department from  IR Marketing  to  Marketing  Refrigeration
+USER:  dyingling@Domain.extension1  Updating Department from  Key Building Shop  to  Assembly
+USER:  eddie.saunders@Domain.extension1  does not exist in AzureAD
+USER:  elizabeth.weishaar@Domain.extension1  Updating Department from  Marketing Marketing Refrigeration  to  Marketing Refrigeration
+USER:  elizabeth.wierzbicky@Domain.extension1  Updating Department from  Shop Office  to  Quality Assurance (Shop)
+USER:  emily.redmond@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  emummert@Domain.extension1  does not exist in AzureAD
+USER:  Fmontenegro@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  frank.boyer@Domain.extension1  Updating Department from  Parts Department  to  Sheet Metal
+USER:  gday@Domain.extension1  Updating Department from  Parts Department  to  Marketing- HVAC
+USER:  gderosier@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  gdorsch@Domain.extension1  does not exist in AzureAD
+USER:  george.zoerner@Domain.extension1  does not exist in AzureAD
+USER:  gergory.dorschadmin@Domain.extension1  does not exist in AzureAD
+USER:  ggreen@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  gnettleton@Domain.extension1  does not exist in AzureAD
+USER:  grace.li@Domain.extension1  Updating Department from  Department1  to  Marketing- HVAC
+USER:  greg.rosieradmin@Domain.extension1  does not exist in AzureAD
+USER:  gregory.beigel@Domain.extension1  Updating Department from  IR Engineering  to  Product Development Refrigeration
+USER:  grobertson@Domain.extension1  Updating Department from  Purchasing  to  Traffic
+USER:  gstruder@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  hcarbaugh@Domain.extension1  does not exist in AzureAD
+USER:  heather.pelletier@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  heather.plank@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  isaac.mazur@Domain.extension1  Updating Department from  IR Marketing  to  Marketing  Refrigeration
+USER:  jacob.huttel@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  jacob.hutteladmin@Domain.extension1  does not exist in AzureAD
+USER:  jacob.langille@Domain.extension1  Updating Department from  Product Development- Refrigeration  to  Product Development - Refrigeration
+USER:  jake.denisonadmin@Domain.extension1  does not exist in AzureAD
+USER:  jake.myersadmin@Domain.extension1  does not exist in AzureAD
+USER:  jake.smith@Domain.extension1  Updating Department from  IR Marketing  to  parentCompanyld
+USER:  jakemyers@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  james.halpert@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  janet.caple@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Jarret.Lemmon@Domain.extension1  does not exist in AzureAD
+USER:  Jarrod.Stebick@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jason.sheareradmin@Domain.extension1  does not exist in AzureAD
+USER:  jbaker@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jblount@Domain.extension1  does not exist in AzureAD
+USER:  jboehner@Domain.extension1  does not exist in AzureAD
+USER:  jcalkins@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jdenison@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  jeff.chrest@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  jeff.chrestadmin@Domain.extension1  does not exist in AzureAD
+USER:  jeff.findley@Domain.extension1  Updating Department from  Manufacturing  to  Production
+USER:  jeff.gibsonadmin@Domain.extension1  does not exist in AzureAD
+USER:  jeff.kaneadmin@Domain.extension1  does not exist in AzureAD
+USER:  jeff.smith@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  jeffrey.grove@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jeffrey.niceadmin@Domain.extension1  does not exist in AzureAD
+USER:  Jennifer.Forbes@Domain.extension1  Updating Department from  Finance  to  Accounting
+USER:  Jeremiah.Shearer@Domain.extension1  Updating Department from  Shop Office  to  Maintenance, Machinery & Equipment
+USER:  jeremy.mehring@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  jeremy.princeadmin@Domain.extension1  does not exist in AzureAD
+USER:  jfacius@Domain.extension1  does not exist in AzureAD
+USER:  jfinch@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jfoerster@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jgibson@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  jgonnella@Domain.extension1  Updating Department from  Custom Engineering  to  High Side Custom Engineering
+USER:  jgraul@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  jhamilton@Domain.extension1  Updating Department from  Department1  to  Product Development- HVAC
+USER:  Jim.Britenbaugh@Domain.extension1  Updating Department from  Shop Office  to  Production
+USER:  jkane@Domain.extension1  Updating Department from  Manufacturing Development  to  Manufacturing Engineering
+USER:  jmarkle@Domain.extension1  Updating Department from  IR Engineering  to  Manufacturing Engineering
+USER:  jnesbitt@Domain.extension1  does not exist in AzureAD
+USER:  jnice@Domain.extension1  does not exist in AzureAD
+USER:  John.Rock@Domain.extension1  does not exist in AzureAD
+USER:  jordan.king@Domain.extension1  does not exist in AzureAD
+USER:  joseph.mandato@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  jpegg@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  jplank@Domain.extension1  Updating Department from  Parts Department  to  Shop Office
+USER:  jplibert@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development
+USER:  jpoczekaj@Domain.extension1  does not exist in AzureAD
+USER:  jprince@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  jproctor@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  jreed@Domain.extension1  does not exist in AzureAD
+USER:  jrosario@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jshearer@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  jslonaker@Domain.extension1  Updating Department from  Custom Engineering  to  Marketing  HVAC
+USER:  jstorm@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  jtatum@Domain.extension1  Updating Department from  Parts Department  to  Marketing HVAC
+USER:  jtopper@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  justin.liller@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  justin.markleadmin@Domain.extension1  does not exist in AzureAD
+USER:  justin.meckley@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  jyocum@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kbaker.admin@Domain.extension1  does not exist in AzureAD
+USER:  kbaker@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kbowman@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kdonohue@Domain.extension1  Updating Department from  Water Treatment Systems Marketing  to  Water Systems
+USER:  keith.thomas@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kellie.hicks@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  kelly.tausen@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kelsie.nye@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Kevin.Jordahl@Domain.extension1  Updating Department from  IR Marketing  to  parentCompanyld
+USER:  Kevin.Williams@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kevins.test@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Key.Kiosk@Domain.extension1  does not exist in AzureAD
+USER:  key-tubemill@Domain.extension1  does not exist in AzureAD
+USER:  kgreen@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  kholtzople@Domain.extension1  does not exist in AzureAD
+USER:  khutchinson@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kliebendorfer@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  kmullin@Domain.extension1  does not exist in AzureAD
+USER:  knye@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  kseymer@Domain.extension1  Updating Department from  R&D Lab  to  Research & Development
+USER:  kspeelman@Domain.extension1  Updating Department from  IR Marketing  to  Product Development- Refrigeration
+USER:  kswope@Domain.extension1  does not exist in AzureAD
+USER:  kweishaar@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  kwright@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  lab-a@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-b@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-c@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-d@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-e@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-f@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-g@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  lab-h@Domain.extension1  ATTRIBUTE: Department is blank in AzureAD, no edits will be performed
+USER:  ladams@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Lane.Nye@Domain.extension1  Updating Department from  R&D Lab  to  Marketing HVAC
+USER:  Larry.Airing@Domain.extension1  does not exist in AzureAD
+USER:  lauren.wilhide@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  lchilcote@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  lcooper@Domain.extension1  does not exist in AzureAD
+USER:  ldibari@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  lee.heider@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  lester.schue@Domain.extension1  does not exist in AzureAD
+USER:  lherwig@Domain.extension1  Updating Department from  HVAC Engineering  to  Marketing HVAC
+USER:  liam.bates@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  lindsay.hall@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  lisa.wood@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  ljones@Domain.extension1  Updating Department from  Customer Solutions  to  Traffic
+USER:  llosego@Domain.extension1  Updating Department from  Customer Solutions  to  Finance
+USER:  lmiller@Domain.extension1  does not exist in AzureAD
+USER:  lprice@Domain.extension1  Updating Department from  Production  to  Quality - Office
+USER:  lsaldana@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  lsavage@Domain.extension1  does not exist in AzureAD
+USER:  lsutherland@Domain.extension1  Updating Department from  Purchasing  to  Materials
+USER:  Luke.Biesecker@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  lynda.bohager@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  maintenance-key@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  manderson@Domain.extension1  Updating Department from  Custom Engineering  to  Highside Custom Engineering
+USER:  maneng@Domain.extension1  does not exist in AzureAD
+USER:  maria.true@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  mark.ray@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  mark.rayadmin@Domain.extension1  does not exist in AzureAD
+USER:  mark.zier@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  mark.zieradmin@Domain.extension1  does not exist in AzureAD
+USER:  marrington@Domain.extension1  Updating Department from  Flat Welding Leader  to  Sub-Assembly and Support
+USER:  matt.glowackiadmin@Domain.extension1  does not exist in AzureAD
+USER:  matt.ross@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  matt.rossadmin@Domain.extension1  does not exist in AzureAD
+USER:  matt.sniezek@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  Matthew.Cool@Domain.extension1  does not exist in AzureAD
+USER:  mbassler@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  mchilcote@Domain.extension1  Updating Department from  R&D Lab  to  Research & Development
+USER:  mcline@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Megan.Alisauckas@Domain.extension1  Updating Department from  IR Marketing  to  Product Development - Refrigeration
+USER:  Megan.Cheng@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  mevans@Domain.extension1  does not exist in AzureAD
+USER:  mglowacki@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  mheflin@Domain.extension1  does not exist in AzureAD
+USER:  mhuber@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development
+USER:  michael.eline@Domain.extension1  Updating Department from  Product Development- Refrigeration  to  Product Development- HVAC
+USER:  michael.naugler@Domain.extension1  Updating Department from  Product Development- Refrigeration  to  parentCompanyld
+USER:  michelle.weller@Domain.extension1  Updating Department from  Accounting  to  Finance
+USER:  mike.hilker@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  mike.shubert@Domain.extension1  Updating Department from  Manufacturing  to  Safety - Office
+USER:  mindy.rang@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  minifill-lab@Domain.extension1  does not exist in AzureAD
+USER:  miranda.jacoby@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  mjohnson@Domain.extension1  does not exist in AzureAD
+USER:  mkalyani@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  mlippy@Domain.extension1  does not exist in AzureAD
+USER:  mphillips@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  mreed@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- HVAC
+USER:  mrohrbaugh@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- HVAC
+USER:  mshaffer@Domain.extension1  Updating Department from  HVAC Engineering  to  parentCompanyld
+USER:  mshank@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  msmith@Domain.extension1  does not exist in AzureAD
+USER:  msnell@Domain.extension1  Updating Department from  Custom Engineering  to  High Side Custom Engineering
+USER:  mspangler@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  mstaub@Domain.extension1  Updating Department from  Custom Engineering  to  High Side Custom Engineering
+USER:  mvosburgh@Domain.extension1  Updating Department from  Shop Office  to  Quality Assurance (Shop)
+USER:  mweishaar@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  nathan.hostetleradmin@Domain.extension1  does not exist in AzureAD
+USER:  nbassler@Domain.extension1  does not exist in AzureAD
+USER:  nhostetler@Domain.extension1  Updating Department from  Department1  to  Product Development- HVAC
+USER:  nicholas.jircitano@Domain.extension1  Updating Department from  IR Marketing  to  Product Development- Refrigeration
+USER:  nicholas.torres@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  Nick.DeMeester@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  nick.demeesteradmin@Domain.extension1  does not exist in AzureAD
+USER:  noah.main@Domain.extension1  Updating Department from  IR Engineering  to  Marketing Refrigeration
+USER:  nperegoy@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  npeterson@Domain.extension1  does not exist in AzureAD
+USER:  Olga.Blevins@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  patrick.hrubes@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  patrick.hrubesadmin@Domain.extension1  does not exist in AzureAD
+USER:  paul.wantz@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  pcarky@Domain.extension1  Updating Department from  Parts Department  to  Marketing- HVAC
+USER:  pcollison@Domain.extension1  Updating Department from  Department1  to  Marketing- HVAC
+USER:  pete.farley@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  phopwood@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  pjohnson@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
+USER:  prod_training@Domain.extension1  does not exist in AzureAD
+USER:  pstrine@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  raf.delausnayadmin@Domain.extension1  does not exist in AzureAD
+USER:  randall.stephens@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development
+USER:  randy.bradleyadmin@Domain.extension1  does not exist in AzureAD
+USER:  rbarnett@Domain.extension1  Updating Department from  Parts Department  to  Marketing HVAC
+USER:  rbecker@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  rbradley@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  rdelausnay@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  rduvall@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  reckard@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  rfahringer@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  rfitzkee@Domain.extension1  Updating Department from  Manufacturing  to  Maintenance, Machinery & Equipment
+USER:  rhochreiter@Domain.extension1  does not exist in AzureAD
+USER:  richard.hill@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  richard.hochreiteradmin@Domain.extension1  does not exist in AzureAD
+USER:  Richard.Simpson@Domain.extension1  does not exist in AzureAD
+USER:  ricky.franklin@Domain.extension1  does not exist in AzureAD
+USER:  rking@Domain.extension1  Updating Department from  R&D Lab  to  Research & Development
+USER:  rkuhn@Domain.extension1  Updating Department from  IR Marketing  to  Marketing Refrigeration
+USER:  rmullen@Domain.extension1  does not exist in AzureAD
+USER:  robert.fahringeradmin@Domain.extension1  does not exist in AzureAD
+USER:  robert.kurtz@Domain.extension1  does not exist in AzureAD
+USER:  robert.selby@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  rodney.fitzkeeadmin@Domain.extension1  does not exist in AzureAD
+USER:  rportney@Domain.extension1  Updating Department from  IR Marketing  to  parentCompanyld
+USER:  rshindledecker@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  rtyler@Domain.extension1  Updating Department from  IR Engineering  to  Marketing Refrigeration
+USER:  rwarfield@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  rwilhelm@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  Ryan.Arata@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  ryan.arrington@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Ryan.Leister@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  sarah.rill@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  sarah.twigg@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  sbaker@Domain.extension1  Updating Department from  R&D Lab  to  Marketing HVAC
+USER:  sbuckley@Domain.extension1  Updating Department from  Parts Department  to  Marketing- HVAC
+USER:  scolson@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  scott.barnett@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  sduke@Domain.extension1  does not exist in AzureAD
+USER:  sean.clark@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  sean.mihalik@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  sean.wilson@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  sengelhardt@Domain.extension1  Updating Department from  IR Marketing  to  Product Development- Refrigeration
+USER:  sgamarra@Domain.extension1  does not exist in AzureAD
+USER:  sgopalan@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  skahlert@Domain.extension1  Updating Department from  Manufacturing  to  Shop Office
+USER:  skelly@Domain.extension1  Updating Department from  Shop Office  to  Assembly
+USER:  smurray@Domain.extension1  does not exist in AzureAD
+USER:  snevins@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  srhoads@Domain.extension1  does not exist in AzureAD
+USER:  srice@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  sstoll@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  stacey.carter@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  stacey.carteradmin@Domain.extension1  does not exist in AzureAD
+USER:  Stephanie.McConnell@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  steven.eltz@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  steven.halterman@Domain.extension1  Updating Department from  IR Marketing  to  Product Development- Refrigeration
+USER:  stockroom@Domain.extension1  does not exist in AzureAD
+USER:  Tara.Perry@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  tbitzel@Domain.extension1  does not exist in AzureAD
+USER:  tbritt@Domain.extension1  does not exist in AzureAD
+USER:  telder@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  tester@Domain.extension1  does not exist in AzureAD
+USER:  thegg@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  thumm@Domain.extension1  Updating Department from  R&D Lab  to  Research & Development
+USER:  Tiffany.Green@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  Timothy.Ditman@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  timothy.ditmanadmin@Domain.extension1  does not exist in AzureAD
+USER:  TLewis.Admin@Domain.extension1  does not exist in AzureAD
+USER:  tlewis@Domain.extension1  Updating Department from  HR  to  People Operations
+USER:  tmcglynn@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  tmeisinger@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  tmorgan@Domain.extension1  Updating Department from  IR Engineering  to  Product Development - Refrigeration
+USER:  tpaine@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  tpyles@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  treineck@Domain.extension1  Updating Department from  Department1  to  Marketing HVAC
+USER:  trevor.simms@Domain.extension1  Updating Department from  IR Engineering  to  Product Development- Refrigeration
+USER:  trock@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  tromanoff@Domain.extension1  Updating Department from  Customer Solutions  to  Finance
+USER:  troy.weishaaradmin@Domain.extension1  does not exist in AzureAD
+USER:  tshoff@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- Refrigeration
+USER:  tspielman@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  tweishaar@Domain.extension1  Updating Department from  Manufacturing  to  Manufacturing Engineering
+USER:  Tyler.Bollinger@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  vince.zabbara@Domain.extension1  ATTRIBUTE: Department is blank in local AD
+USER:  wayne.sexton@Domain.extension1  Updating Department from  PD Power  to  Product Development
+USER:  wbradley@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  wcarr@Domain.extension1  does not exist in AzureAD
+USER:  william.carradmin@Domain.extension1  does not exist in AzureAD
+USER:  wnuckolls@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  wzfair@Domain.extension1  does not exist in AzureAD
+USER:  Yan.Peng@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development- HVAC
+USER:  yanique.santiago@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  yi.pang@Domain.extension1  ATTRIBUTE: Department in local AD is equal to Department in AzureAD edits are not needed
+USER:  zachary.wienecke@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development
+USER:  zrussell@Domain.extension1  Updating Department from  HVAC Engineering  to  Product Development
+
 

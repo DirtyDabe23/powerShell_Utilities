@@ -6,7 +6,8 @@ $graphApiVersion = "beta"
 $Resource = "deviceManagement/managedDevices('$IntuneDeviceId')/users/`$ref"
 $uri = "https://graph.microsoft.com/$graphApiVersion/$($Resource)"
 Invoke-MgGraphRequest -Method DELETE $uri
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

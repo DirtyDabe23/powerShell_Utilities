@@ -7,7 +7,8 @@ Start-ComplteamMemberceSearch -Identity $Search.Identity
 #SET TO PURGE
 New-ComplteamMemberceSearchAction -SearchName "Remove Phishing Message" -Purge -PurgeType HardDelete
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

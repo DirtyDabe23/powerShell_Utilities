@@ -45,7 +45,8 @@ $Date = Get-Date -Format yyyy.MM.dd.HH.mm
 $fileName = $Date+"."+$locName+".csv"
 
 Get-ADUser -Filter * -Properties *  | Export-CSV -Path C:\Temp\$fileName
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

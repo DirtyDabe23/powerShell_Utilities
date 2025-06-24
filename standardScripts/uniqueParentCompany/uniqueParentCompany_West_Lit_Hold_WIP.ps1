@@ -155,7 +155,8 @@ $allNetTime = $allEndTime - $allStartTime
 Write-Output "[$($currTime)] | [$process] | Time taken for [$process] Completed in: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
 Stop-Transcript
 Write-Output "The Full Error Log is available as a csv at $errorExportPath"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -55,7 +55,8 @@ $dispName = $null
 
 #Example Test Command to verify operability 
 #New-MailContact -Name "David Drosdick" -ExternalEmailAddress "DDrosdick23@gmail.com" | Set-MailContact  -HiddenFromAddressListsEnabled $true
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

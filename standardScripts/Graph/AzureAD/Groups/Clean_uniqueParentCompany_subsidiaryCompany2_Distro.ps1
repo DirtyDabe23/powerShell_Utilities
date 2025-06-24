@@ -10,7 +10,8 @@ Remove-DistributionGroupMember -Identity "uniqueParentCompany subsidiaryCompany2
 
 
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

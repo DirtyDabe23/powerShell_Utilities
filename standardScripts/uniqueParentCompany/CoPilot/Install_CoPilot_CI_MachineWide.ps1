@@ -8,7 +8,8 @@ $ciDownloadURL = $ciXMLContent.Node.MainPAckage.URI
 $ciMSIPath = "C:\Temp\CoPilot_CI_$($ciXMLContent.node.mainpackage.version)_$($ciXMLContent.node.MainPackage.ProcessorArchitecture).msix"
 invoke-webrequest -uri $ciDownloadURL -OutFile $ciMSIPath
 Add-AppxProvisionedPackage -Online -PackagePath $ciMSIPath -SkipLicense -Verbose
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

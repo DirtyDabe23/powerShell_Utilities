@@ -480,7 +480,7 @@
     "LogLevel": 2
   },
   {
-    "FeatureName": "NetFx4-AdvSrvs",
+    "FeatureName": "NetFx4-AdvSsubsidiaryCompany1-shortName",
     "State": 2,
     "Path": null,
     "Online": true,
@@ -756,3 +756,4 @@
     "LogLevel": 2
   }
 ]
+

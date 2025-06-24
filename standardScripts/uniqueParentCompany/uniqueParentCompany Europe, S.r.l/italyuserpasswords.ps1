@@ -28,7 +28,8 @@ foreach ($row in $csvData)
     Write-Host "One Drive Migration for '$upn' started."
 }
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

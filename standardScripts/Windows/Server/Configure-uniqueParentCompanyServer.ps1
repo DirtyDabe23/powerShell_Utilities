@@ -63,7 +63,8 @@ Connect-AzAccount -Credential $psCred -TenantId $azureTenantId -ServicePrincipal
 Connect-AzConnectedMachine -ResourceGroupName "AzureARC_uniqueParentCompanyEAST" -Name "$env:ComputerName" -Location "EastUS" -subscriptionid "azSubsription"
 Write-Output "Completed Azure Arc Enrollment"
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

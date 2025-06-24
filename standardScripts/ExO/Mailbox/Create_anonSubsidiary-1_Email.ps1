@@ -22,7 +22,8 @@ foreach ($guestUser in $guestUsers) {
     # Create the new guest user
     New-AzureADMSInvitation @newGuestUser
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

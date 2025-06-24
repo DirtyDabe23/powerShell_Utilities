@@ -67,7 +67,7 @@ function Set-PrivateErrorJiraRunbook{
     $jsonPayloadString = $jsonPayload | ConvertTo-Json -Depth 10
     # Perform the API call
     try {
-        $response = Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/3/issue/$jiraTicket/comment" -Method Post -Body $jsonPayloadString -Headers $jiraHeader
+        $response = Invoke-RestMethod -Uri "https://parentCompany.atlassian.net/rest/api/3/issue/$jiraTicket/comment" -Method Post -Body $jsonPayloadString -Headers $jiraHeader
         if ($response){
             $currTime = Get-Date -format "HH:mm"
             Write-Output "[$($currTime)] | [$process] | [$procProcess] Internal Comment Successfully Made with Error Details"
@@ -112,7 +112,7 @@ param(
     }
 }
 "@
-        Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$jiraTicket/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader
+        Invoke-RestMethod -Uri "https://parentCompany.atlassian.net/rest/api/2/issue/$jiraTicket/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader
         
     switch ($Continue){
     $False {$null}
@@ -149,7 +149,7 @@ $jsonPayload = @"
 }
 "@
 try {
-    $response = Invoke-RestMethod -Uri "https://evapco.atlassian.net/rest/api/2/issue/$jiraTicket/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader
+    $response = Invoke-RestMethod -Uri "https://parentCompany.atlassian.net/rest/api/2/issue/$jiraTicket/transitions" -Method Post -Body $jsonPayload -Headers $jiraHeader
     if ($response){
     $currTime = Get-Date -format "HH:mm"
     Write-Output "[$($currTime)] | Internal Comment Successfully Made with Error Details"
@@ -222,11 +222,11 @@ function Format-Name {
 
 Import-module Az.Accounts
 Import-Module Az.KeyVault
-Connect-AzAccount -subscription 'ea460e20-c6e3-46c7-9157-101770757b6b' -Identity
+Connect-AzAccount -subscription 'azSubsription' -Identity
 Connect-MGGraph -NoWelcome -Identity
 
 #Connect to Jira via the API Secret in the Key Vault
-$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "US-TT-Vault" -Name "JiraAPI" -AsPlainText
+$jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "KeyVaultName" -Name "jiraAPIKey" -AsPlainText
 
 $hybridWorkerGroup      = $null
 $hybridWorkerCred       = $null
@@ -246,7 +246,7 @@ else {
 
 
 #Jira
-$jiraText = "david.drosdick@evapco.com:$jiraRetrSecret"
+$jiraText = "david.drosdick@Domain.extension1:$jiraRetrSecret"
 $jiraBytes = [System.Text.Encoding]::UTF8.GetBytes($jiraText)
 $jiraEncodedText = [Convert]::ToBase64String($jiraBytes)
 $jiraHeader = @{
@@ -255,7 +255,7 @@ $jiraHeader = @{
 }
 #Pull the values from Jira
 $TicketNum = $jiraTicket
-$Form = Invoke-RestMethod -Method get -uri "https://evapco.atlassian.net/rest/api/2/issue/$TicketNum" -Headers $jiraHeader
+$Form = Invoke-RestMethod -Method get -uri "https://parentCompany.atlassian.net/rest/api/2/issue/$TicketNum" -Headers $jiraHeader
 
 
 $jiraUserToModify   = $form.fields.customfield_10781.emailAddress
@@ -369,16 +369,16 @@ switch ($isTransfer) {
 
     #For specific variables related to their origin location if they are synching and need modified.
     switch ($originLocation) {
-        "EVAPCO East"{
+        "parentCompany East"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
-                    $originHybridWorkerGroup  = "US-AZ-VS-DC01"
+                    $originHybridWorkerGroup  = "Azure-DC01"
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCO.COM")
-                    $originParametersObject.Add("Server","EVAPCO.COM")
-                    $originParametersObject.Add("TargetPath","OU=XXX-Closed Accounts,DC=EVAPCO,DC=COM")
+                    $originParametersUser.Add("Server","Domain.extension1")
+                    $originParametersObject.Add("Server","Domain.extension1")
+                    $originParametersObject.Add("TargetPath","OU=XXX-Closed Accounts,DC=parentCompany,DC=COM")
     
                  }
                 $false {
@@ -386,15 +386,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO West"{
+        "Location2"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = "US-CA-VS-DC01"
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCOWest.COM")
-                    $originParametersObject.Add("Server","EVAPCOWest.COM")
+                    $originParametersUser.Add("Server","parentCompanyWest.COM")
+                    $originParametersObject.Add("Server","parentCompanyWest.COM")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")
                  }
                 $false {
@@ -402,15 +402,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Midwest"{
+        "parentCompany Midwest"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCOMW.COM")
-                    $originParametersObject.Add("Server","EVAPCOMW.COM")
+                    $originParametersUser.Add("Server","parentCompanyMW.COM")
+                    $originParametersObject.Add("Server","parentCompanyMW.COM")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")
 
                  }
@@ -419,15 +419,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Iowa"{
+        "parentCompany Iowa"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCOIA.COM")
-                    $originParametersObject.Add("Server","EVAPCOIA.COM")  
+                    $originParametersUser.Add("Server","parentCompanyIA.COM")
+                    $originParametersObject.Add("Server","parentCompanyIA.COM")  
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")
                  }
                 $false {
@@ -435,15 +435,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "Refrigeration Vessels & Systems Corporation"{
+        "subsidiaryCompany1"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","RVSCORP.COM")
-                    $originParametersObject.Add("Server","RVSCORP.COM")  
+                    $originParametersUser.Add("Server","subsidiaryCompany1-shortNameCORP.COM")
+                    $originParametersObject.Add("Server","subsidiaryCompany1-shortNameCORP.COM")  
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")  
                     
                  }
@@ -452,15 +452,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Europe BVBA"{
+        "parentCompany Europe BVBA"{
             switch ($refUserSynching) {
                 $true { 
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCO.BE")
-                    $originParametersObject.Add("Server","EVAPCO.BE") 
+                    $originParametersUser.Add("Server","parentCompany.BE")
+                    $originParametersObject.Add("Server","parentCompany.BE") 
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")  
                  }
                  $false {
@@ -468,15 +468,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO (Milano) Europe, S.r.l."{
+        "parentCompany (Milano) Europe, S.r.l."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCO.IT")
-                    $originParametersObject.Add("Server","EVAPCO.IT") 
+                    $originParametersUser.Add("Server","parentCompany.IT")
+                    $originParametersObject.Add("Server","parentCompany.IT") 
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")
                  }
                 $false {
@@ -484,15 +484,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO (Sondrio) Europe, S.rl.l."{
+        "parentCompany (Sondrio) Europe, S.rl.l."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCO.IT")
-                    $originParametersObject.Add("Server","EVAPCO.IT")
+                    $originParametersUser.Add("Server","parentCompany.IT")
+                    $originParametersObject.Add("Server","parentCompany.IT")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU") 
                  }
                  $false {
@@ -500,15 +500,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO (Beijing) Refrigeration Equipment Co., Ltd."{
+        "parentCompany (Beijing) Refrigeration Equipment Co., Ltd."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCOCHINA.com")
-                    $originParametersObject.Add("Server","EVAPCOCHINA.com")
+                    $originParametersUser.Add("Server","parentCompanyCHINA.com")
+                    $originParametersObject.Add("Server","parentCompanyCHINA.com")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU") 
                  }
                  $false {
@@ -516,15 +516,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO (Shanghai) Refrigeration Equipment Co., Ltd."{
+        "parentCompany (Shanghai) Refrigeration Equipment Co., Ltd."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCOCHINA.com")
-                    $originParametersObject.Add("Server","EVAPCOCHINA.com")
+                    $originParametersUser.Add("Server","parentCompanyCHINA.com")
+                    $originParametersObject.Add("Server","parentCompanyCHINA.com")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU") 
                  }
                  $false {
@@ -532,15 +532,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Australia (Pty.) Ltd."{
+        "parentCompany Australia (Pty.) Ltd."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","Evapco.com.au")
-                    $originParametersObject.Add("Server","Evapco.com.au")
+                    $originParametersUser.Add("Server","Domain.extension1.au")
+                    $originParametersObject.Add("Server","Domain.extension1.au")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")  
                  }
                  $false {
@@ -548,15 +548,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EvapTech, Inc."{
+        "subsidiaryCompany2, Inc."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
-                    $originHybridWorkerCred = "EvapTech-Hybrid-Worker"
+                    $originHybridWorkerCred = "subsidiaryCompany2-Hybrid-Worker"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EvapTech.com") 
-                    $originParametersObject.Add("Server","EvapTech.com") 
+                    $originParametersUser.Add("Server","subsidiaryCompany2.com") 
+                    $originParametersObject.Add("Server","subsidiaryCompany2.com") 
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")  
                  }
                  $false {
@@ -564,15 +564,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Dry Cooling, Inc."{
+        "parentCompany Dry Cooling, Inc."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "DryCooling-Hybrid-Worker"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCODC.com")
-                    $originParametersObject.Add("Server","EVAPCODC.com") 
+                    $originParametersUser.Add("Server","parentCompanyDC.com")
+                    $originParametersObject.Add("Server","parentCompanyDC.com") 
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")  
                  }
                  $false {
@@ -580,15 +580,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "Tower Components, Inc."{
+        "subsidiaryCompany4"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = "US-NC-VS-DC01"
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@towercomponentsinc.com")
-                    $originParametersObject.Add("Server","@towercomponentsinc.com") 
+                    $originParametersUser.Add("Server","@Domain.extension2")
+                    $originParametersObject.Add("Server","@Domain.extension2") 
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")   
                  }
                  $false {
@@ -596,15 +596,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Newton"{
+        "parentCompany Newton"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCOMW.com")
-                    $originParametersObject.Add("Server","EVAPCOMW.com")
+                    $originParametersUser.Add("Server","parentCompanyMW.com")
+                    $originParametersObject.Add("Server","parentCompanyMW.com")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")     
 
                  }
@@ -613,15 +613,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Europe A/S"{
+        "parentCompany Europe A/S"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCO.DK")
-                    $originParametersObject.Add("Server","EVAPCO.DK")
+                    $originParametersUser.Add("Server","parentCompany.DK")
+                    $originParametersObject.Add("Server","parentCompany.DK")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")   
                  }
                  $false {
@@ -629,15 +629,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Brasil"{
+        "parentCompany Brasil"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","EVAPCO.com.br")
-                    $originParametersObject.Add("Server","EVAPCO.com.br")
+                    $originParametersUser.Add("Server","Domain.extension1.br")
+                    $originParametersObject.Add("Server","Domain.extension1.br")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")     
                  }
                  $false {
@@ -645,15 +645,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "Fan TR"{
+        "subsidiaryCompany3"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","Fantr.com")
-                    $originParametersObject.Add("Server","Fantr.com")
+                    $originParametersUser.Add("Server","Domain.extension3")
+                    $originParametersObject.Add("Server","Domain.extension3")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")   
                  }
                  $false {
@@ -661,15 +661,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Alcoil, Inc."{
+        "parentCompany Alcoil, Inc."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "Alcoil-Hybrid-Worker"
                     $originParametersUser.Add("Identity",$SAMAccountNAme) 
-                    $originParametersUser.Add("Server","@evapco-alcoil.com")
-                    $originParametersObject.Add("Server","@evapco-alcoil.com")
+                    $originParametersUser.Add("Server","@Domain.extension4")
+                    $originParametersObject.Add("Server","@Domain.extension4")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")    
                  }
                  $false {
@@ -677,15 +677,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Air Cooling Systems (Jiaxing) Co., Ltd."{
+        "parentCompany Air Cooling Systems (Jiaxing) Co., Ltd."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evapcoacs.cn")   
-                    $originParametersObject.Add("Server","@evapcoacs.cn")
+                    $originParametersUser.Add("Server","@Domain.extension6")   
+                    $originParametersObject.Add("Server","@Domain.extension6")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")  
                     
                  }
@@ -694,15 +694,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Iowa Sales & Engineering"{
+        "parentCompany Iowa Sales & Engineering"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = "US-MN-VS-DC01"
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evapcomn.com")    
-                    $originParametersObject.Add("Server","@evapcomn.com")  
+                    $originParametersUser.Add("Server","@Domain.extension7")    
+                    $originParametersObject.Add("Server","@Domain.extension7")  
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")
                  }
                  $false {
@@ -710,15 +710,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO LMP"{
+        "parentCompany LMP"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evapcolmp.ca")  
-                    $originParametersObject.Add("Server","@evapcolmp.ca")   
+                    $originParametersUser.Add("Server","@Domain.Extension8")  
+                    $originParametersObject.Add("Server","@Domain.Extension8")   
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")
                  }
                  $false {
@@ -726,15 +726,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Select Tech"{
+        "parentCompany Select Tech"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evapcoselect.com")
-                    $originParametersObject.Add("Server","@evapcoselect.com")
+                    $originParametersUser.Add("Server","@Domain.Extension9")
+                    $originParametersObject.Add("Server","@Domain.Extension9")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")   
                  }
                  $false {
@@ -742,15 +742,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EVAPCO Europe GmbH"{
+        "parentCompany Europe GmbH"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
                     $originHybridWorkerCred = "$origCred"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evapco.de")
-                    $originParametersObject.Add("Server","@evapco.de")
+                    $originParametersUser.Add("Server","@Domain.Extension10")
+                    $originParametersObject.Add("Server","@Domain.Extension10")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")        
                  }
                  $false {
@@ -758,15 +758,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EvapTech Asia Pacific Sdn Bhd"{
+        "subsidiaryCompany2 Asia Pacific Sdn Bhd"{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
-                    $originHybridWorkerCred = "EvapTech-Hybrid-Worker"
+                    $originHybridWorkerCred = "subsidiaryCompany2-Hybrid-Worker"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evaptech.com")
-                    $originParametersObject.Add("Server","@evaptech.com")
+                    $originParametersUser.Add("Server","@subsidiaryCompany2.com")
+                    $originParametersObject.Add("Server","@subsidiaryCompany2.com")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")    
                  }
                  $false {
@@ -774,15 +774,15 @@ switch ($isTransfer) {
                 }
             }
         }
-        "EvapTech (Shanghai) Cooling Tower Co., Ltd."{
+        "subsidiaryCompany2 (Shanghai) Cooling Tower Co., Ltd."{
             switch ($refUserSynching) {
                 $true {
                     $currentUserID = $jiraUserToModify
                     $originHybridWorkerGroup = $null
-                    $originHybridWorkerCred = "EvapTech-Hybrid-Worker"
+                    $originHybridWorkerCred = "subsidiaryCompany2-Hybrid-Worker"
                     $originParametersUser.Add("Identity",$SAMAccountNAme)
-                    $originParametersUser.Add("Server","@evaptech.com")
-                    $originParametersObject.Add("Server","@evaptech.com")
+                    $originParametersUser.Add("Server","@subsidiaryCompany2.com")
+                    $originParametersObject.Add("Server","@subsidiaryCompany2.com")
                     $originParametersObject.Add("TargetPath","$OriginLocationNonSyncOU")     
                  }
                  $false {
@@ -794,18 +794,18 @@ switch ($isTransfer) {
     }
     #For Specific Variables at the new AD they will be created on
     switch ($newOfficeLocation) {
-        "EVAPCO East"{
+        "parentCompany East"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
-                    $destinationHybridWorkerGroup  = "US-AZ-VS-DC01"
-                    $destinationHybridWorkerCred   = "Testing-TT-Credential"
+                    $destinationHybridWorkerGroup  = "Azure-DC01"
+                    $destinationHybridWorkerCred   = "Credential"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCO.COM")
+                    $destinationLADParameters.Add("Server","Domain.extension1")
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com"
+                    $upnSuffix = "@Domain.extension1"
                     $destinationGraphParameters.Add("Country","US")
                     $destinationGraphParameters.Add("BusinessPhones","14107562600")
                     $destinationGraphParameters.Add("UsageLocation","US")
@@ -816,632 +816,632 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("Country","US")
                     $destinationGraphParameters.Add("BusinessPhones","14107562600")
                     $destinationGraphParameters.Add("UsageLocation","US")
-                    $upnSuffix = "@evapco.com"
+                    $upnSuffix = "@Domain.extension1"
                 }
             }
         }
-        "EVAPCO West"{
+        "Location2"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-CA-VS-DC01"
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCOWest.COM")
+                    $destinationLADParameters.Add("Server","parentCompanyWest.COM")
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcowest.com"
+                    $upnSuffix = "@parentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcowest.com"
+                    $upnSuffix = "@parentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Midwest"{
+        "parentCompany Midwest"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCOMW.COM")
+                    $destinationLADParameters.Add("Server","parentCompanyMW.COM")
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Iowa"{
+        "parentCompany Iowa"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCOIA.COM") 
+                    $destinationLADParameters.Add("Server","parentCompanyIA.COM") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoia.com"
+                    $upnSuffix = "@parentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoia.com"
+                    $upnSuffix = "@parentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "Refrigeration Vessels & Systems Corporation"{
+        "subsidiaryCompany1"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
-                    $destinationHybridWorkerCred   = "RVS-Hybrid-Worker"
+                    $destinationHybridWorkerCred   = "subsidiaryCompany1-shortName-Hybrid-Worker"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","RVSCORP.COM")  
+                    $destinationLADParameters.Add("Server","subsidiaryCompany1-shortNameCORP.COM")  
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@rvscorp.com"
+                    $upnSuffix = "@subsidiaryCompany1-shortNamecorp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@rvscorp.com"
+                    $upnSuffix = "@subsidiaryCompany1-shortNamecorp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Europe BVBA"{
+        "parentCompany Europe BVBA"{
             switch ($shopOrOffice) {
                 "Office" { 
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCO.BE")
+                    $destinationLADParameters.Add("Server","parentCompany.BE")
                     $destinationLADExtensionAttributes.Add("co","Belgium")
                     $destinationLADExtensionAttributes.Add("countryCode","056")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.be"
+                    $upnSuffix = "@parentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.be"
+                    $upnSuffix = "@parentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                 }
             }
         }
-        "EVAPCO (Milano) Europe, S.r.l."{
+        "parentCompany (Milano) Europe, S.r.l."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCO.IT")
+                    $destinationLADParameters.Add("Server","parentCompany.IT")
                     $destinationLADExtensionAttributes.Add("co","Italy")
                     $destinationLADExtensionAttributes.Add("countryCode","380")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
         }
-        "EVAPCO (Sondrio) Europe, S.rl.l."{
+        "parentCompany (Sondrio) Europe, S.rl.l."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCO.IT") 
+                    $destinationLADParameters.Add("Server","parentCompany.IT") 
                     $destinationLADExtensionAttributes.Add("co","Italy")
                     $destinationLADExtensionAttributes.Add("countryCode","380")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                     
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
         }
-        "EVAPCO (Beijing) Refrigeration Equipment Co., Ltd."{
+        "parentCompany (Beijing) Refrigeration Equipment Co., Ltd."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCOCHINA.com")
+                    $destinationLADParameters.Add("Server","parentCompanyCHINA.com")
                     $destinationLADExtensionAttributes.Add("co","CN")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
                     $destinationGraphParameters.Add("BusinessPhones","8.61E+11")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
                     $destinationGraphParameters.Add("BusinessPhones","8.61E+11")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
         }
-        "EVAPCO (Shanghai) Refrigeration Equipment Co., Ltd."{
+        "parentCompany (Shanghai) Refrigeration Equipment Co., Ltd."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCOCHINA.com")
+                    $destinationLADParameters.Add("Server","parentCompanyCHINA.com")
                     $destinationLADExtensionAttributes.Add("co","CN")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
         }
-        "EVAPCO Australia (Pty.) Ltd."{
+        "parentCompany Australia (Pty.) Ltd."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","Evapco.com.au") 
+                    $destinationLADParameters.Add("Server","Domain.extension1.au") 
                     $destinationLADExtensionAttributes.Add("co","AU")
                     $destinationLADExtensionAttributes.Add("countryCode","036")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.au"
+                    $upnSuffix = "@Domain.extension1.au"
                     $destinationGraphParameters.Add("Country","AU")
                     $destinationGraphParameters.Add("BusinessPhones","6.10E+11")
                     $destinationGraphParameters.Add("UsageLocation","AU")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.au"
+                    $upnSuffix = "@Domain.extension1.au"
                     $destinationGraphParameters.Add("Country","AU")
                     $destinationGraphParameters.Add("BusinessPhones","6.10E+11")
                     $destinationGraphParameters.Add("UsageLocation","AU")
                 }
             }
         }
-        "EvapTech, Inc."{
+        "subsidiaryCompany2, Inc."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
-                    $destinationHybridWorkerCred   = "EvapTech-Hybrid-Worker"
+                    $destinationHybridWorkerCred   = "subsidiaryCompany2-Hybrid-Worker"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EvapTech.com") 
+                    $destinationLADParameters.Add("Server","subsidiaryCompany2.com") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Dry Cooling, Inc."{
+        "parentCompany Dry Cooling, Inc."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "DryCooling-Hybrid-Worker"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCODC.com") 
+                    $destinationLADParameters.Add("Server","parentCompanyDC.com") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcodc.com"
+                    $upnSuffix = "@parentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcodc.com"
+                    $upnSuffix = "@parentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "Tower Components, Inc."{
+        "subsidiaryCompany4"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-NC-VS-DC01"
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@towercomponentsinc.com") 
+                    $destinationLADParameters.Add("Server","@Domain.extension2") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Newton"{
+        "parentCompany Newton"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCOMW.com")  
+                    $destinationLADParameters.Add("Server","parentCompanyMW.com")  
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Europe A/S"{
+        "parentCompany Europe A/S"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCO.DK")  
+                    $destinationLADParameters.Add("Server","parentCompany.DK")  
                     $destinationLADExtensionAttributes.Add("co","Denmark")
                     $destinationLADExtensionAttributes.Add("countryCode","208")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.dk"
+                    $upnSuffix = "@parentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.dk"
+                    $upnSuffix = "@parentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                 }
             }
         }
-        "EVAPCO Brasil"{
+        "parentCompany Brasil"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","EVAPCO.com.br")  
+                    $destinationLADParameters.Add("Server","Domain.extension1.br")  
                     $destinationLADExtensionAttributes.Add("co","Brazil")
                     $destinationLADExtensionAttributes.Add("countryCode","076")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.br"
+                    $upnSuffix = "@Domain.extension1.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.br"
+                    $upnSuffix = "@Domain.extension1.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
         }
-        "Fan TR"{
+        "subsidiaryCompany3"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","Fantr.com")  
+                    $destinationLADParameters.Add("Server","Domain.extension3")  
                     $destinationLADExtensionAttributes.Add("co","Brazil")
                     $destinationLADExtensionAttributes.Add("countryCode","076")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@fantr.com"
+                    $upnSuffix = "@Domain.extension3"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@fantr.com"
+                    $upnSuffix = "@Domain.extension3"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
         }
-        "EVAPCO Alcoil, Inc."{
+        "parentCompany Alcoil, Inc."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "Alcoil-Hybrid-Worker"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme) 
-                    $destinationLADParameters.Add("Server","@evapco-alcoil.com")   
+                    $destinationLADParameters.Add("Server","@Domain.extension4")   
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco-alcoil.com"
+                    $upnSuffix = "@Domain.extension4"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco-alcoil.com"
+                    $upnSuffix = "@Domain.extension4"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Air Cooling Systems (Jiaxing) Co., Ltd."{
+        "parentCompany Air Cooling Systems (Jiaxing) Co., Ltd."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evapcoacs.cn")   
+                    $destinationLADParameters.Add("Server","@Domain.extension6")   
                     $destinationLADExtensionAttributes.Add("co","China")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoacs.cn"
+                    $upnSuffix = "@Domain.extension6"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoacs.cn"
+                    $upnSuffix = "@Domain.extension6"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
         }
-        "EVAPCO Iowa Sales & Engineering"{
+        "parentCompany Iowa Sales & Engineering"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-MN-VS-DC01"
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evapcomn.com")    
+                    $destinationLADParameters.Add("Server","@Domain.extension7")    
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomn.com"
+                    $upnSuffix = "@Domain.extension7"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomn.com"
+                    $upnSuffix = "@Domain.extension7"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO LMP"{
+        "parentCompany LMP"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evapcolmp.ca")  
+                    $destinationLADParameters.Add("Server","@Domain.Extension8")  
                     $destinationLADExtensionAttributes.Add("co","Canada")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcolmp.ca"
+                    $upnSuffix = "@Domain.Extension8"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcolmp.ca"
+                    $upnSuffix = "@Domain.Extension8"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                 }
             }
         }
-        "EVAPCO Select Tech"{
+        "parentCompany Select Tech"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evapcoselect.com")   
+                    $destinationLADParameters.Add("Server","@Domain.Extension9")   
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoselect.com"
+                    $upnSuffix = "@Domain.Extension9"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoselect.com"
+                    $upnSuffix = "@Domain.Extension9"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Europe GmbH"{
+        "parentCompany Europe GmbH"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
                     $destinationHybridWorkerCred   = "$destCred"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evapco.de")     
+                    $destinationLADParameters.Add("Server","@Domain.Extension10")     
                     $destinationLADExtensionAttributes.Add("co","Germany")
                     $destinationLADExtensionAttributes.Add("countryCode","276")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.de"
+                    $upnSuffix = "@Domain.Extension10"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.de"
+                    $upnSuffix = "@Domain.Extension10"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                 }
             }
         }
-        "EvapTech Asia Pacific Sdn Bhd"{
+        "subsidiaryCompany2 Asia Pacific Sdn Bhd"{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
-                    $destinationHybridWorkerCred   = "EvapTech-Hybrid-Worker"
+                    $destinationHybridWorkerCred   = "subsidiaryCompany2-Hybrid-Worker"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evaptech.com")    
+                    $destinationLADParameters.Add("Server","@subsidiaryCompany2.com")    
                     $destinationLADExtensionAttributes.Add("co","Malaysia")
                     $destinationLADExtensionAttributes.Add("countryCode","458")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                 }
             }
         }
-        "EvapTech (Shanghai) Cooling Tower Co., Ltd."{
+        "subsidiaryCompany2 (Shanghai) Cooling Tower Co., Ltd."{
             switch ($shopOrOffice) {
                 "Office" {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = $null
-                    $destinationHybridWorkerCred   = "EvapTech-Hybrid-Worker"
+                    $destinationHybridWorkerCred   = "subsidiaryCompany2-Hybrid-Worker"
                     $destinationLADParameters.Add("Identity",$SAMAccountNAme)
-                    $destinationLADParameters.Add("Server","@evaptech.com")    
+                    $destinationLADParameters.Add("Server","@subsidiaryCompany2.com")    
                     $destinationLADExtensionAttributes.Add("co","China")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -1451,19 +1451,19 @@ switch ($isTransfer) {
     <#
     #To Handle Shop/Office Transfers
     switch ($originLocation) {
-        "EVAPCO East"{
+        "parentCompany East"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
-                    $destinationHybridWorkerGroup  = "US-AZ-VS-DC01"
-                    $destinationHybridWorkerUser = "David.DrosdickAdmin@evapco.com"
+                    $destinationHybridWorkerGroup  = "Azure-DC01"
+                    $destinationHybridWorkerUser = "David.DrosdickAdmin@Domain.extension1"
                     $destinationHybridWorkerKeyVault = "TTWorker"
                     
-                    $destinationLADParameters.Add("Server","EVAPCO.COM")
+                    $destinationLADParameters.Add("Server","Domain.extension1")
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com"
+                    $upnSuffix = "@Domain.extension1"
                     $destinationGraphParameters.Add("Country","US")
                     $destinationGraphParameters.Add("BusinessPhones","14107562600")
                     $destinationGraphParameters.Add("UsageLocation","US")
@@ -1474,37 +1474,37 @@ switch ($isTransfer) {
                     $destinationGraphParameters.Add("Country","US")
                     $destinationGraphParameters.Add("BusinessPhones","14107562600")
                     $destinationGraphParameters.Add("UsageLocation","US")
-                    $upnSuffix = "@evapco.com"
+                    $upnSuffix = "@Domain.extension1"
                 }
             }
         }
-        "EVAPCO West"{
+        "Location2"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-CA-VS-DC01"
-                    $destinationHybridWorkerUser = "evapcoadmin@Evapco-West.EvapcoW.com"
+                    $destinationHybridWorkerUser = "parentCompanyadmin@parentCompany-West.parentCompanyW.com"
                     $destinationHybridWorkerKeyVault = "US-CA-VS-DC01"
                     
-                    $destinationLADParameters.Add("Server","EVAPCOWest.COM")
+                    $destinationLADParameters.Add("Server","parentCompanyWest.COM")
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcowest.com"
+                    $upnSuffix = "@parentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcowest.com"
+                    $upnSuffix = "@parentCompanywest.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15596732207")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber2")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Midwest"{
+        "parentCompany Midwest"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1512,25 +1512,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCOMW.COM")
+                    $destinationLADParameters.Add("Server","parentCompanyMW.COM")
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","12179233431")
+                    $destinationGraphParameters.Add("BusinessPhones","phoneNumber3")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Iowa"{
+        "parentCompany Iowa"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1538,25 +1538,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCOIA.COM") 
+                    $destinationLADParameters.Add("Server","parentCompanyIA.COM") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoia.com"
+                    $upnSuffix = "@parentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoia.com"
+                    $upnSuffix = "@parentCompanyia.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17126573223")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber4")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "Refrigeration Vessels & Systems Corporation"{
+        "subsidiaryCompany1"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1564,25 +1564,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","RVSCORP.COM")  
+                    $destinationLADParameters.Add("Server","subsidiaryCompany1-shortNameCORP.COM")  
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@rvscorp.com"
+                    $upnSuffix = "@subsidiaryCompany1-shortNamecorp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@rvscorp.com"
+                    $upnSuffix = "@subsidiaryCompany1-shortNamecorp.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19797780095")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber5")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Europe BVBA"{
+        "parentCompany Europe BVBA"{
             switch ($shopOrOffice) {
                 Default { 
                     $currentUserID = $jiraUserToModify
@@ -1590,25 +1590,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCO.BE")
+                    $destinationLADParameters.Add("Server","parentCompany.BE")
                     $destinationLADExtensionAttributes.Add("co","Belgium")
                     $destinationLADExtensionAttributes.Add("countryCode","056")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.be"
+                    $upnSuffix = "@parentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.be"
+                    $upnSuffix = "@parentCompany.be"
                     $destinationGraphParameters.Add("Country","BE")
-                    $destinationGraphParameters.Add("BusinessPhones","3212395029")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber6")
                     $destinationGraphParameters.Add("UsageLocation","BE")
                 }
             }
         }
-        "EVAPCO (Milano) Europe, S.r.l."{
+        "parentCompany (Milano) Europe, S.r.l."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1616,25 +1616,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCO.IT")
+                    $destinationLADParameters.Add("Server","parentCompany.IT")
                     $destinationLADExtensionAttributes.Add("co","Italy")
                     $destinationLADExtensionAttributes.Add("countryCode","380")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
         }
-        "EVAPCO (Sondrio) Europe, S.rl.l."{
+        "parentCompany (Sondrio) Europe, S.rl.l."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1642,26 +1642,26 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCO.IT") 
+                    $destinationLADParameters.Add("Server","parentCompany.IT") 
                     $destinationLADExtensionAttributes.Add("co","Italy")
                     $destinationLADExtensionAttributes.Add("countryCode","380")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                     
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.it"
+                    $upnSuffix = "@parentCompany.it"
                     $destinationGraphParameters.Add("Country","IT")
-                    $destinationGraphParameters.Add("BusinessPhones","39029399041")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber7")
                     $destinationGraphParameters.Add("UsageLocation","IT")
                 }
             }
         }
-        "EVAPCO (Beijing) Refrigeration Equipment Co., Ltd."{
+        "parentCompany (Beijing) Refrigeration Equipment Co., Ltd."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1669,25 +1669,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCOCHINA.com")
+                    $destinationLADParameters.Add("Server","parentCompanyCHINA.com")
                     $destinationLADExtensionAttributes.Add("co","CN")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
                     $destinationGraphParameters.Add("BusinessPhones","8.61E+11")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
                     $destinationGraphParameters.Add("BusinessPhones","8.61E+11")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
         }
-        "EVAPCO (Shanghai) Refrigeration Equipment Co., Ltd."{
+        "parentCompany (Shanghai) Refrigeration Equipment Co., Ltd."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1695,25 +1695,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCOCHINA.com")
+                    $destinationLADParameters.Add("Server","parentCompanyCHINA.com")
                     $destinationLADExtensionAttributes.Add("co","CN")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcochina.com"
+                    $upnSuffix = "@parentCompanychina.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
         }
-        "EVAPCO Australia (Pty.) Ltd."{
+        "parentCompany Australia (Pty.) Ltd."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1721,25 +1721,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","Evapco.com.au") 
+                    $destinationLADParameters.Add("Server","Domain.extension1.au") 
                     $destinationLADExtensionAttributes.Add("co","AU")
                     $destinationLADExtensionAttributes.Add("countryCode","036")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.au"
+                    $upnSuffix = "@Domain.extension1.au"
                     $destinationGraphParameters.Add("Country","AU")
                     $destinationGraphParameters.Add("BusinessPhones","6.10E+11")
                     $destinationGraphParameters.Add("UsageLocation","AU")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.au"
+                    $upnSuffix = "@Domain.extension1.au"
                     $destinationGraphParameters.Add("Country","AU")
                     $destinationGraphParameters.Add("BusinessPhones","6.10E+11")
                     $destinationGraphParameters.Add("UsageLocation","AU")
                 }
             }
         }
-        "EvapTech, Inc."{
+        "subsidiaryCompany2, Inc."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1747,25 +1747,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EvapTech.com") 
+                    $destinationLADParameters.Add("Server","subsidiaryCompany2.com") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19133225165")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber9")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Dry Cooling, Inc."{
+        "parentCompany Dry Cooling, Inc."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1773,51 +1773,51 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCODC.com") 
+                    $destinationLADParameters.Add("Server","parentCompanyDC.com") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcodc.com"
+                    $upnSuffix = "@parentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcodc.com"
+                    $upnSuffix = "@parentCompanydc.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","19083792665")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber10")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "Tower Components, Inc."{
+        "subsidiaryCompany4"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-NC-VS-DC01"
-                    $destinationHybridWorkerUser = "evapcoadmin@towercomponentsinc.com"
+                    $destinationHybridWorkerUser = "parentCompanyadmin@Domain.extension2"
                     $destinationHybridWorkerKeyVault = "US-NC-VS-DC01"
                     
-                    $destinationLADParameters.Add("Server","@towercomponentsinc.com") 
+                    $destinationLADParameters.Add("Server","@Domain.extension2") 
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@towercomponentsinc.com"
+                    $upnSuffix = "@Domain.extension2"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","13368242102")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber11")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Newton"{
+        "parentCompany Newton"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1825,25 +1825,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCOMW.com")  
+                    $destinationLADParameters.Add("Server","parentCompanyMW.com")  
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomw.com"
+                    $upnSuffix = "@parentCompanymw.com"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","16187833433")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber12")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Europe A/S"{
+        "parentCompany Europe A/S"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1851,25 +1851,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCO.DK")  
+                    $destinationLADParameters.Add("Server","parentCompany.DK")  
                     $destinationLADExtensionAttributes.Add("co","Denmark")
                     $destinationLADExtensionAttributes.Add("countryCode","208")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.dk"
+                    $upnSuffix = "@parentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.dk"
+                    $upnSuffix = "@parentCompany.dk"
                     $destinationGraphParameters.Add("Country","DK")
-                    $destinationGraphParameters.Add("BusinessPhones","14598244999")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber13")
                     $destinationGraphParameters.Add("UsageLocation","DK")
                 }
             }
         }
-        "EVAPCO Brasil"{
+        "parentCompany Brasil"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1877,25 +1877,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","EVAPCO.com.br")  
+                    $destinationLADParameters.Add("Server","Domain.extension1.br")  
                     $destinationLADExtensionAttributes.Add("co","Brazil")
                     $destinationLADExtensionAttributes.Add("countryCode","076")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.br"
+                    $upnSuffix = "@Domain.extension1.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.com.br"
+                    $upnSuffix = "@Domain.extension1.br"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
         }
-        "Fan TR"{
+        "subsidiaryCompany3"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1903,25 +1903,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","Fantr.com")  
+                    $destinationLADParameters.Add("Server","Domain.extension3")  
                     $destinationLADExtensionAttributes.Add("co","Brazil")
                     $destinationLADExtensionAttributes.Add("countryCode","076")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@fantr.com"
+                    $upnSuffix = "@Domain.extension3"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@fantr.com"
+                    $upnSuffix = "@Domain.extension3"
                     $destinationGraphParameters.Add("Country","BR")
-                    $destinationGraphParameters.Add("BusinessPhones","1.55E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber14")
                     $destinationGraphParameters.Add("UsageLocation","BR")
                 }
             }
         }
-        "EVAPCO Alcoil, Inc."{
+        "parentCompany Alcoil, Inc."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1929,25 +1929,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                      
-                    $destinationLADParameters.Add("Server","@evapco-alcoil.com")   
+                    $destinationLADParameters.Add("Server","@Domain.extension4")   
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco-alcoil.com"
+                    $upnSuffix = "@Domain.extension4"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco-alcoil.com"
+                    $upnSuffix = "@Domain.extension4"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","17173477500")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber15")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Air Cooling Systems (Jiaxing) Co., Ltd."{
+        "parentCompany Air Cooling Systems (Jiaxing) Co., Ltd."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -1955,51 +1955,51 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","@evapcoacs.cn")   
+                    $destinationLADParameters.Add("Server","@Domain.extension6")   
                     $destinationLADExtensionAttributes.Add("co","China")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoacs.cn"
+                    $upnSuffix = "@Domain.extension6"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoacs.cn"
+                    $upnSuffix = "@Domain.extension6"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.66E+12")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber16")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
         }
-        "EVAPCO Iowa Sales & Engineering"{
+        "parentCompany Iowa Sales & Engineering"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
                     $destinationHybridWorkerGroup = "US-MN-VS-DC01"
-                    $destinationHybridWorkerUser = "evapcoadmin@evapco.mn"
+                    $destinationHybridWorkerUser = "parentCompanyadmin@parentCompany.mn"
                     $destinationHybridWorkerKeyVault = "US-MN-VS-DC01"
                     
-                    $destinationLADParameters.Add("Server","@evapcomn.com")    
+                    $destinationLADParameters.Add("Server","@Domain.extension7")    
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomn.com"
+                    $upnSuffix = "@Domain.extension7"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcomn.com"
+                    $upnSuffix = "@Domain.extension7"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","15074468005")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber17")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO LMP"{
+        "parentCompany LMP"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -2007,25 +2007,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","@evapcolmp.ca")  
+                    $destinationLADParameters.Add("Server","@Domain.Extension8")  
                     $destinationLADExtensionAttributes.Add("co","Canada")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcolmp.ca"
+                    $upnSuffix = "@Domain.Extension8"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcolmp.ca"
+                    $upnSuffix = "@Domain.Extension8"
                     $destinationGraphParameters.Add("Country","CA")
-                    $destinationGraphParameters.Add("BusinessPhones","14506299864")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber18")
                     $destinationGraphParameters.Add("UsageLocation","CA")
                 }
             }
         }
-        "EVAPCO Select Tech"{
+        "parentCompany Select Tech"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -2033,25 +2033,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","@evapcoselect.com")   
+                    $destinationLADParameters.Add("Server","@Domain.Extension9")   
                     $destinationLADExtensionAttributes.Add("co","United States")
                     $destinationLADExtensionAttributes.Add("countryCode","840")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoselect.com"
+                    $upnSuffix = "@Domain.Extension9"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapcoselect.com"
+                    $upnSuffix = "@Domain.Extension9"
                     $destinationGraphParameters.Add("Country","US")
-                    $destinationGraphParameters.Add("BusinessPhones","18447859506")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber19")
                     $destinationGraphParameters.Add("UsageLocation","US")
                 }
             }
         }
-        "EVAPCO Europe GmbH"{
+        "parentCompany Europe GmbH"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -2059,25 +2059,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","@evapco.de")     
+                    $destinationLADParameters.Add("Server","@Domain.Extension10")     
                     $destinationLADExtensionAttributes.Add("co","Germany")
                     $destinationLADExtensionAttributes.Add("countryCode","276")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.de"
+                    $upnSuffix = "@Domain.Extension10"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evapco.de"
+                    $upnSuffix = "@Domain.Extension10"
                     $destinationGraphParameters.Add("Country","DE")
-                    $destinationGraphParameters.Add("BusinessPhones","49215969560")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber20")
                     $destinationGraphParameters.Add("UsageLocation","DE")
                 }
             }
         }
-        "EvapTech Asia Pacific Sdn Bhd"{
+        "subsidiaryCompany2 Asia Pacific Sdn Bhd"{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -2085,25 +2085,25 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","@evaptech.com")    
+                    $destinationLADParameters.Add("Server","@subsidiaryCompany2.com")    
                     $destinationLADExtensionAttributes.Add("co","Malaysia")
                     $destinationLADExtensionAttributes.Add("countryCode","458")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","MY")
-                    $destinationGraphParameters.Add("BusinessPhones","60380707255")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber21")
                     $destinationGraphParameters.Add("UsageLocation","MY")
                 }
             }
         }
-        "EvapTech (Shanghai) Cooling Tower Co., Ltd."{
+        "subsidiaryCompany2 (Shanghai) Cooling Tower Co., Ltd."{
             switch ($shopOrOffice) {
                 Default {
                     $currentUserID = $jiraUserToModify
@@ -2111,20 +2111,20 @@ switch ($isTransfer) {
                     $destinationHybridWorkerUser = $null
                     $destinationHybridWorkerKeyVault = $null
                     
-                    $destinationLADParameters.Add("Server","@evaptech.com")    
+                    $destinationLADParameters.Add("Server","@subsidiaryCompany2.com")    
                     $destinationLADExtensionAttributes.Add("co","China")
                     $destinationLADExtensionAttributes.Add("countryCode","156")
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                  }
                 "Shop" {
                     $destinationGraphParameters.Add("UserID",$jiraUserToModify)
-                    $upnSuffix = "@evaptech.com"
+                    $upnSuffix = "@subsidiaryCompany2.com"
                     $destinationGraphParameters.Add("Country","CN")
-                    $destinationGraphParameters.Add("BusinessPhones","8.62E+11")
+                    $destinationGraphParameters.Add("BusinessPhones","PhoneNumber22")
                     $destinationGraphParameters.Add("UsageLocation","CN")
                 }
             }
@@ -2274,19 +2274,19 @@ switch ($isTransfer) {
             Write-Output "I am on line 2323, this is a user who is synching and there are Hybrid Workers Configured to Modify the Origin Account."
             Write-Output "Executing: '$originRunbook'"  
             $originRunbookParameters = [ordered]@{"jiraTicket"="$jiraTicket";"originParametersUser"=$originParametersUser;"originParametersObject"=$originParametersObject;"originHybridWorkerCred"="$originHybridWorkerCred";"currentUserID"="$currentUserID";"originSynching"=$originSynching}
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name $originRunbook -ResourceGroupName "EvapcoGIT"  -RunOn $originHybridWorkerGroup -Parameters $originRunbookParameters -wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name $originRunbook -ResourceGroupName "ResourceGroup1"  -RunOn $originHybridWorkerGroup -Parameters $originRunbookParameters -wait
             $restoreRunbookParameters = [ordered]@{"jiraTicket"="$jiraTicket";"originGraphUserID"="$originGraphUserID"}
             Write-Output "Executing: 'User-Transfer-3-Restore'" 
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-3-Restore" -ResourceGroupName "EvapcoGIT" -Parameters $restoreRunbookParameters -Wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-3-Restore" -ResourceGroupName "ResourceGroup1" -Parameters $restoreRunbookParameters -Wait
             $graphModRunbook = [ordered]@{"jiraTicket"="$jiraTicket";"originUPN"="$jiraUserToModify";"ParamsFromTicket"=$destinationGraphParameters;"newManagerUPN" = $newManagerUPN; "newUPN" = "$newUPN";"isTransfer" = "$isTransfer"}
             Write-Output "Executing: 'User-Transfer-4-Modify-Entra-Account'" 
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "EvapcoGIT"  -Parameters $graphModRunbook -Wait
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "ResourceGroup1"  -Parameters $graphModRunbook -Wait
             if ($null -ne $destinationHybridWorkerGroup){
                 $destinationRunbookParameters = [ordered]@{"jiraTicket"="$jiraTicket";"destinationLADParameters"=$destinationLADParameters;"destinationHybridWorkerCred" = "$destinationHybridWorkerCred";"newUPN" = "$newUPN";"currentUserID" = "$originGraphUserID"}
                 Write-Output "Executing: 'User-Transfer-5-Create-Local-From-Graph-72'"
-                start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "EvapcoGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters -Wait
-                Write-Output "Executing: 'Invoke-Evapco-Sync'"
-                start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-Evapco-Sync" -ResourceGroupName "EvapcoGIT" -RunOn "US-AZ-VS-DC01" -Wait
+                start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "ResourceGroup1" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters -Wait
+                Write-Output "Executing: 'Invoke-parentCompany-Sync'"
+                start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-parentCompany-Sync" -ResourceGroupName "ResourceGroup1" -RunOn "Azure-DC01" -Wait
                 $date = get-date
                 $DoW = $date.DayOfWeek.ToString()
                 $Month = (Get-date $date -format "MM").ToString()
@@ -2331,13 +2331,13 @@ switch ($isTransfer) {
         #Starting the Origin Runbook
         $graphModRunbook = [ordered]@{"jiraTicket"="$jiraTicket";"originUPN"="$jiraUserToModify";"ParamsFromTicket"=$destinationGraphParameters;"newManagerUPN" = $newManagerUPN; "newUPN" = "$newUPN";"isTransfer" = "$isTransfer"}
         Write-Output "Executing: 'User-Transfer-4-Modify-Entra-Account'"
-        start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "EvapcoGIT"  -Parameters $graphModRunbook -Wait
+        start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-4-Modify-Entra-Account" -ResourceGroupName "ResourceGroup1"  -Parameters $graphModRunbook -Wait
         if ($null -ne $destinationHybridWorkerGroup){
             $destinationRunbookParameters = [ordered]@{"jiraTicket"="$jiraTicket";"destinationLADParameters"=$destinationLADParameters;"destinationHybridWorkerCred" = "$destinationHybridWorkerCred"; "newUPN" = "$newUPN";"currentUserID" = "$originGraphUserID"}
             Write-Output "Executing: 'User-Transfer-5-Create-Local-From-Graph-72'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "EvapcoGIT" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters  -Wait
-            Write-Output "Executing: 'Invoke-Evapco-Sync'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-Evapco-Sync" -ResourceGroupName "EvapcoGIT" -RunOn "US-AZ-VS-DC01" -Wait        
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Transfer-5-Create-Local-From-Graph-72" -ResourceGroupName "ResourceGroup1" -RunOn $destinationHybridWorkerGroup  -Parameters $destinationRunbookParameters  -Wait
+            Write-Output "Executing: 'Invoke-parentCompany-Sync'"
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-parentCompany-Sync" -ResourceGroupName "ResourceGroup1" -RunOn "Azure-DC01" -Wait        
             $date = get-date
             $DoW = $date.DayOfWeek.ToString()
             $Month = (Get-date $date -format "MM").ToString()
@@ -2537,14 +2537,14 @@ switch ($isTransfer) {
         }
         
         switch ($locationKey) {
-            "EVAPCO East"{
+            "parentCompany East"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
-                        $hybridWorkerGroup  = "US-AZ-VS-DC01"
-                        $hybridWorkerCred = "Testing-TT-Credential"
+                        $hybridWorkerGroup  = "Azure-DC01"
+                        $hybridWorkerCred = "Credential"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCO.COM")
+                        $paramsFromTicket.Add("Server","Domain.extension1")
                         $paramsFromTicket.Add("Country","US")
                         $paramsFromTicket.Add("OfficePhone","14107562600")
                         $extensionAttributes.Add("co","United States")
@@ -2559,161 +2559,161 @@ switch ($isTransfer) {
                     }
                 }
             }
-            "EVAPCO West"{
+            "Location2"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = "US-CA-VS-DC01"
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCOWest.COM")
+                        $paramsFromTicket.Add("Server","parentCompanyWest.COM")
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","15596732207")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber2")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","15596732207")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber2")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Midwest"{
+            "parentCompany Midwest"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCOMW.COM")
+                        $paramsFromTicket.Add("Server","parentCompanyMW.COM")
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","12179233431")
+                        $paramsFromTicket.Add("OfficePhone","phoneNumber3")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","12179233431")
+                        $paramsFromTicket.Add("BusinessPhones","phoneNumber3")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Iowa"{
+            "parentCompany Iowa"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCOIA.COM") 
+                        $paramsFromTicket.Add("Server","parentCompanyIA.COM") 
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","17126573223")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber4")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","17126573223")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber4")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "Refrigeration Vessels & Systems Corporation"{
+            "subsidiaryCompany1"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
-                        $hybridWorkerCred = "RVS-Hybrid-Worker"
+                        $hybridWorkerCred = "subsidiaryCompany1-shortName-Hybrid-Worker"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","RVSCORP.COM")  
+                        $paramsFromTicket.Add("Server","subsidiaryCompany1-shortNameCORP.COM")  
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","19797780095")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber5")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","19797780095")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber5")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Europe BVBA"{
+            "parentCompany Europe BVBA"{
                 switch ($refUserSynching) {
                     $true { 
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCO.BE")
+                        $paramsFromTicket.Add("Server","parentCompany.BE")
                         $paramsFromTicket.Add("Country","BE")
-                        $paramsFromTicket.Add("OfficePhone","3212395029")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber6")
                         $extensionAttributes.Add("co","Belgium")
                         $extensionAttributes.Add("countryCode","056")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","BE")
-                        $paramsFromTicket.Add("BusinessPhones","3212395029")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber6")
                         $paramsFromTicket.Add("UsageLocation","BE")
                     }
                 }
             }
-            "EVAPCO (Milano) Europe, S.r.l."{
+            "parentCompany (Milano) Europe, S.r.l."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCO.IT")
+                        $paramsFromTicket.Add("Server","parentCompany.IT")
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("OfficePhone","39029399041")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber7")
                         $extensionAttributes.Add("co","Italy")
                         $extensionAttributes.Add("countryCode","380")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("BusinessPhones","39029399041")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber7")
                         $paramsFromTicket.Add("UsageLocation","IT")
                     }
                 }
             }
-            "EVAPCO (Sondrio) Europe, S.rl.l."{
+            "parentCompany (Sondrio) Europe, S.rl.l."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCO.IT") 
+                        $paramsFromTicket.Add("Server","parentCompany.IT") 
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("OfficePhone","39029399041")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber7")
                         $extensionAttributes.Add("co","Italy")
                         $extensionAttributes.Add("countryCode","380")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","IT")
-                        $paramsFromTicket.Add("BusinessPhones","39029399041")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber7")
                         $paramsFromTicket.Add("UsageLocation","IT")
                     }
                 }
             }
-            "EVAPCO (Beijing) Refrigeration Equipment Co., Ltd."{
+            "parentCompany (Beijing) Refrigeration Equipment Co., Ltd."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCOCHINA.com")
+                        $paramsFromTicket.Add("Server","parentCompanyCHINA.com")
                         $paramsFromTicket.Add("Country","CN")
                         $paramsFromTicket.Add("OfficePhone","8.61E+11")
                         $extensionAttributes.Add("co","CN")
@@ -2727,35 +2727,35 @@ switch ($isTransfer) {
                     }
                 }
             }
-            "EVAPCO (Shanghai) Refrigeration Equipment Co., Ltd."{
+            "parentCompany (Shanghai) Refrigeration Equipment Co., Ltd."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                        $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCOCHINA.com")
+                        $paramsFromTicket.Add("Server","parentCompanyCHINA.com")
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("OfficePhone","8.62E+11")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber22")
                         $extensionAttributes.Add("co","CN")
                         $extensionAttributes.Add("countryCode","156")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("BusinessPhones","8.62E+11")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber22")
                         $paramsFromTicket.Add("UsageLocation","CN")
                     }
                 }
             }
-            "EVAPCO Australia (Pty.) Ltd."{
+            "parentCompany Australia (Pty.) Ltd."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","Evapco.com.au") 
+                        $paramsFromTicket.Add("Server","Domain.extension1.au") 
                         $paramsFromTicket.Add("Country","AU")
                         $paramsFromTicket.Add("OfficePhone","6.10E+11")
                         $extensionAttributes.Add("co","AU")
@@ -2769,49 +2769,49 @@ switch ($isTransfer) {
                     }
                 }
             }
-            "EvapTech, Inc."{
+            "subsidiaryCompany2, Inc."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
-                        $hybridWorkerCred = "EvapTech-Hybrid-Worker"
+                        $hybridWorkerCred = "subsidiaryCompany2-Hybrid-Worker"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EvapTech.com") 
+                        $paramsFromTicket.Add("Server","subsidiaryCompany2.com") 
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","19133225165")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber9")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","19133225165")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber9")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Dry Cooling, Inc."{
+            "parentCompany Dry Cooling, Inc."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "DryCooling-Hybrid-Worker"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCODC.com") 
+                        $paramsFromTicket.Add("Server","parentCompanyDC.com") 
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","19083792665")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber10")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","19083792665")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber10")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "Tower Components, Inc."{
+            "subsidiaryCompany4"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
@@ -2819,125 +2819,125 @@ switch ($isTransfer) {
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("Server","@towercomponentsinc.com") 
-                        $paramsFromTicket.Add("OfficePhone","13368242102")
+                        $paramsFromTicket.Add("Server","@Domain.extension2") 
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber11")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","13368242102")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber11")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Newton"{
+            "parentCompany Newton"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCOMW.com")  
+                        $paramsFromTicket.Add("Server","parentCompanyMW.com")  
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","16187833433")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber12")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","16187833433")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber12")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Europe A/S"{
+            "parentCompany Europe A/S"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCO.DK")  
+                        $paramsFromTicket.Add("Server","parentCompany.DK")  
                         $paramsFromTicket.Add("Country","DK")
-                        $paramsFromTicket.Add("OfficePhone","14598244999")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber13")
                         $extensionAttributes.Add("co","Denmark")
                         $extensionAttributes.Add("countryCode","208")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","DK")
-                        $paramsFromTicket.Add("BusinessPhones","14598244999")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber13")
                         $paramsFromTicket.Add("UsageLocation","DK")
                     }
                 }
             }
-            "EVAPCO Brasil"{
+            "parentCompany Brasil"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","EVAPCO.com.br")  
+                        $paramsFromTicket.Add("Server","Domain.extension1.br")  
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("OfficePhone","1.55E+12")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber14")
                         $extensionAttributes.Add("co","Brazil")
                         $extensionAttributes.Add("countryCode","076")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("BusinessPhones","1.55E+12")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber14")
                         $paramsFromTicket.Add("UsageLocation","BR")
                     }
                 }
             }
-            "Fan TR"{
+            "subsidiaryCompany3"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","Fantr.com")  
+                        $paramsFromTicket.Add("Server","Domain.extension3")  
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("OfficePhone","1.55E+12")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber14")
                         $extensionAttributes.Add("co","Brazil")
                         $extensionAttributes.Add("countryCode","076")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","BR")
-                        $paramsFromTicket.Add("BusinessPhones","1.55E+12")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber14")
                         $paramsFromTicket.Add("UsageLocation","BR")
                     }
                 }
             }
-            "EVAPCO Alcoil, Inc."{
+            "parentCompany Alcoil, Inc."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme) 
-                        $paramsFromTicket.Add("Server","@evapco-alcoil.com")   
+                        $paramsFromTicket.Add("Server","@Domain.extension4")   
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","17173477500")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber15")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","17173477500")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber15")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Air Cooling Systems (Jiaxing) Co., Ltd."{
+            "parentCompany Air Cooling Systems (Jiaxing) Co., Ltd."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
@@ -2945,142 +2945,142 @@ switch ($isTransfer) {
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evapcoacs.cn")   
+                        $paramsFromTicket.Add("Server","@Domain.extension6")   
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("OfficePhone","8.66E+12")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber16")
                         $extensionAttributes.Add("co","China")
                         $extensionAttributes.Add("countryCode","156")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("BusinessPhones","8.66E+12")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber16")
                         $paramsFromTicket.Add("UsageLocation","CN")
                     }
                 }
             }
-            "EVAPCO Iowa Sales & Engineering"{
+            "parentCompany Iowa Sales & Engineering"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = "US-MN-VS-DC01"
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evapcomn.com")    
+                        $paramsFromTicket.Add("Server","@Domain.extension7")    
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","15074468005")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber17")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","15074468005")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber17")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO LMP"{
+            "parentCompany LMP"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evapcolmp.ca")  
+                        $paramsFromTicket.Add("Server","@Domain.Extension8")  
                         $paramsFromTicket.Add("Country","CA")
-                        $paramsFromTicket.Add("OfficePhone","14506299864")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber18")
                         $extensionAttributes.Add("co","Canada")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CA")
-                        $paramsFromTicket.Add("BusinessPhones","14506299864")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber18")
                         $paramsFromTicket.Add("UsageLocation","CA")
                     }
                 }
             }
-            "EVAPCO Select Tech"{
+            "parentCompany Select Tech"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evapcoselect.com")   
+                        $paramsFromTicket.Add("Server","@Domain.Extension9")   
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("OfficePhone","18447859506")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber19")
                         $extensionAttributes.Add("co","United States")
                         $extensionAttributes.Add("countryCode","840")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","US")
-                        $paramsFromTicket.Add("BusinessPhones","18447859506")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber19")
                         $paramsFromTicket.Add("UsageLocation","US")
                     }
                 }
             }
-            "EVAPCO Europe GmbH"{
+            "parentCompany Europe GmbH"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
                         $hybridWorkerCred = "$localCred"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evapco.de")     
+                        $paramsFromTicket.Add("Server","@Domain.Extension10")     
                         $paramsFromTicket.Add("Country","DE")
-                        $paramsFromTicket.Add("OfficePhone","49215969560")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber20")
                         $extensionAttributes.Add("co","Germany")
                         $extensionAttributes.Add("countryCode","276")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","DE")
-                        $paramsFromTicket.Add("BusinessPhones","49215969560")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber20")
                         $paramsFromTicket.Add("UsageLocation","DE")
                     }
                 }
             }
-            "EvapTech Asia Pacific Sdn Bhd"{
+            "subsidiaryCompany2 Asia Pacific Sdn Bhd"{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
-                        $hybridWorkerCred = "EvapTech-Hybrid-Worker"
+                        $hybridWorkerCred = "subsidiaryCompany2-Hybrid-Worker"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evaptech.com")    
+                        $paramsFromTicket.Add("Server","@subsidiaryCompany2.com")    
                         $paramsFromTicket.Add("Country","MY")
-                        $paramsFromTicket.Add("OfficePhone","60380707255")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber21")
                         $extensionAttributes.Add("co","Malaysia")
                         $extensionAttributes.Add("countryCode","458")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","MY")
-                        $paramsFromTicket.Add("BusinessPhones","60380707255")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber21")
                         $paramsFromTicket.Add("UsageLocation","MY")
                     }
                 }
             }
-            "EvapTech (Shanghai) Cooling Tower Co., Ltd."{
+            "subsidiaryCompany2 (Shanghai) Cooling Tower Co., Ltd."{
                 switch ($refUserSynching) {
                     $true {
                         $currentUserID = $jiraUserToModify
                         $hybridWorkerGroup = $null
-                        $hybridWorkerCred = "EvapTech-Hybrid-Worker"
+                        $hybridWorkerCred = "subsidiaryCompany2-Hybrid-Worker"
                         $paramsFromTicket.Add("Identity",$SAMAccountNAme)
-                        $paramsFromTicket.Add("Server","@evaptech.com")    
+                        $paramsFromTicket.Add("Server","@subsidiaryCompany2.com")    
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("OfficePhone","8.62E+11")
+                        $paramsFromTicket.Add("OfficePhone","PhoneNumber22")
                         $extensionAttributes.Add("co","China")
                         $extensionAttributes.Add("countryCode","156")
                      }
                     $false {
                         $paramsFromTicket.Add("UserID",$jiraUserToModify)
                         $paramsFromTicket.Add("Country","CN")
-                        $paramsFromTicket.Add("BusinessPhones","8.62E+11")
+                        $paramsFromTicket.Add("BusinessPhones","PhoneNumber22")
                         $paramsFromTicket.Add("UsageLocation","CN")
                     }
                 }
@@ -3109,11 +3109,11 @@ switch ($isTransfer) {
             try{
             Write-Output "Executing: 'User-Change-3-LicenseUpdate'"
             $licenseParameters = [ordered]@{"paramsFromTicket" = $extensionAttributes; "currentUserID" = "$currentUserID"}
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Change-3-LicenseUpdate" -ResourceGroupName "EvapcoGIT" -Parameters $licenseParameters -wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Change-3-LicenseUpdate" -ResourceGroupName "ResourceGroup1" -Parameters $licenseParameters -wait -ErrorAction Stop
             Write-Output "Executing: 'User-Change-2-LocalAD-72'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "User-Change-2-LocalAD-72" -ResourceGroupName "EvapcoGIT"  -RunOn $hybridWorkerGroup -Parameters $runbookParameters -wait -ErrorAction Stop
-            Write-Output "Executing: 'Invoke-Evapco-Sync'"
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name "Invoke-Evapco-Sync" -ResourceGroupName "EvapcoGIT" -RunOn "US-AZ-VS-DC01" -Wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "User-Change-2-LocalAD-72" -ResourceGroupName "ResourceGroup1"  -RunOn $hybridWorkerGroup -Parameters $runbookParameters -wait -ErrorAction Stop
+            Write-Output "Executing: 'Invoke-parentCompany-Sync'"
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name "Invoke-parentCompany-Sync" -ResourceGroupName "ResourceGroup1" -RunOn "Azure-DC01" -Wait -ErrorAction Stop
             
             Set-SuccessfulCommentRunbook -successMessage "This has been resolved by Automation!" -jiraTicket $jiraTicket -jiraHeader $jiraHeader -ErrorAction Stop
             exit 0
@@ -3137,7 +3137,7 @@ switch ($isTransfer) {
             $runbookParameters = [ordered]@{"jiraTicket"="$jiraTicket";"OriginUPN" = "$jiraUserToModify";"ParamsFromTicket"=$ParamsFromTicket;"newManagerUPN" = $newManagerUPN}
             Write-Output "Executing: '$Runbook'"
             try{
-            start-azautomationrunbook -AutomationAccountName "GIT-Infrastructure-Automation" -Name $Runbook -ResourceGroupName "EvapcoGIT"  -Parameters $runbookParameters -wait -ErrorAction Stop
+            start-azautomationrunbook -AutomationAccountName "AutomationAccount1" -Name $Runbook -ResourceGroupName "ResourceGroup1"  -Parameters $runbookParameters -wait -ErrorAction Stop
             if($officeAppNeeds -eq '10755'){
                 Write-Output "This user requires a local account created and their license changed to E5. This is a WIP!"
             }
@@ -3155,254 +3155,5 @@ switch ($isTransfer) {
         }
     }
 }
-# SIG # Begin signature block
-# MIIumQYJKoZIhvcNAQcCoIIuijCCLoYCAQExDzANBglghkgBZQMEAgEFADB5Bgor
-# BgEEAYI3AgEEoGswaTA0BgorBgEEAYI3AgEeMCYCAwEAAAQQH8w7YFlLCE63JNLG
-# KX7zUQIBAAIBAAIBAAIBAAIBADAxMA0GCWCGSAFlAwQCAQUABCBxd0Jf6Jd/kawp
-# qxdVKpDqFtyKozJR61kfwcr9JjfiAKCCFAUwggWQMIIDeKADAgECAhAFmxtXno4h
-# MuI5B72nd3VcMA0GCSqGSIb3DQEBDAUAMGIxCzAJBgNVBAYTAlVTMRUwEwYDVQQK
-# EwxEaWdpQ2VydCBJbmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xITAfBgNV
-# BAMTGERpZ2lDZXJ0IFRydXN0ZWQgUm9vdCBHNDAeFw0xMzA4MDExMjAwMDBaFw0z
-# ODAxMTUxMjAwMDBaMGIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJ
-# bmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xITAfBgNVBAMTGERpZ2lDZXJ0
-# IFRydXN0ZWQgUm9vdCBHNDCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIB
-# AL/mkHNo3rvkXUo8MCIwaTPswqclLskhPfKK2FnC4SmnPVirdprNrnsbhA3EMB/z
-# G6Q4FutWxpdtHauyefLKEdLkX9YFPFIPUh/GnhWlfr6fqVcWWVVyr2iTcMKyunWZ
-# anMylNEQRBAu34LzB4TmdDttceItDBvuINXJIB1jKS3O7F5OyJP4IWGbNOsFxl7s
-# Wxq868nPzaw0QF+xembud8hIqGZXV59UWI4MK7dPpzDZVu7Ke13jrclPXuU15zHL
-# 2pNe3I6PgNq2kZhAkHnDeMe2scS1ahg4AxCN2NQ3pC4FfYj1gj4QkXCrVYJBMtfb
-# BHMqbpEBfCFM1LyuGwN1XXhm2ToxRJozQL8I11pJpMLmqaBn3aQnvKFPObURWBf3
-# JFxGj2T3wWmIdph2PVldQnaHiZdpekjw4KISG2aadMreSx7nDmOu5tTvkpI6nj3c
-# AORFJYm2mkQZK37AlLTSYW3rM9nF30sEAMx9HJXDj/chsrIRt7t/8tWMcCxBYKqx
-# YxhElRp2Yn72gLD76GSmM9GJB+G9t+ZDpBi4pncB4Q+UDCEdslQpJYls5Q5SUUd0
-# viastkF13nqsX40/ybzTQRESW+UQUOsxxcpyFiIJ33xMdT9j7CFfxCBRa2+xq4aL
-# T8LWRV+dIPyhHsXAj6KxfgommfXkaS+YHS312amyHeUbAgMBAAGjQjBAMA8GA1Ud
-# EwEB/wQFMAMBAf8wDgYDVR0PAQH/BAQDAgGGMB0GA1UdDgQWBBTs1+OC0nFdZEzf
-# Lmc/57qYrhwPTzANBgkqhkiG9w0BAQwFAAOCAgEAu2HZfalsvhfEkRvDoaIAjeNk
-# aA9Wz3eucPn9mkqZucl4XAwMX+TmFClWCzZJXURj4K2clhhmGyMNPXnpbWvWVPjS
-# PMFDQK4dUPVS/JA7u5iZaWvHwaeoaKQn3J35J64whbn2Z006Po9ZOSJTROvIXQPK
-# 7VB6fWIhCoDIc2bRoAVgX+iltKevqPdtNZx8WorWojiZ83iL9E3SIAveBO6Mm0eB
-# cg3AFDLvMFkuruBx8lbkapdvklBtlo1oepqyNhR6BvIkuQkRUNcIsbiJeoQjYUIp
-# 5aPNoiBB19GcZNnqJqGLFNdMGbJQQXE9P01wI4YMStyB0swylIQNCAmXHE/A7msg
-# dDDS4Dk0EIUhFQEI6FUy3nFJ2SgXUE3mvk3RdazQyvtBuEOlqtPDBURPLDab4vri
-# RbgjU2wGb2dVf0a1TD9uKFp5JtKkqGKX0h7i7UqLvBv9R0oN32dmfrJbQdA75PQ7
-# 9ARj6e/CVABRoIoqyc54zNXqhwQYs86vSYiv85KZtrPmYQ/ShQDnUBrkG5WdGaG5
-# nLGbsQAe79APT0JsyQq87kP6OnGlyE0mpTX9iV28hWIdMtKgK1TtmlfB2/oQzxm3
-# i0objwG2J5VT6LaJbVu8aNQj6ItRolb58KaAoNYes7wPD1N1KarqE3fk3oyBIa0H
-# EEcRrYc9B9F1vM/zZn4wggawMIIEmKADAgECAhAIrUCyYNKcTJ9ezam9k67ZMA0G
-# CSqGSIb3DQEBDAUAMGIxCzAJBgNVBAYTAlVTMRUwEwYDVQQKEwxEaWdpQ2VydCBJ
-# bmMxGTAXBgNVBAsTEHd3dy5kaWdpY2VydC5jb20xITAfBgNVBAMTGERpZ2lDZXJ0
-# IFRydXN0ZWQgUm9vdCBHNDAeFw0yMTA0MjkwMDAwMDBaFw0zNjA0MjgyMzU5NTla
-# MGkxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjFBMD8GA1UE
-# AxM4RGlnaUNlcnQgVHJ1c3RlZCBHNCBDb2RlIFNpZ25pbmcgUlNBNDA5NiBTSEEz
-# ODQgMjAyMSBDQTEwggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQDVtC9C
-# 0CiteLdd1TlZG7GIQvUzjOs9gZdwxbvEhSYwn6SOaNhc9es0JAfhS0/TeEP0F9ce
-# 2vnS1WcaUk8OoVf8iJnBkcyBAz5NcCRks43iCH00fUyAVxJrQ5qZ8sU7H/Lvy0da
-# E6ZMswEgJfMQ04uy+wjwiuCdCcBlp/qYgEk1hz1RGeiQIXhFLqGfLOEYwhrMxe6T
-# SXBCMo/7xuoc82VokaJNTIIRSFJo3hC9FFdd6BgTZcV/sk+FLEikVoQ11vkunKoA
-# FdE3/hoGlMJ8yOobMubKwvSnowMOdKWvObarYBLj6Na59zHh3K3kGKDYwSNHR7Oh
-# D26jq22YBoMbt2pnLdK9RBqSEIGPsDsJ18ebMlrC/2pgVItJwZPt4bRc4G/rJvmM
-# 1bL5OBDm6s6R9b7T+2+TYTRcvJNFKIM2KmYoX7BzzosmJQayg9Rc9hUZTO1i4F4z
-# 8ujo7AqnsAMrkbI2eb73rQgedaZlzLvjSFDzd5Ea/ttQokbIYViY9XwCFjyDKK05
-# huzUtw1T0PhH5nUwjewwk3YUpltLXXRhTT8SkXbev1jLchApQfDVxW0mdmgRQRNY
-# mtwmKwH0iU1Z23jPgUo+QEdfyYFQc4UQIyFZYIpkVMHMIRroOBl8ZhzNeDhFMJlP
-# /2NPTLuqDQhTQXxYPUez+rbsjDIJAsxsPAxWEQIDAQABo4IBWTCCAVUwEgYDVR0T
-# AQH/BAgwBgEB/wIBADAdBgNVHQ4EFgQUaDfg67Y7+F8Rhvv+YXsIiGX0TkIwHwYD
-# VR0jBBgwFoAU7NfjgtJxXWRM3y5nP+e6mK4cD08wDgYDVR0PAQH/BAQDAgGGMBMG
-# A1UdJQQMMAoGCCsGAQUFBwMDMHcGCCsGAQUFBwEBBGswaTAkBggrBgEFBQcwAYYY
-# aHR0cDovL29jc3AuZGlnaWNlcnQuY29tMEEGCCsGAQUFBzAChjVodHRwOi8vY2Fj
-# ZXJ0cy5kaWdpY2VydC5jb20vRGlnaUNlcnRUcnVzdGVkUm9vdEc0LmNydDBDBgNV
-# HR8EPDA6MDigNqA0hjJodHRwOi8vY3JsMy5kaWdpY2VydC5jb20vRGlnaUNlcnRU
-# cnVzdGVkUm9vdEc0LmNybDAcBgNVHSAEFTATMAcGBWeBDAEDMAgGBmeBDAEEATAN
-# BgkqhkiG9w0BAQwFAAOCAgEAOiNEPY0Idu6PvDqZ01bgAhql+Eg08yy25nRm95Ry
-# sQDKr2wwJxMSnpBEn0v9nqN8JtU3vDpdSG2V1T9J9Ce7FoFFUP2cvbaF4HZ+N3HL
-# IvdaqpDP9ZNq4+sg0dVQeYiaiorBtr2hSBh+3NiAGhEZGM1hmYFW9snjdufE5Btf
-# Q/g+lP92OT2e1JnPSt0o618moZVYSNUa/tcnP/2Q0XaG3RywYFzzDaju4ImhvTnh
-# OE7abrs2nfvlIVNaw8rpavGiPttDuDPITzgUkpn13c5UbdldAhQfQDN8A+KVssIh
-# dXNSy0bYxDQcoqVLjc1vdjcshT8azibpGL6QB7BDf5WIIIJw8MzK7/0pNVwfiThV
-# 9zeKiwmhywvpMRr/LhlcOXHhvpynCgbWJme3kuZOX956rEnPLqR0kq3bPKSchh/j
-# wVYbKyP/j7XqiHtwa+aguv06P0WmxOgWkVKLQcBIhEuWTatEQOON8BUozu3xGFYH
-# Ki8QxAwIZDwzj64ojDzLj4gLDb879M4ee47vtevLt/B3E+bnKD+sEq6lLyJsQfmC
-# XBVmzGwOysWGw/YmMwwHS6DTBwJqakAwSEs0qFEgu60bhQjiWQ1tygVQK+pKHJ6l
-# /aCnHwZ05/LWUpD9r4VIIflXO7ScA+2GRfS0YW6/aOImYIbqyK+p/pQd52MbOoZW
-# eE4wgge5MIIFoaADAgECAhAOeHFNrWpQadD+X7fviblJMA0GCSqGSIb3DQEBCwUA
-# MGkxCzAJBgNVBAYTAlVTMRcwFQYDVQQKEw5EaWdpQ2VydCwgSW5jLjFBMD8GA1UE
-# AxM4RGlnaUNlcnQgVHJ1c3RlZCBHNCBDb2RlIFNpZ25pbmcgUlNBNDA5NiBTSEEz
-# ODQgMjAyMSBDQTEwHhcNMjQxMTEyMDAwMDAwWhcNMjUxMTEyMjM1OTU5WjCBwTET
-# MBEGCysGAQQBgjc8AgEDEwJVUzEZMBcGCysGAQQBgjc8AgECEwhNYXJ5bGFuZDEd
-# MBsGA1UEDwwUUHJpdmF0ZSBPcmdhbml6YXRpb24xEjAQBgNVBAUTCUQwMDY2ODUz
-# MzELMAkGA1UEBhMCVVMxETAPBgNVBAgTCE1hcnlsYW5kMRIwEAYDVQQHEwlUYW5l
-# eXRvd24xEzARBgNVBAoTCkV2YXBjbyBJbmMxEzARBgNVBAMTCkV2YXBjbyBJbmMw
-# ggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoICAQC4VmB16u7QUgi83PhnLWjD
-# oSTpgThLIDktbX4jcd5iGW2EIcARhLhX7iUEamx07U9bQgFAElu145EAozu/h/Ed
-# KmK6ij2NWOeiv7le/1LlElR+5A5zxYETPArZvETgBa0aORcVZ6MZogWcoSCUH9uo
-# 64yLR7rCUAFYjLwfWfnMrjFclOhmzHhQdkrhz527pJbOIPjJFNITmM6RhYzTq02L
-# 0fPq7oIkL5eXgkFljr90IUDj5mL5aqRgTUzMEfTWBJYeBkA+lS6xaPyPhFtQazxi
-# Rel1K+kyD+1ohzgUOWXIO3RiQKCgWeuVJZMQrS1+ODcFba/hepMT8MKDNGwXeSc5
-# RHNJ2mCkdbP3CfIO7BhKJC+4p7L6a1+YsRR/c3CEcFH++NsOKdcmFbzpzpH3skNe
-# X+71Vn0VNXmgrSje/x26Wo+FKzra50FA57QXtBB3rz/0mtZaLWuqkoG/tSuBjNvV
-# J2yCAajIuiS5Nooik8+76Ajw4PQSkIe/s9xOzHc6gvxekQtLYV6fJQ/f15VuPSZ1
-# Gdo9310rzQWnB9xiZe2BR1ylzq/5/aM/1HmU+zXwyEFthy2wFkGXJK8u4JC7vmcH
-# Rp7pyhhwyWn56UHZANllz08OpeR13yvWQZeaJwp0TOLgHglth+XDuULMv8vkR98c
-# ge7YAkIOLVFeiLUKjYGT1wIDAQABo4ICAjCCAf4wHwYDVR0jBBgwFoAUaDfg67Y7
-# +F8Rhvv+YXsIiGX0TkIwHQYDVR0OBBYEFOdeboNElsywAuHpL+DqJa6ik83MMD0G
-# A1UdIAQ2MDQwMgYFZ4EMAQMwKTAnBggrBgEFBQcCARYbaHR0cDovL3d3dy5kaWdp
-# Y2VydC5jb20vQ1BTMA4GA1UdDwEB/wQEAwIHgDATBgNVHSUEDDAKBggrBgEFBQcD
-# AzCBtQYDVR0fBIGtMIGqMFOgUaBPhk1odHRwOi8vY3JsMy5kaWdpY2VydC5jb20v
-# RGlnaUNlcnRUcnVzdGVkRzRDb2RlU2lnbmluZ1JTQTQwOTZTSEEzODQyMDIxQ0Ex
-# LmNybDBToFGgT4ZNaHR0cDovL2NybDQuZGlnaWNlcnQuY29tL0RpZ2lDZXJ0VHJ1
-# c3RlZEc0Q29kZVNpZ25pbmdSU0E0MDk2U0hBMzg0MjAyMUNBMS5jcmwwgZQGCCsG
-# AQUFBwEBBIGHMIGEMCQGCCsGAQUFBzABhhhodHRwOi8vb2NzcC5kaWdpY2VydC5j
-# b20wXAYIKwYBBQUHMAKGUGh0dHA6Ly9jYWNlcnRzLmRpZ2ljZXJ0LmNvbS9EaWdp
-# Q2VydFRydXN0ZWRHNENvZGVTaWduaW5nUlNBNDA5NlNIQTM4NDIwMjFDQTEuY3J0
-# MAkGA1UdEwQCMAAwDQYJKoZIhvcNAQELBQADggIBAM8Sju/eIoI6/OS+2VcTmBjQ
-# CJsjEtyjxGAWS7OQm1XuJqOyR4XZIFbi9UE5A0zDAuH4pwD8fYpEfn3terhffRHz
-# /HA/cMSu92C4OJAf/AUO20BMo7fRnWh1F+wTUv+K1bCWHZS245m03NE+UqlvTNu8
-# LzvvXBTtEckQdB2XlY39MdWDYxJFINL6bQT7vtGdBvZqDGAeyTaVlvSxHkvDVDtQ
-# r2K1y3aaZyz91Ek+eTyeCxb0dUkEsntT066cqd1DuvDg5o6qsCJXS/CEfV5u27py
-# 5XV3GMeRSw9iAK8eujrfCoztRUia+ZLZoZ/5isqRmokeynNi+KY/VSe2jMIqoJ3J
-# yNsEZFJAPF0M6hDcAjzETOSA1ZcvR6npB1jaUDPWKIld7s8gpWV/8jM+61Kh3Sj0
-# I1O2JZCxpLegx1dDSCkmUufK6Io3FH1zjQtddQnlAFwW+3IPfyoP0YKlIyenlF0h
-# fuBxOlaJ8LZ7VLFcNWzGjhOdwOV/t+JnxVJPFx1RXR3Q8NmmMe08afq22TLpkXQL
-# KwXuKtSi3h1cmOFPtnEqABB5VLUPYZlINCgNFWSY+gKCULWJKkQhpVN5r1yO3LbT
-# tDRvoQRwPoNs9CkNVl9HQ+Qv6sbpqAqLfGEeN+SEv7lo9lUsUKxAaw1yaVBHIISI
-# anBZbb3T3Kf7DmGQDth6MYIZ6jCCGeYCAQEwfTBpMQswCQYDVQQGEwJVUzEXMBUG
-# A1UEChMORGlnaUNlcnQsIEluYy4xQTA/BgNVBAMTOERpZ2lDZXJ0IFRydXN0ZWQg
-# RzQgQ29kZSBTaWduaW5nIFJTQTQwOTYgU0hBMzg0IDIwMjEgQ0ExAhAOeHFNrWpQ
-# adD+X7fviblJMA0GCWCGSAFlAwQCAQUAoIGEMBgGCisGAQQBgjcCAQwxCjAIoAKA
-# AKECgAAwGQYJKoZIhvcNAQkDMQwGCisGAQQBgjcCAQQwHAYKKwYBBAGCNwIBCzEO
-# MAwGCisGAQQBgjcCARUwLwYJKoZIhvcNAQkEMSIEIO2W/WyLhUyoM1cfcgYdFUtF
-# hs0dFvd/PVNEbkVm5a1sMA0GCSqGSIb3DQEBAQUABIICAIPRLka7lvwzWiFjyMI7
-# fyRQA4tS8nd9d1T97z4fJEBSX45t1auq7RC9WHlx2QcP+CiXXxjbvPwfs1rtA+UU
-# MI5ZbTixQ12WVkt/3g7RWCW+M48KpY+ZSXCbKfuGChAjXsnJ6xWWaQkfupDwXmOS
-# xp/bvodw/ot7wnQ6lf+cmz3ZJwiV0BG4FJy2zMkEuofwCsbuRk3fTX1dsNGuuUbn
-# qzJZMh/QkrZ3x4z71K2HlJw26GwhaKmU94Drm4KS9yzS+brKZsQ8IbKQMMeHCpnd
-# 25QX5pDBVABNDCSsHJgvvPcl0ok7+dWM97EsNXv5ILMXzq5QG2uMbGRz8zImpSdR
-# JlwbNzknMVCEmM//uKjAhfdN9obVJ2SkBx01wPLFNJ/sv+MtyLunjKj7zdI+GoFT
-# wvFCH+V7vS6D/H9l3dDtAkwZmm70Dh508qM2NSsruFJBJ2C8/Hpz7qbL2QMac1Mo
-# k7mLmCzWcHhAcq/ImwG38pPhQ3lmHWSboYJlAz1Uy03q5n4+zC9GqnXtnvHujlsn
-# by/oaPGLaJRmCPzVRzTZnhC+jPKwqJMJ438goVb8c3me/dhhpURVtonRLkltPyGC
-# VQIQlOQ250l7uRsvKi9d7EnyVkG3eK+VI4KBNpY+gnkD0igMxwirC1BPjrZnz6kt
-# dIzVipsTxGbgjlD/eT4iFEkGoYIWtzCCFrMGCisGAQQBgjcDAwExghajMIIWnwYJ
-# KoZIhvcNAQcCoIIWkDCCFowCAQMxDTALBglghkgBZQMEAgEwgdwGCyqGSIb3DQEJ
-# EAEEoIHMBIHJMIHGAgEBBgkrBgEEAaAyAgMwMTANBglghkgBZQMEAgEFAAQglXL/
-# ektEL49w7tjf9lFSnYJj9po3yI0vtB9tpfeyCSsCFAZewzmjwJYdX9dR2rdWLTqU
-# FQfAGA8yMDI1MDYxMjE0MTg1M1owAwIBAaBXpFUwUzELMAkGA1UEBhMCQkUxGTAX
-# BgNVBAoMEEdsb2JhbFNpZ24gbnYtc2ExKTAnBgNVBAMMIEdsb2JhbHNpZ24gVFNB
-# IGZvciBBZHZhbmNlZCAtIEc0oIISSjCCBmIwggRKoAMCAQICEAEDMuFlv5t4Q+CZ
-# dZRjdwswDQYJKoZIhvcNAQEMBQAwWzELMAkGA1UEBhMCQkUxGTAXBgNVBAoTEEds
-# b2JhbFNpZ24gbnYtc2ExMTAvBgNVBAMTKEdsb2JhbFNpZ24gVGltZXN0YW1waW5n
-# IENBIC0gU0hBMzg0IC0gRzQwHhcNMjUwNDExMTQ0NzAxWhcNMzQxMjEwMDAwMDAw
-# WjBTMQswCQYDVQQGEwJCRTEZMBcGA1UECgwQR2xvYmFsU2lnbiBudi1zYTEpMCcG
-# A1UEAwwgR2xvYmFsc2lnbiBUU0EgZm9yIEFkdmFuY2VkIC0gRzQwggGiMA0GCSqG
-# SIb3DQEBAQUAA4IBjwAwggGKAoIBgQC+JXo5QxiuddbVs6HIm9Ymnp6AFjdZrvTn
-# J4O4KsPMxDqvLLcu68jav8MFr3ls1zYS2rYzXjENJ/PhPQOBG7M77kRoJp4z5Mj1
-# JiUv4JDZA0f0JmVdQcS8rAkBIT3sGSBGL0AfbGW91TNlveIgpETFWnAjLUSqtkbK
-# gHnqPL47bMhpuDIKV0jiCQRzOq+BcygWcvkbE7c49EY4N+npJSP57DC2giCg/hO3
-# YApe+2L4b4W8fBs3r3ZP72NR/BEAlwWWuiTbX0eg2iw8LIfIMU3MyObEXSN8pmKT
-# aL/MplcAc7p9yluDLJNATCJ9uX3Mb2+dNYSCHyqZ1wGRCs2j0Bgw8ZZMezzXVM18
-# PnhenlcyWHk6C0Vzmpjh2K0l/vjC9Ajrz6trIPxnl5Ry9XjG/1IYyilNK8bYoNbI
-# wzB7MBqEGEn0tszc1tTaHh0RQoEvzrCelYFi3JcxSBaRk8wK2YipbvGWm2/lyDvJ
-# QD8fXUFP+gAtDE6VcRvVSawwkMtKGE8CAwEAAaOCAagwggGkMA4GA1UdDwEB/wQE
-# AwIHgDAWBgNVHSUBAf8EDDAKBggrBgEFBQcDCDAdBgNVHQ4EFgQU2Te2M0VujzUH
-# zvepswr9oKnI+YIwVgYDVR0gBE8wTTAIBgZngQwBBAIwQQYJKwYBBAGgMgEeMDQw
-# MgYIKwYBBQUHAgEWJmh0dHBzOi8vd3d3Lmdsb2JhbHNpZ24uY29tL3JlcG9zaXRv
-# cnkvMAwGA1UdEwEB/wQCMAAwgZAGCCsGAQUFBwEBBIGDMIGAMDkGCCsGAQUFBzAB
-# hi1odHRwOi8vb2NzcC5nbG9iYWxzaWduLmNvbS9jYS9nc3RzYWNhc2hhMzg0ZzQw
-# QwYIKwYBBQUHMAKGN2h0dHA6Ly9zZWN1cmUuZ2xvYmFsc2lnbi5jb20vY2FjZXJ0
-# L2dzdHNhY2FzaGEzODRnNC5jcnQwHwYDVR0jBBgwFoAU6hbGaefjy1dFOTOk8EC+
-# 0MO9ZZYwQQYDVR0fBDowODA2oDSgMoYwaHR0cDovL2NybC5nbG9iYWxzaWduLmNv
-# bS9jYS9nc3RzYWNhc2hhMzg0ZzQuY3JsMA0GCSqGSIb3DQEBDAUAA4ICAQBmH88E
-# YcQnDDBjnRcpWHsx9D3GkugAavxN8Xn4ZyxS8YdPVDHm9oBP1zw7gQ2jkdQKy3pa
-# bMFSC0L5KQbMM34XmmdI/8PnI6vxNNyJ+xw/PBfVkZ+9jcaJEgVTDnaRBqslnWcn
-# iHL9Q29hKa5m9ryMIrjDXrOf368ag0X9sO9uFF9Oy7pi2FUTQ7R+HSJe6pasn3fn
-# J93urP7ljSRjshdGJPVN8Oom5AFZqPVtiakjEcnEPHAu7LxP5LqtxoM7HEjmaKs5
-# 9zCmpDSw41abvc+xod+ka7pQq6lRXb2QwIISzxYlxsVXPuycrJVahcm2wjpM1LzB
-# NPG73ccEYyDAwYD0kkBq4RrCkRnc5/TD91SfUKRwrgK9vb95+LRknaOzedxzPtFg
-# WIJnrIisxmo8u/f+KUTn5GpkEMzPonq4LYGtHDWqvYSvJ6W6woQdDUgPqgaU8YIH
-# 9JnM5VL3mRfiBeiFuPjScQW9v6VBX8n0qoNz0fhtw/oE0pAIP3XEtA5OX9CY6tLq
-# pE4wOMNC96neBY2TXdLDbQEwiCFk+xTep7DEjQbVkj115kd1PfAHxtP+de/0gcYg
-# oALzlsdIZg0wnaVCX0d72pNjsQZWUUMX7nQIPNBsvFydseV5W03AWsgB4Q9o7Zvd
-# RXRIJRRcUjNOZkvwCXgxMNvS1WU5UbBgTGMekDCCBlkwggRBoAMCAQICDQHsHJJA
-# 3v0uQF18R3QwDQYJKoZIhvcNAQEMBQAwTDEgMB4GA1UECxMXR2xvYmFsU2lnbiBS
-# b290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzARBgNVBAMTCkdsb2Jh
-# bFNpZ24wHhcNMTgwNjIwMDAwMDAwWhcNMzQxMjEwMDAwMDAwWjBbMQswCQYDVQQG
-# EwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTExMC8GA1UEAxMoR2xvYmFs
-# U2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBTSEEzODQgLSBHNDCCAiIwDQYJKoZIhvcN
-# AQEBBQADggIPADCCAgoCggIBAPAC4jAj+uAb4Zp0s691g1+pR1LHYTpjfDkjeW10
-# /DHkdBIZlvrOJ2JbrgeKJ+5Xo8Q17bM0x6zDDOuAZm3RKErBLLu5cPJyroz3mVpd
-# dq6/RKh8QSSOj7rFT/82QaunLf14TkOI/pMZF9nuMc+8ijtuasSI8O6X9tzzGKBL
-# mRwOh6cm4YjJoOWZ4p70nEw/XVvstu/SZc9FC1Q9sVRTB4uZbrhUmYqoMZI78np9
-# /A5Y34Fq4bBsHmWCKtQhx5T+QpY78Quxf39GmA6HPXpl69FWqS69+1g9tYX6U5lN
-# W3TtckuiDYI3GQzQq+pawe8P1Zm5P/RPNfGcD9M3E1LZJTTtlu/4Z+oIvo9Jev+Q
-# sdT3KRXX+Q1d1odDHnTEcCi0gHu9Kpu7hOEOrG8NubX2bVb+ih0JPiQOZybH/LIN
-# oJSwspTMe+Zn/qZYstTYQRLBVf1ukcW7sUwIS57UQgZvGxjVNupkrs799QXm4mbQ
-# DgUhrLERBiMZ5PsFNETqCK6dSWcRi4LlrVqGp2b9MwMB3pkl+XFu6ZxdAkxgPM8C
-# jwH9cu6S8acS3kISTeypJuV3AqwOVwwJ0WGeJoj8yLJN22TwRZ+6wT9Uo9h2ApVs
-# ao3KIlz2DATjKfpLsBzTN3SE2R1mqzRzjx59fF6W1j0ZsJfqjFCRba9Xhn4QNx1r
-# GhTfAgMBAAGjggEpMIIBJTAOBgNVHQ8BAf8EBAMCAYYwEgYDVR0TAQH/BAgwBgEB
-# /wIBADAdBgNVHQ4EFgQU6hbGaefjy1dFOTOk8EC+0MO9ZZYwHwYDVR0jBBgwFoAU
-# rmwFo5MT4qLn4tcc1sfwf8hnU6AwPgYIKwYBBQUHAQEEMjAwMC4GCCsGAQUFBzAB
-# hiJodHRwOi8vb2NzcDIuZ2xvYmFsc2lnbi5jb20vcm9vdHI2MDYGA1UdHwQvMC0w
-# K6ApoCeGJWh0dHA6Ly9jcmwuZ2xvYmFsc2lnbi5jb20vcm9vdC1yNi5jcmwwRwYD
-# VR0gBEAwPjA8BgRVHSAAMDQwMgYIKwYBBQUHAgEWJmh0dHBzOi8vd3d3Lmdsb2Jh
-# bHNpZ24uY29tL3JlcG9zaXRvcnkvMA0GCSqGSIb3DQEBDAUAA4ICAQB/4ojZV2cr
-# Ql+BpwkLusS7KBhW1ky/2xsHcMb7CwmtADpgMx85xhZrGUBJJQge5Jv31qQNjx6W
-# 8oaiF95Bv0/hvKvN7sAjjMaF/ksVJPkYROwfwqSs0LLP7MJWZR29f/begsi3n2HT
-# tUZImJcCZ3oWlUrbYsbQswLMNEhFVd3s6UqfXhTtchBxdnDSD5bz6jdXlJEYr9yN
-# mTgZWMKpoX6ibhUm6rT5fyrn50hkaS/SmqFy9vckS3RafXKGNbMCVx+LnPy7rEze
-# +t5TTIP9ErG2SVVPdZ2sb0rILmq5yojDEjBOsghzn16h1pnO6X1LlizMFmsYzeRZ
-# N4YJLOJF1rLNboJ1pdqNHrdbL4guPX3x8pEwBZzOe3ygxayvUQbwEccdMMVRVmDo
-# fJU9IuPVCiRTJ5eA+kiJJyx54jzlmx7jqoSCiT7ASvUh/mIQ7R0w/PbM6kgnfIt1
-# Qn9ry/Ola5UfBFg0ContglDk0Xuoyea+SKorVdmNtyUgDhtRoNRjqoPqbHJhSsn6
-# Q8TGV8Wdtjywi7C5HDHvve8U2BRAbCAdwi3oC8aNbYy2ce1SIf4+9p+fORqurNIv
-# eiCx9KyqHeItFJ36lmodxjzK89kcv1NNpEdZfJXEQ0H5JeIsEH6B+Q2Up33ytQn1
-# 2GByQFCVINRDRL76oJXnIFm2eMakaqoimzCCBYMwggNroAMCAQICDkXmuwODM8OF
-# ZUjm/0VRMA0GCSqGSIb3DQEBDAUAMEwxIDAeBgNVBAsTF0dsb2JhbFNpZ24gUm9v
-# dCBDQSAtIFI2MRMwEQYDVQQKEwpHbG9iYWxTaWduMRMwEQYDVQQDEwpHbG9iYWxT
-# aWduMB4XDTE0MTIxMDAwMDAwMFoXDTM0MTIxMDAwMDAwMFowTDEgMB4GA1UECxMX
-# R2xvYmFsU2lnbiBSb290IENBIC0gUjYxEzARBgNVBAoTCkdsb2JhbFNpZ24xEzAR
-# BgNVBAMTCkdsb2JhbFNpZ24wggIiMA0GCSqGSIb3DQEBAQUAA4ICDwAwggIKAoIC
-# AQCVB+hzymb57BTKezz3DQjxtEULLIK0SMbrWzyug7hBkjMUpG9/6SrMxrCIa8W2
-# idHGsv8UzlEUIexK3RtaxtaH7k06FQbtZGYLkoDKRN5zlE7zp4l/T3hjCMgSUG1C
-# Zi9NuXkoTVIaihqAtxmBDn7EirxkTCEcQ2jXPTyKxbJm1ZCatzEGxb7ibTIGph75
-# ueuqo7i/voJjUNDwGInf5A959eqiHyrScC5757yTu21T4kh8jBAHOP9msndhfuDq
-# jDyqtKT285VKEgdt/Yyyic/QoGF3yFh0sNQjOvddOsqi250J3l1ELZDxgc1Xkvp+
-# vFAEYzTfa5MYvms2sjnkrCQ2t/DvthwTV5O23rL44oW3c6K4NapF8uCdNqFvVIrx
-# clZuLojFUUJEFZTuo8U4lptOTloLR/MGNkl3MLxxN+Wm7CEIdfzmYRY/d9XZkZeE
-# CmzUAk10wBTt/Tn7g/JeFKEEsAvp/u6P4W4LsgizYWYJarEGOmWWWcDwNf3J2iiN
-# GhGHcIEKqJp1HZ46hgUAntuA1iX53AWeJ1lMdjlb6vmlodiDD9H/3zAR+YXPM0j1
-# ym1kFCx6WE/TSwhJxZVkGmMOeT31s4zKWK2cQkV5bg6HGVxUsWW2v4yb3BPpDW+4
-# LtxnbsmLEbWEFIoAGXCDeZGXkdQaJ783HjIH2BRjPChMrwIDAQABo2MwYTAOBgNV
-# HQ8BAf8EBAMCAQYwDwYDVR0TAQH/BAUwAwEB/zAdBgNVHQ4EFgQUrmwFo5MT4qLn
-# 4tcc1sfwf8hnU6AwHwYDVR0jBBgwFoAUrmwFo5MT4qLn4tcc1sfwf8hnU6AwDQYJ
-# KoZIhvcNAQEMBQADggIBAIMl7ejR/ZVSzZ7ABKCRaeZc0ITe3K2iT+hHeNZlmKlb
-# qDyHfAKK0W63FnPmX8BUmNV0vsHN4hGRrSMYPd3hckSWtJVewHuOmXgWQxNWV7Oi
-# szu1d9xAcqyj65s1PrEIIaHnxEM3eTK+teecLEy8QymZjjDTrCHg4x362AczdlQA
-# Iiq5TSAucGja5VP8g1zTnfL/RAxEZvLS471GABptArolXY2hMVHdVEYcTduZlu8a
-# HARcphXveOB5/l3bPqpMVf2aFalv4ab733Aw6cPuQkbtwpMFifp9Y3s/0HGBfADo
-# mK4OeDTDJfuvCp8ga907E48SjOJBGkh6c6B3ace2XH+CyB7+WBsoK6hsrV5twAXS
-# e7frgP4lN/4Cm2isQl3D7vXM3PBQddI2aZzmewTfbgZptt4KCUhZh+t7FGB6ZKpp
-# Q++Rx0zsGN1s71MtjJnhXvJyPs9UyL1n7KQPTEX/07kwIwdMjxC/hpbZmVq0mVcc
-# pMy7FYlTuiwFD+TEnhmxGDTVTJ267fcfrySVBHioA7vugeXaX3yLSqGQdCWnsz5L
-# yCxWvcfI7zjiXJLwefechLp0LWEBIH5+0fJPB1lfiy1DUutGDJTh9WZHeXfVVFsf
-# rSQ3y0VaTqBESMjYsJnFFYQJ9tZJScBluOYacW6gqPGC6EU+bNYC1wpngwVayaQQ
-# MYIDSTCCA0UCAQEwbzBbMQswCQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2ln
-# biBudi1zYTExMC8GA1UEAxMoR2xvYmFsU2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBT
-# SEEzODQgLSBHNAIQAQMy4WW/m3hD4Jl1lGN3CzALBglghkgBZQMEAgGgggEtMBoG
-# CSqGSIb3DQEJAzENBgsqhkiG9w0BCRABBDArBgkqhkiG9w0BCTQxHjAcMAsGCWCG
-# SAFlAwQCAaENBgkqhkiG9w0BAQsFADAvBgkqhkiG9w0BCQQxIgQgYAYAqq5qR05B
-# YP/97u29PHM4PaRG+iSrGK3RfloixdkwgbAGCyqGSIb3DQEJEAIvMYGgMIGdMIGa
-# MIGXBCCRkkebYjW5dia/tgFteAiRg3ID2HORwGwbjj13/+LHNzBzMF+kXTBbMQsw
-# CQYDVQQGEwJCRTEZMBcGA1UEChMQR2xvYmFsU2lnbiBudi1zYTExMC8GA1UEAxMo
-# R2xvYmFsU2lnbiBUaW1lc3RhbXBpbmcgQ0EgLSBTSEEzODQgLSBHNAIQAQMy4WW/
-# m3hD4Jl1lGN3CzANBgkqhkiG9w0BAQsFAASCAYCuxDjuHsH0I2LUTjKzptX/tIbL
-# 52m/9N7Au7AwQh7TajQBquwluX50Hk7N19zGTQDBVugfRUJmWBGrUSzMU9M3R1HJ
-# S1LZoGSi4/wIRVHbUl1fLt/rXEkbZi6Ey661azzWVie17E/nvBJTtTG4I7xkN3aS
-# Dd73LtTdE6tYeLbey2LqMB/87KPECmwQ16ezneMPKllTodOuZ0vj19Yfbf1cfuNH
-# MUNL0Tyo4eLN7OXwNyKeVrBcPj1js0tEA24mf8L9gvaeS4TiVwbwycFLmIs0F2bf
-# JYnAd+njsXVxBf3Sethwh+UMaXOCwWd3xq4rHggQ+2LOFjyH+rXyYsTvlp2soI5/
-# PhEvaCpOJZV5tcRaN4dX3UuWML2nDrVj+FSQcwjjWjKdELWmgLb4LeHsvZmJDd34
-# hcX2/OaYZLVgvGtZjpHVq76LvnpPlzUtIoY0WQJqsGyKtofSiP1lAy14lzSNujMV
-# fhVSlXiBh+m7kiqJnIA1MDYuifIbRJSYmgj8SeM=
-# SIG # End signature block
+SignatureBlock
+

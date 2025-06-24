@@ -1,6 +1,6 @@
-# EVAPCO IT Automation Repository
+# parentCompany IT Automation Repository
 
-Welcome to the EVAPCO IT automation toolkit! This repository contains PowerShell modules, runbooks, and scripts designed to streamline IT operations and management tasks.
+Welcome to the parentCompany IT automation toolkit! This repository contains PowerShell modules, runbooks, and scripts designed to streamline IT operations and management tasks.
 
 ## Quick Start
 
@@ -11,8 +11,8 @@ Welcome to the EVAPCO IT automation toolkit! This repository contains PowerShell
 
 ### Installation
 1. Clone this repository to your local machine
-2. Navigate to the `Modules\Install-EvapcoModule\` directory
-3. Run the installation script to set up the EVAPCO module
+2. Navigate to the `Modules\Install-parentCompanyModule\` directory
+3. Run the installation script to set up the parentCompany module
 
 ## Repository Structure
 
@@ -20,10 +20,10 @@ Welcome to the EVAPCO IT automation toolkit! This repository contains PowerShell
 **Ready-to-use PowerShell modules for common tasks:**
 
 #### User Management
-- `Get-EvapcoUser` - Retrieve user information
-- `Get-EvapcoUserDevices` - Get devices assigned to users
-- `Rename-EvapcoUser` - Safely rename user accounts
-- `Remove-EvapcoDeviceAssignment` - Unassign devices from users
+- `Get-parentCompanyUser` - Retrieve user information
+- `Get-parentCompanyUserDevices` - Get devices assigned to users
+- `Rename-parentCompanyUser` - Safely rename user accounts
+- `Remove-parentCompanyDeviceAssignment` - Unassign devices from users
 
 #### Device & System Management
 - `Get-Device42Devices` - Query Device42 inventory
@@ -39,7 +39,7 @@ Welcome to the EVAPCO IT automation toolkit! This repository contains PowerShell
 - `Jira-Tickets` - Create and modify tickets
 
 #### Server & Network Tools
-- `Start-ConfigureEvapcoServer` - Server setup automation
+- `Start-ConfigureparentCompanyServer` - Server setup automation
 - `Start-FullNetTest` - Comprehensive network testing
 - `Start-BetterMessageTrace` - Enhanced message tracking
 
@@ -54,7 +54,7 @@ Welcome to the EVAPCO IT automation toolkit! This repository contains PowerShell
 #### System Administration
 - `M365_Update_Device_Attributes` - Microsoft 365 device management
 - `Install-Modules-Server` - Server module installation
-- `Invoke-Evapco-Sync` - Data synchronization processes
+- `Invoke-parentCompany-Sync` - Data synchronization processes
 
 ### Standard Scripts (`\standardScripts\`)
 **Organized by technology/service:**
@@ -81,10 +81,10 @@ Welcome to the EVAPCO IT automation toolkit! This repository contains PowerShell
 ### Quick Tasks
 ```powershell
 # Get user information
-Get-EvapcoUser -UserName "john.doe"
+Get-parentCompanyUser -UserName "john.doe"
 
 # Check device assignments
-Get-EvapcoUserDevices -UserName "jane.smith"
+Get-parentCompanyUserDevices -UserName "jane.smith"
 
 # Clear Teams cache
 Remove-TeamsCache
@@ -96,7 +96,7 @@ Remove-TeamsCache
 .\User-New-1-Orca\RunNewUser.ps1
 
 # Server configuration
-.\Start-ConfigureEvapcoServer\ConfigureServer.ps1
+.\Start-ConfigureparentCompanyServer\ConfigureServer.ps1
 ```
 
 ## Safety Guidelines
@@ -111,7 +111,7 @@ Remove-TeamsCache
 
 ## Getting Help
 
-- **Technical Issues**: Contact GIT-HelpDesk@EVAPCO.com
+- **Technical Issues**: Contact GIT-HelpDesk@Domain.extension1
 - **Script Questions**: Review inline documentation in each script
 - **Process Concerns**: Consult with your supervisor
 
@@ -127,3 +127,4 @@ This repository was made possible by:
 **Last Updated**: June 2025
 
 *Remember: With great power comes great responsibility. Use these tools wisely!*
+

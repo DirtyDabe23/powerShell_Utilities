@@ -58,7 +58,8 @@ ForEach ($scheduledTask in $scheduledTasks)
     Register-ScheduledTask -TaskName $scheduledTask.TaskName -Trigger $Trigger -Action $Action -Settings $Settings -Principal $Principal -Password $password
 }
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

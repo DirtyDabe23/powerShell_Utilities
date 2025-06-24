@@ -20,7 +20,8 @@ $automationAccountName = "AutomationAccount1"
 $resourceGroupName = "uniqueParentCompanyGIT"
 New-AzAutomationModule -AutomationAccountName $automationAccountName  -ResourceGroupName $resourceGroupName -Name $module -ContentLinkUri "https://www.powershellgallery.com/api/v2/package/$module/$moduleVersion" -RuntimeVersion $runtimeVersion
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -1,6 +1,6 @@
-# EVAPCO Miscellaneous Projects
+# parentCompany Miscellaneous Projects
 
-This directory contains development projects, configuration files, and experimental scripts that support the main EVAPCO automation toolkit.
+This directory contains development projects, configuration files, and experimental scripts that support the main parentCompany automation toolkit.
 
 ## Quick Start
 
@@ -206,7 +206,8 @@ For development and configuration assistance:
 - Review project-specific documentation
 - Check inline code comments
 - Consult development standards
-- Contact: GIT-HelpDesk@EVAPCO.com
+- Contact: GIT-HelpDesk@Domain.extension1
 
 ---
 **Last Updated**: June 2025
+

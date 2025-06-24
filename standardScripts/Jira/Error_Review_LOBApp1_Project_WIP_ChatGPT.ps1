@@ -62,7 +62,8 @@ Write-Output "[$($currTime)] | Time taken for [LOBApp1 Error Audit] to complete:
 $exportPath = "\\uniqueParentCompanyusers\departments\public\Tech-Items\scriptLogs\error_report.csv"
 $ticketsMatching | Export-Csv -Path $exportPath -NoTypeInformation
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

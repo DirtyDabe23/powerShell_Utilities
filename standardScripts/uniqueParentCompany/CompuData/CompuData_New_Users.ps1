@@ -275,7 +275,8 @@ ForEach ($user in $compuDataUsers)
 $allEndTime = Get-Date
 $allNetTime = $allEndTime - $allStartTime
 Write-Output "[$($currTime)] | [$process] | Time taken for [$process] to complete: $($allNetTime.hours) hours, $($allNetTime.minutes) minutes, $($allNetTime.seconds) seconds"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

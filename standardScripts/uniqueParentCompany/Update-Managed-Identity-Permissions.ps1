@@ -8,7 +8,8 @@ $appReg = Get-MgApplication -Search "DisplayName:$appRegName" -ConsistencyLevel:
 
 New-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $appReg.ID -PrincipalId $managedIDentity.PrincipalID -ResourceId $appReg.ID
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

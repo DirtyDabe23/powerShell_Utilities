@@ -22,7 +22,8 @@ ForEach ($user in $users)
 }
 
 Write-Output "The variable to use for the data is `$userstoFix"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

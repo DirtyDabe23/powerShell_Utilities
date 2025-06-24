@@ -47,7 +47,8 @@ ForEach ($user in $users)
     New-MgGroupMember -GroupId "Group10" -DirectoryObjectId $uID
 }
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

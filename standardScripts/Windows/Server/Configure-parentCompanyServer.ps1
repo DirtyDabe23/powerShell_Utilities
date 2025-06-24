@@ -1,0 +1,67 @@
+#This script is designed to do all of the configuration features that a server requires for our management.
+function Start-ConfigureparentCompanyServer{
+    <#
+    .SYNOPSIS
+    This Function performs most of the standard configuration items for a Server for parentCompany Management.
+    
+    .DESCRIPTION
+    This function installs various items on an parentCompany Server for Management. This includes:
+    PowerShell 7
+        Adding the required environmental variable as well.
+    Azure Arc 
+        Enrolls based on the timezone location of the server.
+    ScreenConnect
+        Downloads and installs based on the Domain that the server is on.
+    
+    .EXAMPLE
+    Start-ConfigureparentCompanyServer 
+    
+    .NOTES
+    This module requires Administrative level permissions in addition to internet access. Files are downloaded from Microsoft's GitHub and Directly from the PSGallery. 
+    Third Party Software:
+        ScreenConnect - Downloaded from parentCompany-git.screenconnect.com
+    #>
+$Path = "C:\Temp"
+if (!(Test-Path $Path)){
+    New-Item -itemType Directory -Path C:\ -Name Temp
+}
+else{
+    Write-Host "Folder already exists"
+}
+
+Write-Output "Installing PowerShell 7"
+## Using Invoke-RestMethod
+$webData = Invoke-RestMethod -Uri "https://api.github.com/repos/PowerShell/PowerShell/releases/latest"
+## Using Invoke-WebRequest
+$webData = ConvertFrom-JSON (Invoke-WebRequest -uri "https://api.github.com/repos/PowerShell/PowerShell/releases/latest")
+## The release download information is stored in the "assets" section of the data
+$assets = $webData.assets
+## The pipeline is used to filter the assets object to find the release version we want
+$asset = $assets | where-object { $_.name -match "win-x64" -and $_.name -match ".zip"}
+## Download the latest version into the same directory we are running the script in
+write-output "Downloading $($asset.name)"
+Invoke-WebRequest $asset.browser_download_url -OutFile "C:\Temp\Pwsh7.zip"
+Expand-Archive -Path "C:\Temp\PWSH" -DestinationPath "$env:ProgramFiles\PowerShell\7"
+Write-Output "Install of PowerShell 7 Completed"
+
+Write-Output "Installing PowerShell Modules"
+if (!(Get-PackageProvider -Name NuGet -Force)){Install-PackageProvider -Name NuGet -Force}
+if (!(Get-PSResourceRepository -Name PSGAllery | Select-Object -Property Trusted) -ne "True"){Set-PSResourceRepository -Name PSGallery -Trusted}
+Install-PSResource -Name Az -Scope AllUsers -Verbose
+Install-PSResource  Microsoft.Graph -Scope AllUsers -Verbose
+Install-PSResource  Microsoft.Graph.Beta -Scope AllUsers -Verbose
+Install-PSResource  ExchangeOnlineManagement -Scope AllUsers -Verbose
+Write-Output "PowerShell Module Install Completed"
+
+
+Write-Output "Enrolling into Azure Arc"
+$azureAplicationId ="cd58df38-bda7-4ffa-9d3d-49ab4cb0eb1f"
+$azureTenantId= "graphTenantID"
+$azurePassword = ConvertTo-SecureString "$AzureARC" -AsPlainText -Force
+$psCred = New-Object System.Management.Automation.PSCredential($azureAplicationId , $azurePassword)
+Connect-AzAccount -Credential $psCred -TenantId $azureTenantId -ServicePrincipal
+Connect-AzConnectedMachine -ResourceGroupName "AzureARC_parentCompanyEAST" -Name "$env:ComputerName" -Location "EastUS" -subscriptionid "azSubsription"
+Write-Output "Completed Azure Arc Enrollment"
+}
+SignatureBlock
+

@@ -68,7 +68,8 @@ ForEach ($graphGroup in $graphGroups)
 {
     Update-MgBetaGroup -groupID $graphGroup.ID -DisplayName $graphGroup.newGroupName
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -74,7 +74,8 @@ foreach ($locADUser in $locADUsers) {
         Write-Host -BackgroundColor Red -ForegroundColor Cyan "USER:" $locADUser.UserPrincipalName "does not exist in AzureAD"
     }
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

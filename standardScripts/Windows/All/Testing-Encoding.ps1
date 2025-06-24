@@ -20,11 +20,11 @@ $jiraHeader = @{
 }
 
 $jirAPIBaseURI = "https://parentCompany.atlassian.net/rest"
-$jiraAPIKeyKeyEndpoint = "/api/2/search?jql="
-$jiraAPIKeyKeyEndpoint = "/api/2/filter/defaultShareScope"
+$jiraAPIKeyKeyKeyEndpoint = "/api/2/search?jql="
+$jiraAPIKeyKeyKeyEndpoint = "/api/2/filter/defaultShareScope"
 $jql = 'project = ',$projectKey, ' AND summary ~ "Onboard Request" AND Status = "Needs Licenses Purchased"' -join ""
 $encodedJQL = [System.Web.HttpUtility]::UrlEncode($jql)
-$uri = $jirAPIBaseURI , $jiraAPIKeyKeyEndpoint , $encodedJQL -Join ""
+$uri = $jirAPIBaseURI , $jiraAPIKeyKeyKeyEndpoint , $encodedJQL -Join ""
 Invoke-RestMethod -Method get -uri $uri -Headers $jiraHeader -ContentType "application/json" -HttpVersion 2.0
 
 
@@ -39,8 +39,8 @@ $jiraHeader = @{
 }
 
 $jirAPIBaseURI = "https://parentCompany.atlassian.net/rest"
-$jiraAPIKeyKeyEndpoint = "/api/3/customFieldOption/10787"
-$uri = $jirAPIBaseURI , $jiraAPIKeyKeyEndpoint -join ""
+$jiraAPIKeyKeyKeyEndpoint = "/api/3/customFieldOption/10787"
+$uri = $jirAPIBaseURI , $jiraAPIKeyKeyKeyEndpoint -join ""
 Invoke-RestMethod -Method get -uri $uri -Headers $jiraHeader
 
 
@@ -51,6 +51,7 @@ $endPoint = "users/"
 $target = "$originID"
 $uri = $baseGraphAPI , $APIVersion , $endpoint , $target -join ""
 Invoke-GraphRequest -Method get -uri $uri -Body $paramsFromTicket 
+
 
 
 

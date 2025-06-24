@@ -1,5 +1,5 @@
 # Jira API Setup
-$encodedText = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("david.drosdick@evapco.com:$jiraRetrSecret"))
+$encodedText = [Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes("david.drosdick@Domain.extension1:$jiraRetrSecret"))
 $headers = @{
     "Authorization" = "Basic $encodedText"
     "Content-Type"  = "application/json"
@@ -8,13 +8,13 @@ $headers = @{
 $i = $True 
 While ($i -eq $true)
 {
-$uriTemplate = "https://evapco.atlassian.net/rest/api/2/search?jql=project%3Dspec%20AND%20labels%20%3D%20EMPTY&startAt={0}"
+$uriTemplate = "https://parentCompany.atlassian.net/rest/api/2/search?jql=project%3Dspec%20AND%20labels%20%3D%20EMPTY&startAt={0}"
 
 # Retrieve total issue count
 $unLabledTotals = (Invoke-RestMethod -Method Get -Uri ($uriTemplate -f 0) -Headers $headers).total
 
 
-$uriTemplate = "https://evapco.atlassian.net/rest/api/2/search?jql=project%3Dspec%20AND%20labels%20!%3D%20EMPTY&startAt={0}"
+$uriTemplate = "https://parentCompany.atlassian.net/rest/api/2/search?jql=project%3Dspec%20AND%20labels%20!%3D%20EMPTY&startAt={0}"
 
 # Retrieve total issue count
 $labledTotals = (Invoke-RestMethod -Method Get -Uri ($uriTemplate -f 0) -Headers $headers).total
@@ -23,3 +23,4 @@ $currTime = Get-Date -format "HH:mm"
 Write-Output "[$($currTime)] | Total Labled: $labledTotals | Total Unlabled: $unLabledTotals"
 Start-Sleep -Seconds 5
 }
+

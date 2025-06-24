@@ -41,7 +41,8 @@ function Invoke-uniqueParentCompanySync{
     }
     return $syncResult
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

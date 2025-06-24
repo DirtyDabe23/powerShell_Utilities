@@ -14,7 +14,8 @@ ForEach ($user in $externalCompuDataUsers)
     Set-ADuser -Identity $user -EmailAddress $email
 
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

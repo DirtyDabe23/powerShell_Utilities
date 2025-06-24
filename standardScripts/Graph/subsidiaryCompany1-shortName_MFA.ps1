@@ -14,7 +14,8 @@ $groupObjID = (Get-MGGroup -Search "displayname:$gname" -ConsistencyLevel:eventu
 }
 
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

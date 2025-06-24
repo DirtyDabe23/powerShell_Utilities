@@ -84,7 +84,8 @@ Write-Output $errorLogFull
 $errorLogFull | Export-CSV -Path $errorExportPath
 Stop-Transcript
 Write-Output "The Full Error Log is available as a csv at $errorExportPath"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

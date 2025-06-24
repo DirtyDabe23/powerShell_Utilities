@@ -347,7 +347,8 @@ If ($graphOrLocal -eq 1)
 
 }
 while ($isFinished -ne $True)
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

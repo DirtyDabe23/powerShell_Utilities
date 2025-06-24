@@ -129,7 +129,8 @@ Connect-AzConnectedMachine -ResourceGroupName "AzureARC_uniqueParentCompanyEAST"
 Write-Output "Completed Azure Arc Enrollment"
 Start-DefenderAudit
 }
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

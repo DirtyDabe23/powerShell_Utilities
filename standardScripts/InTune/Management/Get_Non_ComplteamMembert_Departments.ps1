@@ -1,8 +1,8 @@
 #Connection to the Jira API after getting the token from the Key Vault
-$jiraVaultName = 'jiraAPIKeyKey'
-$jiraAPIKeyKeyVersion = "2020-06-01"
+$jiraVaultName = 'jiraAPIKeyKeyKey'
+$jiraAPIKeyKeyKeyVersion = "2020-06-01"
 $jiraResource = "https://vault.azure.net"
-$jiraEndpoint = "{0}?resource={1}&api-version={2}" -f $env:IDENTITY_ENDPOINT,$jiraResource,$jiraAPIKeyKeyVersion
+$jiraEndpoint = "{0}?resource={1}&api-version={2}" -f $env:IDENTITY_ENDPOINT,$jiraResource,$jiraAPIKeyKeyKeyVersion
 $jiraSecretFile = ""
 try
 {
@@ -181,7 +181,8 @@ ForEach ($user in $allUsers)
     }
 }
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

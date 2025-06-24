@@ -186,7 +186,8 @@ Write-Output "The Full Error Log is available as a csv at $errorExportPath"
 Write-Output "Make sure to run the command below as in THE STANDARD USER'S POWERSHELL CONTEXT"
 Write-Output 'If(Get-Item "HKCU:\Software\Microsoft\OneDrive\Accounts\Business1"){Get-Item "HKCU:\Software\Microsoft\OneDrive\Accounts\Business1"  | Remove-Item -Force -Recurse}'
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

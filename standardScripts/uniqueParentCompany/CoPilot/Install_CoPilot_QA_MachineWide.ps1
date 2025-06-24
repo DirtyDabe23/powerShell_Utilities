@@ -9,7 +9,8 @@ $qaMSIPath = "C:\Temp\CoPilot_QA_$($qaXMLContent.node.mainpackage.version)_$($qa
 invoke-webrequest -uri $qaDownloadURL -OutFile $qaMSIPath
 Add-AppxProvisionedPackage -Online -PackagePath $qaMSIPath -SkipLicense -Verbose
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -1,0 +1,488 @@
+param(
+    [string]$jiraTicket
+)
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::'Tls13','TLS12'
+$PSStyle.OutputRendering = [System.Management.Automation.OutputRendering]::PlainText
+$errorsToReviewJSON = @'
+[
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.<CalculateFreightCommandExecuted>",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.<CalculateFreightCommandExecuted>*",
+    "Tag": "ERR_NULLEXCEP_CalculateFreightCommandExecuted",
+    "NumberOfCrashes": "45"
+  },
+  {
+    "ClassName": "System.Runtime.InteropServices.COMException",
+    "Message": "UCEERR_RENDERTHREADFAILURE (Exception from HRESULT: 0x88980406)",
+    "StackTraceString": "at System.Windows.Media.Composition.DUCE.Channel.SyncFlush()",
+    "SearchString": "*System.Windows.Media.Composition.DUCE*",
+    "Tag": "ERR_COMException_SyncFlush",
+    "NumberOfCrashes": "23"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MakeOppQuoteCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MakeOppQuoteCommandCanExecute()*",
+    "Tag": "ERR_NULLEXCEP_MakeOppQuoteCommandCanExecute",
+    "NumberOfCrashes": "18"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "Insufficient memory to continue the execution of the program.",
+    "StackTraceString": "at System.Windows.Xps.Serialization.RCW.IXpsOMPackageWriter.Close()",
+    "SearchString": "*at System.Windows.Xps.Serialization.RCW.IXpsOMPackageWriter.Close()*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "Insufficient memory to continue the execution of the program.",
+    "StackTraceString": "at System.Windows.Media.Renderer.Render(IntPtr pRenderTarget, Channel channel, Visual visual, Int32 width, Int32 height, Double dpiX, Double dpiY, Matrix worldTransform, Rect windowClip)",
+    "SearchString": "*at System.Windows.Media.Renderer.Render(IntPtr pRenderTarget, Channel channel, Visual visual, Int32 width, Int32 height, Double dpiX, Double dpiY, Matrix worldTransform, Rect windowClip)*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "Exception has been thrown by the target of an invocation.",
+    "StackTraceString": "at System.Collections.Generic.List`1.set_Capacity(Int32 value)\\r\\n   at System.Collections.Generic.List`1.EnsureCapacity(Int32 min)",
+    "SearchString": "*at System.Collections.Generic.List`1.set_Capacity(Int32 value)\\r\\n   at System.Collections.Generic.List`1.EnsureCapacity(Int32 min)*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "",
+    "StackTraceString": "t parentCompany.CRM.Core.Models.Helpers.ValidatableBindableBase.TryValidateProperty(PropertyInfo propertyInfo, List`1 propertyErrors)",
+    "SearchString": "*t parentCompany.CRM.Core.Models.Helpers.ValidatableBindableBase.TryValidateProperty(PropertyInfo propertyInfo, List`1 propertyErrors)*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "Exception has been thrown by the target of an invocation.",
+    "StackTraceString": " at System.Collections.Generic.Dictionary`2.Resize(Int32 newSize, Boolean forceNewHashCodes)",
+    "SearchString": "* at System.Collections.Generic.Dictionary`2.Resize(Int32 newSize, Boolean forceNewHashCodes)*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "",
+    "StackTraceString": "at Telerik.Windows.Documents.Fixed.UI.ContentElementsPainter.DrawPath(DrawingContext drawingContext, ContentElementsPainterInitializeContext context, Path path)",
+    "SearchString": "*at Telerik.Windows.Documents.Fixed.UI.ContentElementsPainter.DrawPath(DrawingContext drawingContext, ContentElementsPainterInitializeContext context, Path path)*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "",
+    "StackTraceString": "at System.Windows.Media.Animation.TimelineGroup.AllocateClock()",
+    "SearchString": "*at System.Windows.Media.Animation.TimelineGroup.AllocateClock()*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.OutOfMemoryException",
+    "Message": "",
+    "StackTraceString": "at System.Windows.DependencyObject.InsertEntry(EffectiveValueEntry entry, UInt32 entryIndex)",
+    "SearchString": "*at System.Windows.DependencyObject.InsertEntry(EffectiveValueEntry entry, UInt32 entryIndex)*",
+    "Tag": "ERR_OutOfMemoryException",
+    "NumberOfCrashes": "11"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.initializeEquipmentScheduleData()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.initializeEquipmentScheduleData()*",
+    "Tag": "ERR_NULLEXCEP_InitializeEquipmentScheduleData",
+    "NumberOfCrashes": "10"
+  },
+  {
+    "ClassName": "System.Exception",
+    "Message": "An exception has occurred while communicating with the Server.\\r\\nMessage: An error has occurred.\\r\\nException Type: \\r\\nException Message: \\r\\nStack Trace: \\r\\n",
+    "StackTraceString": "at parentCompany.CRM.Client.ServiceProxies.BaseHttpRemoteServiceProxy.EvaluateResponseStatusCode(HttpResponseMessage responseMessage)",
+    "SearchString": "*at parentCompany.CRM.Client.ServiceProxies.BaseHttpRemoteServiceProxy.EvaluateResponseStatusCode(HttpResponseMessage responseMessage)*",
+    "Tag": "ERR_ServerCom_EvaluateResponseStatusCode",
+    "NumberOfCrashes": "10"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at Nito.AsyncEx.NotifyTaskCompletion.NotifyTaskCompletionImplementation`1..ctor(Task`1 task)\\r\\n   at Void .ctor(System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[System.Tuple`2",
+    "SearchString": "*at Nito.AsyncEx.NotifyTaskCompletion.NotifyTaskCompletionImplementation`1..ctor(Task`1 task)\\r\\n   at Void .ctor(System.Threading.Tasks.Task`1[System.Collections.Generic.IEnumerable`1[System.Tuple`2*",
+    "Tag": "ERR_NULLEXCEP_Nito.AsyncEx",
+    "NumberOfCrashes": "9"
+  },
+  {
+    "ClassName": "System.Net.WebException",
+    "Message": "The remote name could not be resolved: 'crm.Domain.extension1'",
+    "StackTraceString": "at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)",
+    "SearchString": "*at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)*",
+    "Tag": "ERR_WEBEXCEPTION",
+    "NumberOfCrashes": "8"
+  },
+  {
+    "ClassName": "System.InvalidOperationException",
+    "Message": "Sequence contains no matching element",
+    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectAccessoriesViewModel.UpdateTrayItems()",
+    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectAccessoriesViewModel.UpdateTrayItems()*",
+    "Tag": "ERR_InvalidOp_UpdateTrayItems",
+    "NumberOfCrashes": "7"
+  },
+  {
+    "ClassName": "System.ObjectDisposedException",
+    "Message": "Cannot access a closed Stream.",
+    "StackTraceString": "at System.IO.__Error.StreamIsClosed()\\r\\n   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)\\r\\n   at System.IO.StreamWriter.Flush",
+    "SearchString": "*at System.IO.__Error.StreamIsClosed()\\r\\n   at System.IO.MemoryStream.Write(Byte[] buffer, Int32 offset, Int32 count)\\r\\n   at System.IO.StreamWriter.Flush*",
+    "Tag": "ERR_ObjectDisposedException",
+    "NumberOfCrashes": "5"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MenuItemDocumentsOrderCommandExecuted(Object obj)",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MenuItemDocumentsOrderCommandExecuted(Object obj)*",
+    "Tag": "ERR_NULLEXCEP_MenuItemDocumentsOrderCommandExecuted",
+    "NumberOfCrashes": "5"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ToolbarDuplicateOrderCommandCanExecute()",
+    "SearchString": "* at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ToolbarDuplicateOrderCommandCanExecute()*",
+    "Tag": "ERR_NULLEXCEP_ToolbarDuplicateOrderCommandCanExecute",
+    "NumberOfCrashes": "4"
+  },
+  {
+    "ClassName": "System.ArgumentNullException",
+    "Message": "Value cannot be null.",
+    "StackTraceString": "at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.CustomerSearchCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.CustomerSearchCommandExecuted()*",
+    "Tag": "ERROR_ARGNULL_CustomerSearchCommandExecuted",
+    "NumberOfCrashes": "4"
+  },
+  {
+    "ClassName": "System.InvalidOperationException",
+    "Message": "Nullable object must have a value",
+    "StackTraceString": "at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.CalculateFreightCompleted(Object sender, RunWorkerCompletedEventArgs e)",
+    "SearchString": "*at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.CalculateFreightCompleted(Object sender, RunWorkerCompletedEventArgs e)*",
+    "Tag": "ERR_InvalidOp_CalculateFreightCompleted",
+    "NumberOfCrashes": "4"
+  },
+  {
+    "ClassName": "System.Net.Sockets.SocketException",
+    "Message": "No connection could be made because the target machine actively refused it",
+    "StackTraceString": "at System.Net.Sockets.Socket.InternalEndConnect(IAsyncResult asyncResult)\\r\\n   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)",
+    "SearchString": "*at System.Net.Sockets.Socket.InternalEndConnect(IAsyncResult asyncResult)\\r\\n   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)*",
+    "Tag": "ERR_SOCKETEXCEPTION",
+    "NumberOfCrashes": "3"
+  },
+  {
+    "ClassName": "System.Net.Sockets.SocketException",
+    "Message": "A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond",
+    "StackTraceString": "at System.Net.Sockets.Socket.InternalEndConnect(IAsyncResult asyncResult)\\r\\n   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)",
+    "SearchString": "*at System.Net.Sockets.Socket.InternalEndConnect(IAsyncResult asyncResult)\\r\\n   at System.Net.Sockets.Socket.EndConnect(IAsyncResult asyncResult)*",
+    "Tag": "ERR_SOCKETEXCEPTION",
+    "NumberOfCrashes": "3"
+  },
+  {
+    "ClassName": "System.ArgumentNullException",
+    "Message": "Value cannot be null.",
+    "StackTraceString": "at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()*",
+    "Tag": "ERROR_ARGNULL_ReloadZonesCommandExecuted",
+    "NumberOfCrashes": "3"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.MultipleCoilConfigurationCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.MultipleCoilConfigurationCommandCanExecute()*",
+    "Tag": "ERR_NULLEXCEP_MultipleCoilConfigurationCommandCanExecute",
+    "NumberOfCrashes": "3"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.SmartShieldViewModel.ApplyCommand()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.SmartShieldViewModel.ApplyCommand()*",
+    "Tag": "ERR_NULLEXCEP_SmartShieldApplyCommand",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.OrderWaterTreatmentCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.OrderWaterTreatmentCommandCanExecute()*",
+    "Tag": "ERR_NULLEXCEP_OrderWaterTreatmentCommandCanExecute",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Selection.ViewModels.SelectionAccessoriesViewModel.UpdateTrayItems()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Selection.ViewModels.SelectionAccessoriesViewModel.UpdateTrayItems()*",
+    "Tag": "ERR_NULLEXCEP_UpdateTrayItems",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.ArgumentOutOfRangeException",
+    "Message": "Index was out of range. Must be non-negative and less than the size of the collection.",
+    "StackTraceString": "at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.EnableMenuBasedOnRole()\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.set_Categories(IEnumerable`1 value)",
+    "SearchString": "*at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.EnableMenuBasedOnRole()\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.set_Categories(IEnumerable`1 value)*",
+    "Tag": "ERR_ARGRANGE_set_Categories",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.IndexOutOfRangeException",
+    "Message": "Index was outside the bounds of the array.",
+    "StackTraceString": "at Telerik.Windows.Controls.GridView.GridViewVirtualizingPanel.FlatLayoutStrategy.RealizeMergedCells(Double frozenOffset, IEnumerable`1 mergedCells)",
+    "SearchString": "*at Telerik.Windows.Controls.GridView.GridViewVirtualizingPanel.FlatLayoutStrategy.RealizeMergedCells(Double frozenOffset, IEnumerable`1 mergedCells)*",
+    "Tag": "ERR_IndexRange_RealizeMergedCells",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.InvalidOperationException",
+    "Message": "Sequence contains no elements",
+    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)\\r\\n   at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.PulsePureViewModel.RefreshPulsePureCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)\\r\\n   at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.PulsePureViewModel.RefreshPulsePureCommandExecuted()*",
+    "Tag": "ERR_InvalidOp_RefreshPulsePureCommandExecuted",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.InvalidOperationException",
+    "Message": "Sequence contains no matching element",
+    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Context.ProjectContext.get_SelectedCustomer()\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ApplySaveOrderCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Context.ProjectContext.get_SelectedCustomer()\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ApplySaveOrderCommandExecuted()*",
+    "Tag": "ERR_InvalidOp_ApplySaveOrderCommandExecuted",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ReplaceLineItemCommandCanExecute(Nullable`1 addWaterTreatment)",
+    "SearchString": "*at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ReplaceLineItemCommandCanExecute(Nullable`1 addWaterTreatment)*",
+    "Tag": "ERR_NULLEXCEP_ReplaceLineItemCommandCanExecute",
+    "NumberOfCrashes": "2"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.EditProjectEquipmentCommandExecuted()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.EditProjectEquipmentCommandExecuted()*",
+    "Tag": "ERR_NULLEXCEP_EditProjectEquipmentCommandExecuted",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.ComponentModel.Win32Exception",
+    "Message": "The parameter is incorrect",
+    "StackTraceString": "at MS.Win32.UnsafeNativeMethods.GetWindowTextLength(HandleRef hWnd)\\r\\n   at MS.Win32.UnsafeNativeMethods.GetWindowTextNoThrow",
+    "SearchString": "*at MS.Win32.UnsafeNativeMethods.GetWindowTextLength(HandleRef hWnd)\\r\\n   at MS.Win32.UnsafeNativeMethods.GetWindowTextNoThrow*",
+    "Tag": "ERR_Win32Exception_GetWindowTextLength",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.Exception",
+    "Message": "Unable to Deserialize Json Http Response::HttpStatusCode=ServiceUnavailable::HttpResponse RawData=<!DOCTYPE HTML PUBLIC \\\"-//W3C//DTD HTML 4.01//EN\\\"\\\"http://www.w3.org/TR/html4/strict.dtd\\\">\\r\\n<HTML><HEAD><TITLE>Service Unavailable",
+    "StackTraceString": "at Newtonsoft.Json.JsonTextReader.ParseValue()\\r\\n   at Newtonsoft.Json.JsonTextReader.Read()",
+    "SearchString": "*at Newtonsoft.Json.JsonTextReader.ParseValue()\\r\\n   at Newtonsoft.Json.JsonTextReader.Read()*",
+    "Tag": "ERR_ServiceUnavailable_ParseValue",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()",
+    "SearchString": "*at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()*",
+    "Tag": "ERR_NULLEXCEP_ReloadZonesCommandExecuted",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ShowSubmitOrderCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ShowSubmitOrderCommandCanExecute()*",
+    "Tag": "ERR_NULLEXCEP_ShowSubmitOrderCommandCanExecute",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.IndexOutOfRangeException",
+    "Message": "Index was outside the bounds of the array.",
+    "StackTraceString": "at HtmlTextBlock.HtmlUpdater.Update(HtmlTagTree tagTree)\\r\\n   at HtmlTextBlock.HtmlTextBlock.Parse(String html)",
+    "SearchString": "* at HtmlTextBlock.HtmlUpdater.Update(HtmlTagTree tagTree)\\r\\n   at HtmlTextBlock.HtmlTextBlock.Parse(String html)*",
+    "Tag": "ERR_IndexRange_Parse",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.Resources.MissingManifestResourceException",
+    "Message": "Could not find any resources appropriate for the specified culture or the neutral culture.  Make sure \\\"Telerik.Windows.Controls.GridView.Strings.resources\\\" was correctly embedded or linked into assembly \\\"Telerik.Windows.Controls.GridView\\\" at compile time, or that all the satellite assemblies required are loadable and fully signed.",
+    "StackTraceString": "at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)",
+    "SearchString": "*at System.Resources.ManifestBasedResourceGroveler.HandleResourceStreamMissing(String fileName)*",
+    "Tag": "ERR_MissingManifestResource",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.DoesOrderHavePriceChange()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.DoesOrderHavePriceChange()*",
+    "Tag": "ERR_NULLEXCEP_DoesOrderHavePriceChange",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.Reselect()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.Reselect()*",
+    "Tag": "ERR_NULLEXCEP_Reselect",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.InvalidOperationException",
+    "Message": "The stream was already consumed. It cannot be read again.",
+    "StackTraceString": "at System.Net.Http.StreamContent.PrepareContent()",
+    "SearchString": "*at System.Net.Http.StreamContent.PrepareContent()*",
+    "Tag": "ERR_InvalidOp_PrepareContent",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.ApplyCustomChangesCommandExecuted()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.ApplyCustomChangesCommandExecuted()*",
+    "Tag": "ERR_NULLEXCEP_ApplyCustomChangesCommandExecuted",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.ArgumentOutOfRangeException",
+    "Message": "Index was out of range. Must be non-negative and less than the size of the collection.",
+    "StackTraceString": "at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.LoadLookupDataCompleted(Object sender, RunWorkerCompletedEventArgs e)",
+    "SearchString": "*at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.LoadLookupDataCompleted(Object sender, RunWorkerCompletedEventArgs e)*",
+    "Tag": "ERR_ARGRANGE_LoadLookupDataCompleted",
+    "NumberOfCrashes": "1"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.RefreshDocuments()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.RefreshDocuments()*",
+    "Tag": "ERR_NULLEXCEP_RefreshDocuments",
+    "NumberOfCrashes": "0"
+  },
+  {
+    "ClassName": "System.Windows.Markup.XamlParseException",
+    "Message": "Index was outside the bounds of the array.",
+    "StackTraceString": "at System.Windows.FrameworkTemplate.LoadTemplateXaml(XamlReader templateReader, XamlObjectWriter currentWriter)",
+    "SearchString": "*at System.Windows.FrameworkTemplate.LoadTemplateXaml(XamlReader templateReader, XamlObjectWriter currentWriter)*",
+    "Tag": "ERR_XamlParseException",
+    "NumberOfCrashes": "0"
+  },
+  {
+    "ClassName": "System.Runtime.CompilerServices.RuntimeWrappedException",
+    "Message": "An object that does not derive from System.Exception has been wrapped in a RuntimeWrappedException.",
+    "StackTraceString": "at System.Printing.InternalPrintSystemException.ThrowIfNotCOMSuccess(Int32 hresultCode)",
+    "SearchString": "*at System.Printing.InternalPrintSystemException.ThrowIfNotCOMSuccess(Int32 hresultCode)*",
+    "Tag": "ERR_RuntimeWrapped",
+    "NumberOfCrashes": "0"
+  },
+  {
+    "ClassName": "System.NullReferenceException",
+    "Message": "Object reference not set to an instance of an object.",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.SelectedQuoteChanged(EventAggregatorEventArgument args)",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.SelectedQuoteChanged(EventAggregatorEventArgument args)",
+    "Tag": "ERR_NULLEXCEP_SelectedQuoteChanged",
+    "NumberOfCrashes": ""
+  }
+] 
+'@
+$errorsToReview = $errorsToReviewJSON | ConvertFrom-Json
+#JiraConnection     
+try {
+    # Read from Azure Key Vault using managed identity
+    $connection = Connect-AzAccount -Identity
+    $connection | out-null
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "KeyVaultName" -Name "jiraAPIKey" -AsPlainText
+}
+catch {
+    $errorMessage = $_  
+    Write-Output $errorMessage
+
+    $ErrorActionPreference = "Stop"
+}
+#Jira
+$jiraText = "david.drosdick@Domain.extension1:$jiraRetrSecret"
+$jiraBytes = [System.Text.Encoding]::UTF8.GetBytes($jiraText)
+$jiraEncodedText = [Convert]::ToBase64String($jiraBytes)
+$headers = @{
+    "Authorization" = "Basic $jiraEncodedText"
+    "Content-Type" = "application/json"
+}
+
+$errorMatch = $false
+
+$ticketNum = $jiraTicket
+$form = Invoke-RestMethod -Method Get -Uri "https://parentCompany.atlassian.net/rest/api/2/issue/$ticketNum" -Body $jsonPayload -Headers $headers -ContentType "application/json" -SslProtocol Tls12 -HttpVersion 2.0 
+$attachment = $form.fields.attachment | Where-Object { $_.filename -eq 'log.txt' }
+
+if ($attachment) {
+    $attachmentContent = Invoke-RestMethod -Uri $attachment[0].content -Method Get -Headers $headers -ContentType "application/json" -SslProtocol Tls12 -HttpVersion 2.0 
+
+    foreach ($errorToReview in $errorsToReview) {
+        # Escape special characters in the search string
+        $escapedSearchString= [regex]::Escape($errorToReview.StackTraceString)
+        
+        if ($attachmentContent.exception -match $escapedSearchString) {
+            $errorMatch = $true
+            $ticketsMatching += [PSCustomObject]@{
+                TicketNumber = $ticketNum
+                DateCreated  = $form.fields.created
+                ErrorType    = $errorToReview.Tag
+                reporterDisplayName = $form.fields.reporter.displayName
+                reporterEmailAddress = $form.fields.reporter.emailaddress
+            }
+            $payload = @{
+"update" = @{
+    "labels" = @(@{
+        "add" = "$($errorToReview.Tag)"
+    })
+}
+}
+$jsonPayload = $payload | ConvertTo-Json -Depth 10
+
+Invoke-RestMethod -Uri "https://parentCompany.atlassian.net/rest/api/2/issue/$($ticketNum)?notifyUsers=false" -Method Put -Body $jsonPayload -Headers $headers -ContentType "application/json" -SslProtocol Tls12 -HttpVersion 2.0 
+            Continue
+        }
+    }
+    If ($errorMatch -eq $false)
+    {
+        $payload = @{
+            "update" = @{
+                "labels" = @(@{
+                    "add" = "ERR_NEEDS_INVESTIGATED"
+                })
+            }
+            }
+            $jsonPayload = $payload | ConvertTo-Json -Depth 10
+            
+            Invoke-RestMethod -Uri "https://parentCompany.atlassian.net/rest/api/2/issue/$($ticketNum)?notifyUsers=false" -Method Put -Body $jsonPayload -Headers $headers -ContentType "application/json" -SslProtocol Tls12 -HttpVersion 2.0 
+    }
+}
+Else{
+    $payload = @{
+        "update" = @{
+            "labels" = @(@{
+                "add" = "ERR_NO_ATTACHMENT"
+            })
+        }
+        }
+        $jsonPayload = $payload | ConvertTo-Json -Depth 10
+        
+        Invoke-RestMethod -Uri "https://parentCompany.atlassian.net/rest/api/2/issue/$($ticketNum)?notifyUsers=false" -Method Put -Body $jsonPayload -Headers $headers -ContentType "application/JSON" -SslProtocol Tls12 -HttpVersion 2.0 
+}
+Write-Output "Error for $jiraTicket was: $($errorToReview.Tag)"
+SignatureBlock
+

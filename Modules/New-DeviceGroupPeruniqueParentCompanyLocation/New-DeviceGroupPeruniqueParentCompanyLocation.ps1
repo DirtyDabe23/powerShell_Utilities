@@ -8,7 +8,7 @@ function New-DeviceGroupPeruniqueParentCompanyLocation{
     #Jira
     
     #Connect to Jira via the API Secret in the Key Vault
-    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKeyKey" -AsPlainText
     
     #Jira via the API or by Read-Host 
     If ($null -eq $jiraRetrSecret)
@@ -44,7 +44,7 @@ function New-DeviceGroupPeruniqueParentCompanyLocation{
         [string]$customFieldName
         )
         #Connect to Jira via the API Secret in the Key Vault
-        $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
+        $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKeyKey" -AsPlainText
     
         #Jira via the API or by Read-Host 
         If ($null -eq $jiraRetrSecret)
@@ -146,7 +146,8 @@ function New-DeviceGroupPeruniqueParentCompanyLocation{
     }
 }
 
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

@@ -90,7 +90,8 @@ $procNetTime = $procEndTime - $procStartTime
 $currTime = Get-Date -format "HH:mm"
 $procProcess = "Jira Issue Attachment Retrieval"
 Write-Output "[$($currTime)] | Time taken for [$procProcess] to complete: $($procNetTime.hours) hours, $($procNetTime.minutes) minutes, $($procNetTime.seconds) seconds"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

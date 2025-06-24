@@ -10,7 +10,7 @@ try {
     # Read from Azure Key Vault using managed identity
     $connection = Connect-AzAccount -Identity
     $connection | out-null
-    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKey" -AsPlainText
+    $jiraRetrSecret = Get-AzKeyVaultSecret -VaultName "PREFIX-Vault" -Name "jiraAPIKeyKeyKey" -AsPlainText
 }
 catch {
     $errorMessage = $_
@@ -89,7 +89,8 @@ Else{
         Invoke-RestMethod -Uri "https://uniqueParentCompany.atlassteamMember.net/rest/api/2/issue/$($ticketNum)?notifyUsers=false" -Method Put -Body $jsonPayload -Headers $headers -ContentType "application/JSON" -SslProtocol Tls12 -HttpVersion 2.0 
 }
 Write-Output "Error for $key was: $($errorToReview.Tag)"
-# SIG # Begin signature block#Script Signature# SIG # End signature block
+SignatureBlock
+
 
 
 

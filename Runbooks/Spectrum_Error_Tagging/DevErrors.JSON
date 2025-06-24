@@ -2,8 +2,8 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.FreightViewModel.<CalculateFreightCommandExecuted>",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.FreightViewModel.<CalculateFreightCommandExecuted>*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.<CalculateFreightCommandExecuted>",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.<CalculateFreightCommandExecuted>*",
     "Tag": "ERR_NULLEXCEP_CalculateFreightCommandExecuted",
     "NumberOfCrashes": "45"
   },
@@ -18,8 +18,8 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MakeOppQuoteCommandCanExecute()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MakeOppQuoteCommandCanExecute()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MakeOppQuoteCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MakeOppQuoteCommandCanExecute()*",
     "Tag": "ERR_NULLEXCEP_MakeOppQuoteCommandCanExecute",
     "NumberOfCrashes": "18"
   },
@@ -50,8 +50,8 @@
   {
     "ClassName": "System.OutOfMemoryException",
     "Message": "",
-    "StackTraceString": "t Evapco.CRM.Core.Models.Helpers.ValidatableBindableBase.TryValidateProperty(PropertyInfo propertyInfo, List`1 propertyErrors)",
-    "SearchString": "*t Evapco.CRM.Core.Models.Helpers.ValidatableBindableBase.TryValidateProperty(PropertyInfo propertyInfo, List`1 propertyErrors)*",
+    "StackTraceString": "t parentCompany.CRM.Core.Models.Helpers.ValidatableBindableBase.TryValidateProperty(PropertyInfo propertyInfo, List`1 propertyErrors)",
+    "SearchString": "*t parentCompany.CRM.Core.Models.Helpers.ValidatableBindableBase.TryValidateProperty(PropertyInfo propertyInfo, List`1 propertyErrors)*",
     "Tag": "ERR_OutOfMemoryException",
     "NumberOfCrashes": "11"
   },
@@ -90,16 +90,16 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.initializeEquipmentScheduleData()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.initializeEquipmentScheduleData()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.initializeEquipmentScheduleData()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.initializeEquipmentScheduleData()*",
     "Tag": "ERR_NULLEXCEP_InitializeEquipmentScheduleData",
     "NumberOfCrashes": "10"
   },
   {
     "ClassName": "System.Exception",
     "Message": "An exception has occurred while communicating with the Server.\\r\\nMessage: An error has occurred.\\r\\nException Type: \\r\\nException Message: \\r\\nStack Trace: \\r\\n",
-    "StackTraceString": "at Evapco.CRM.Client.ServiceProxies.BaseHttpRemoteServiceProxy.EvaluateResponseStatusCode(HttpResponseMessage responseMessage)",
-    "SearchString": "*at Evapco.CRM.Client.ServiceProxies.BaseHttpRemoteServiceProxy.EvaluateResponseStatusCode(HttpResponseMessage responseMessage)*",
+    "StackTraceString": "at parentCompany.CRM.Client.ServiceProxies.BaseHttpRemoteServiceProxy.EvaluateResponseStatusCode(HttpResponseMessage responseMessage)",
+    "SearchString": "*at parentCompany.CRM.Client.ServiceProxies.BaseHttpRemoteServiceProxy.EvaluateResponseStatusCode(HttpResponseMessage responseMessage)*",
     "Tag": "ERR_ServerCom_EvaluateResponseStatusCode",
     "NumberOfCrashes": "10"
   },
@@ -113,7 +113,7 @@
   },
   {
     "ClassName": "System.Net.WebException",
-    "Message": "The remote name could not be resolved: 'crm.evapco.com'",
+    "Message": "The remote name could not be resolved: 'crm.Domain.extension1'",
     "StackTraceString": "at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)",
     "SearchString": "*at System.Net.HttpWebRequest.EndGetRequestStream(IAsyncResult asyncResult, TransportContext& context)*",
     "Tag": "ERR_WEBEXCEPTION",
@@ -122,8 +122,8 @@
   {
     "ClassName": "System.InvalidOperationException",
     "Message": "Sequence contains no matching element",
-    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectAccessoriesViewModel.UpdateTrayItems()",
-    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectAccessoriesViewModel.UpdateTrayItems()*",
+    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectAccessoriesViewModel.UpdateTrayItems()",
+    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectAccessoriesViewModel.UpdateTrayItems()*",
     "Tag": "ERR_InvalidOp_UpdateTrayItems",
     "NumberOfCrashes": "7"
   },
@@ -138,32 +138,32 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MenuItemDocumentsOrderCommandExecuted(Object obj)",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MenuItemDocumentsOrderCommandExecuted(Object obj)*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MenuItemDocumentsOrderCommandExecuted(Object obj)",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.MenuItemDocumentsOrderCommandExecuted(Object obj)*",
     "Tag": "ERR_NULLEXCEP_MenuItemDocumentsOrderCommandExecuted",
     "NumberOfCrashes": "5"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ToolbarDuplicateOrderCommandCanExecute()",
-    "SearchString": "* at Evapco.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ToolbarDuplicateOrderCommandCanExecute()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ToolbarDuplicateOrderCommandCanExecute()",
+    "SearchString": "* at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ToolbarDuplicateOrderCommandCanExecute()*",
     "Tag": "ERR_NULLEXCEP_ToolbarDuplicateOrderCommandCanExecute",
     "NumberOfCrashes": "4"
   },
   {
     "ClassName": "System.ArgumentNullException",
     "Message": "Value cannot be null.",
-    "StackTraceString": "at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.CustomerSearchCommandExecuted()",
-    "SearchString": "*at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.CustomerSearchCommandExecuted()*",
+    "StackTraceString": "at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.CustomerSearchCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.CustomerSearchCommandExecuted()*",
     "Tag": "ERROR_ARGNULL_CustomerSearchCommandExecuted",
     "NumberOfCrashes": "4"
   },
   {
     "ClassName": "System.InvalidOperationException",
     "Message": "Nullable object must have a value",
-    "StackTraceString": "at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.FreightViewModel.CalculateFreightCompleted(Object sender, RunWorkerCompletedEventArgs e)",
-    "SearchString": "*at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.FreightViewModel.CalculateFreightCompleted(Object sender, RunWorkerCompletedEventArgs e)*",
+    "StackTraceString": "at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.CalculateFreightCompleted(Object sender, RunWorkerCompletedEventArgs e)",
+    "SearchString": "*at System.ThrowHelper.ThrowInvalidOperationException(ExceptionResource resource)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.CalculateFreightCompleted(Object sender, RunWorkerCompletedEventArgs e)*",
     "Tag": "ERR_InvalidOp_CalculateFreightCompleted",
     "NumberOfCrashes": "4"
   },
@@ -186,48 +186,48 @@
   {
     "ClassName": "System.ArgumentNullException",
     "Message": "Value cannot be null.",
-    "StackTraceString": "at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()",
-    "SearchString": "*at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()*",
+    "StackTraceString": "at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.Where[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()*",
     "Tag": "ERROR_ARGNULL_ReloadZonesCommandExecuted",
     "NumberOfCrashes": "3"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.MultipleCoilConfigurationCommandCanExecute()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.MultipleCoilConfigurationCommandCanExecute()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.MultipleCoilConfigurationCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.MultipleCoilConfigurationCommandCanExecute()*",
     "Tag": "ERR_NULLEXCEP_MultipleCoilConfigurationCommandCanExecute",
     "NumberOfCrashes": "3"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.SharedViews.ViewModels.SmartShieldViewModel.ApplyCommand()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.SharedViews.ViewModels.SmartShieldViewModel.ApplyCommand()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.SmartShieldViewModel.ApplyCommand()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.SmartShieldViewModel.ApplyCommand()*",
     "Tag": "ERR_NULLEXCEP_SmartShieldApplyCommand",
     "NumberOfCrashes": "2"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.OrderWaterTreatmentCommandCanExecute()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.OrderWaterTreatmentCommandCanExecute()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.OrderWaterTreatmentCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.OrderWaterTreatmentCommandCanExecute()*",
     "Tag": "ERR_NULLEXCEP_OrderWaterTreatmentCommandCanExecute",
     "NumberOfCrashes": "2"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Selection.ViewModels.SelectionAccessoriesViewModel.UpdateTrayItems()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Selection.ViewModels.SelectionAccessoriesViewModel.UpdateTrayItems()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Selection.ViewModels.SelectionAccessoriesViewModel.UpdateTrayItems()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Selection.ViewModels.SelectionAccessoriesViewModel.UpdateTrayItems()*",
     "Tag": "ERR_NULLEXCEP_UpdateTrayItems",
     "NumberOfCrashes": "2"
   },
   {
     "ClassName": "System.ArgumentOutOfRangeException",
     "Message": "Index was out of range. Must be non-negative and less than the size of the collection.",
-    "StackTraceString": "at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at Evapco.CRM.Client.Core.Controls.HierarchicalTreeViewControl.EnableMenuBasedOnRole()\\r\\n   at Evapco.CRM.Client.Core.Controls.HierarchicalTreeViewControl.set_Categories(IEnumerable`1 value)",
-    "SearchString": "*at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at Evapco.CRM.Client.Core.Controls.HierarchicalTreeViewControl.EnableMenuBasedOnRole()\\r\\n   at Evapco.CRM.Client.Core.Controls.HierarchicalTreeViewControl.set_Categories(IEnumerable`1 value)*",
+    "StackTraceString": "at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.EnableMenuBasedOnRole()\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.set_Categories(IEnumerable`1 value)",
+    "SearchString": "*at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.EnableMenuBasedOnRole()\\r\\n   at parentCompany.CRM.Client.Core.Controls.HierarchicalTreeViewControl.set_Categories(IEnumerable`1 value)*",
     "Tag": "ERR_ARGRANGE_set_Categories",
     "NumberOfCrashes": "2"
   },
@@ -242,32 +242,32 @@
   {
     "ClassName": "System.InvalidOperationException",
     "Message": "Sequence contains no elements",
-    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)\\r\\n   at Evapco.CRM.Client.Modules.SharedViews.ViewModels.PulsePureViewModel.RefreshPulsePureCommandExecuted()",
-    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)\\r\\n   at Evapco.CRM.Client.Modules.SharedViews.ViewModels.PulsePureViewModel.RefreshPulsePureCommandExecuted()*",
+    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)\\r\\n   at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.PulsePureViewModel.RefreshPulsePureCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source)\\r\\n   at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.PulsePureViewModel.RefreshPulsePureCommandExecuted()*",
     "Tag": "ERR_InvalidOp_RefreshPulsePureCommandExecuted",
     "NumberOfCrashes": "2"
   },
   {
     "ClassName": "System.InvalidOperationException",
     "Message": "Sequence contains no matching element",
-    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Core.Context.ProjectContext.get_SelectedCustomer()\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ApplySaveOrderCommandExecuted()",
-    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at Evapco.CRM.Client.Core.Context.ProjectContext.get_SelectedCustomer()\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ApplySaveOrderCommandExecuted()*",
+    "StackTraceString": "at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Context.ProjectContext.get_SelectedCustomer()\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ApplySaveOrderCommandExecuted()",
+    "SearchString": "*at System.Linq.Enumerable.First[TSource](IEnumerable`1 source, Func`2 predicate)\\r\\n   at parentCompany.CRM.Client.Core.Context.ProjectContext.get_SelectedCustomer()\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ApplySaveOrderCommandExecuted()*",
     "Tag": "ERR_InvalidOp_ApplySaveOrderCommandExecuted",
     "NumberOfCrashes": "2"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ReplaceLineItemCommandCanExecute(Nullable`1 addWaterTreatment)",
-    "SearchString": "*at Evapco.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ReplaceLineItemCommandCanExecute(Nullable`1 addWaterTreatment)*",
+    "StackTraceString": "at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ReplaceLineItemCommandCanExecute(Nullable`1 addWaterTreatment)",
+    "SearchString": "*at parentCompany.CRM.Client.Core.Models.AuthenticatedBaseViewModel.ReplaceLineItemCommandCanExecute(Nullable`1 addWaterTreatment)*",
     "Tag": "ERR_NULLEXCEP_ReplaceLineItemCommandCanExecute",
     "NumberOfCrashes": "2"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.EditProjectEquipmentCommandExecuted()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.EditProjectEquipmentCommandExecuted()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.EditProjectEquipmentCommandExecuted()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.EditProjectEquipmentCommandExecuted()*",
     "Tag": "ERR_NULLEXCEP_EditProjectEquipmentCommandExecuted",
     "NumberOfCrashes": "1"
   },
@@ -290,16 +290,16 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()",
-    "SearchString": "*at Evapco.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()",
+    "SearchString": "*at parentCompany.CRM.Client.Core.Models.BaseCriteriaViewModel.ReloadZonesCommandExecuted()*",
     "Tag": "ERR_NULLEXCEP_ReloadZonesCommandExecuted",
     "NumberOfCrashes": "1"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ShowSubmitOrderCommandCanExecute()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ShowSubmitOrderCommandCanExecute()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ShowSubmitOrderCommandCanExecute()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.ShowSubmitOrderCommandCanExecute()*",
     "Tag": "ERR_NULLEXCEP_ShowSubmitOrderCommandCanExecute",
     "NumberOfCrashes": "1"
   },
@@ -322,16 +322,16 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.DoesOrderHavePriceChange()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.DoesOrderHavePriceChange()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.DoesOrderHavePriceChange()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.DoesOrderHavePriceChange()*",
     "Tag": "ERR_NULLEXCEP_DoesOrderHavePriceChange",
     "NumberOfCrashes": "1"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.Reselect()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.Reselect()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.Reselect()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.Reselect()*",
     "Tag": "ERR_NULLEXCEP_Reselect",
     "NumberOfCrashes": "1"
   },
@@ -346,24 +346,24 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.ApplyCustomChangesCommandExecuted()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.ApplyCustomChangesCommandExecuted()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.ApplyCustomChangesCommandExecuted()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.ApplyCustomChangesCommandExecuted()*",
     "Tag": "ERR_NULLEXCEP_ApplyCustomChangesCommandExecuted",
     "NumberOfCrashes": "1"
   },
   {
     "ClassName": "System.ArgumentOutOfRangeException",
     "Message": "Index was out of range. Must be non-negative and less than the size of the collection.",
-    "StackTraceString": "at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.FreightViewModel.LoadLookupDataCompleted(Object sender, RunWorkerCompletedEventArgs e)",
-    "SearchString": "*at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)\\r\\n   at Evapco.CRM.Client.Modules.Project.ViewModels.FreightViewModel.LoadLookupDataCompleted(Object sender, RunWorkerCompletedEventArgs e)*",
+    "StackTraceString": "at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.LoadLookupDataCompleted(Object sender, RunWorkerCompletedEventArgs e)",
+    "SearchString": "*at System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)\\r\\n   at System.Collections.Generic.List`1.get_Item(Int32 index)\\r\\n   at System.Linq.Enumerable.ElementAt[TSource](IEnumerable`1 source, Int32 index)\\r\\n   at parentCompany.CRM.Client.Modules.Project.ViewModels.FreightViewModel.LoadLookupDataCompleted(Object sender, RunWorkerCompletedEventArgs e)*",
     "Tag": "ERR_ARGRANGE_LoadLookupDataCompleted",
     "NumberOfCrashes": "1"
   },
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.RefreshDocuments()",
-    "SearchString": "*at Evapco.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.RefreshDocuments()*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.RefreshDocuments()",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.SharedViews.ViewModels.AccessoriesViewModel.RefreshDocuments()*",
     "Tag": "ERR_NULLEXCEP_RefreshDocuments",
     "NumberOfCrashes": "0"
   },
@@ -386,8 +386,8 @@
   {
     "ClassName": "System.NullReferenceException",
     "Message": "Object reference not set to an instance of an object.",
-    "StackTraceString": "at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.SelectedQuoteChanged(EventAggregatorEventArgument args)",
-    "SearchString": "*at Evapco.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.SelectedQuoteChanged(EventAggregatorEventArgument args)*",
+    "StackTraceString": "at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.SelectedQuoteChanged(EventAggregatorEventArgument args)",
+    "SearchString": "*at parentCompany.CRM.Client.Modules.Project.ViewModels.ProjectMainViewModel.SelectedQuoteChanged(EventAggregatorEventArgument args)*",
     "Tag": "ERR_NULLEXCEP_SelectedQuoteChanged",
     "NumberOfCrashes": ""
   }
